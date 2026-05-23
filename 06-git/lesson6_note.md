@@ -68,7 +68,7 @@ git remote add origin .. đường link remote repository
 
 B7: Push đẩy code
 Lần đầu tiên chưa đẩy code : thiết lập upstream cho branch local hiện tại với remote
-git push -u origin main
+git push -u origin main 
 -u : upstream
 
 --Cách đặt tên commit
@@ -123,3 +123,8 @@ trường hợp ko conflict thì merge ok -> pull main về để có code của
 => Flow : quay về main -> pull code mới nhất -> tạo nhánh từ main
 -Quay về main : git checkout main 
 -Tạo branch mới : git checkout -b 'ten-nhanh' (vdu : git checkout -b docs/git-workflow-lesson)
+- Code trên nhánh mới -> Đẩy code lên nhánh mới :
+git status : kiểm tra nhánh đúng chưa
+git add .
+git commit -m 'docs: update ...'
+git push -u origin ten-nhanh
