@@ -101,6 +101,24 @@ dev : main -> nhánh chính chạy ổn định, khi làm việc ngta sẽ tạo
 uat : main
 
 --Mình sẽ cần phải update code liên tục với nhánh main
-git fetch ( lấy thông tin mới nhất : xem có ai đẩy code lên ko)
+git fetch ( lấy thông tin mới nhất xem có sự thay đổi nào : xem có ai đẩy code lên ko)
 git status 
 git pull (để kéo code mới nhất từ nhánh main về)
+
+Main -> Tạo nhánh mới -> sửa code -> commit -> push nhánh -> merge vào main -> push main
+
+vidu : main có 10 dòng
+Bạn A : kéo code về -> tạo nhánh mới -> đẩy merge main -> main có 20 dòng
+Bạn B : kéo code về (10 dòng) -> bạn B ngày n sau khi main có 20 dòng mới merge -> ok
+trường hợp code bạn b sửa cùng 1 file vs bạn a ( sau khi update 20 dòng) -> xảy ra conflict -> resolve
+trường hợp ko conflict thì merge ok -> pull main về để có code của b -> tạo nhánh mới code tiếp
+
+
+--Branch 
+-Cách đặt tên : ngắn gọn, ko dấu , ko có khoảng trắng
+-Để xem branch hiện tại : git branch
+-Đặt tên : docs/git-lesson ; feat/product-search ; fix / tests 
+-Trước khi tạo nhánh mới , nên quay về mới
+-Lý do : nhánh mới sẽ đc tạo ra trên nhánh hiện tại. 
+=> Flow : quay về main -> pull code mới nhất -> tạo nhánh từ main
+-Quay về main : git checkout main 
