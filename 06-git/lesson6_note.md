@@ -53,3 +53,46 @@ Initialized -> khởi tạo xong
 empty Git repository -> lịch sử đang rỗng vì chúng ta chưa commit lên .
 
 B2: Kiểm tra trạng thái file : git status
+(Git đã được bật trong folder nhưng chưa tạo mốc lưu đầu tiên)
+
+B3: Git add [ten folder]
+( git add . : chọn tất cả các file đang thay đổi trong project)
+
+B4: Tạo commit đầu tiên : git commit -m "nội dung mô tả commit"
+
+B5: Đặt tên nhánh chính là main (vì github đặt tên nhánh chính là main)
+git branch -M main
+
+B6: Gắn folder này với remote repository trên git ( nối git ở local với remote repo để chia sẻ code)
+git remote add origin .. đường link remote repository
+
+B7: Push đẩy code
+Lần đầu tiên chưa đẩy code : thiết lập upstream cho branch local hiện tại với remote
+git push -u origin main
+-u : upstream
+
+--Cách đặt tên commit
+-Khi project có nhiều commit , mình cần lịch sử để biết hôm đó sửa gì , ai sửa, sửa tính năng gì ?
+-Công thức đặt tên : động từ + nội dung thay đổi 
+
+vdu : 
+add login test
+fix login validate
+update git lesson
+remove unused locator
+
+-Cách chuyên nghiệp khi quen hơn ta có thể dùng 
+type : nội dung thay đổi
+feature(chức năng mới)
+
+vdu
+docs : update git lesson
+feat : add product search flow
+test : add login test
+fix: correct login selector
+
+
+
+Có nhiều môi trường :
+dev : main -> nhánh chính chạy ổn định, khi làm việc ngta sẽ tạo ra 1 nhánh khác để làm việc để ko ảnh hưởng tới nhánh chính đang sử dụng . Sau khi code ổn định ở nhánh phụ cta mới merge code vào nhánh chính để bổ sung thêm tính năng
+uat : main
