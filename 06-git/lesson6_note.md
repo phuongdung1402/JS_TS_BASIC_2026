@@ -122,3 +122,4 @@ trường hợp ko conflict thì merge ok -> pull main về để có code của
 -Lý do : nhánh mới sẽ đc tạo ra trên nhánh hiện tại. 
 => Flow : quay về main -> pull code mới nhất -> tạo nhánh từ main
 -Quay về main : git checkout main 
+-Tạo branch mới : git checkout -b 'ten-nhanh' (vdu : git checkout -b docs/git-workflow-lesson)
