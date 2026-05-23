@@ -100,5 +100,7 @@ Có nhiều môi trường :
 dev : main -> nhánh chính chạy ổn định, khi làm việc ngta sẽ tạo ra 1 nhánh khác để làm việc để ko ảnh hưởng tới nhánh chính đang sử dụng . Sau khi code ổn định ở nhánh phụ cta mới merge code vào nhánh chính để bổ sung thêm tính năng
 uat : main
 
-
-Muốn lấy thông tin về code mới nhất ta dùng git pull
+--Mình sẽ cần phải update code liên tục với nhánh main
+git fetch ( lấy thông tin mới nhất : xem có ai đẩy code lên ko)
+git status 
+git pull (để kéo code mới nhất từ nhánh main về)
