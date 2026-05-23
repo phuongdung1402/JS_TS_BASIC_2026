@@ -128,3 +128,7 @@ git status : kiểm tra nhánh đúng chưa
 git add .
 git commit -m 'docs: update ...'
 git push -u origin ten-nhanh
+
+
+-Merge từ nhánh khác vào main:
+git checkout main -> git status -> git merge ten-nhanh -> git push (push thay đổi này lên github)
