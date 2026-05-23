@@ -92,6 +92,9 @@ test : add login test
 fix: correct login selector
 
 
+--check lịch sử log :
+git log --oneline
+HEAD -> main : là vị trí đang đứng
 
 Có nhiều môi trường :
 dev : main -> nhánh chính chạy ổn định, khi làm việc ngta sẽ tạo ra 1 nhánh khác để làm việc để ko ảnh hưởng tới nhánh chính đang sử dụng . Sau khi code ổn định ở nhánh phụ cta mới merge code vào nhánh chính để bổ sung thêm tính năng
