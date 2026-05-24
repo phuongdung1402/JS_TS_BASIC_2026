@@ -136,3 +136,12 @@ git checkout main -> git status -> git merge ten-nhanh-muon-merge -> git push (p
 -Merge từ UI :
 Pull requests -> Create new pull request -> chọn merge từ nhánh ten-nhanh đến nhánh main 
 Terminal : checkout về main -> pull toàn bộ code mới từ main về -> để cả 2 được đồng bộ
+
+-Cách list tất cả các branch :
+git branch -a 
+
+
+-Cách xóa branch :
++ Checkout về main trước
+-Xóa nhánh remote trên github : git push origin --delete ten-nhanh-muon-xoa
+-Xoá nhánh trên local : git branch -D ten-nhanh-muon-xoa
