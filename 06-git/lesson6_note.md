@@ -133,4 +133,6 @@ git push -u origin ten-nhanh
 -Merge từ nhánh khác vào main:
 git checkout main -> git status -> git merge ten-nhanh -> git push (push thay đổi này lên github)
 
---Tôi đã code xong ở nhánh mới
+-Merge từ UI :
+Pull requests -> Create new pull request -> chọn merge từ nhánh ten-nhanh đến nhánh main 
+Terminal : checkout về main -> pull toàn bộ code mới từ main về -> để cả 2 được đồng bộ 
