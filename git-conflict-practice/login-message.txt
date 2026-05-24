@@ -1,1 +1,1 @@
-message=login thanh cong
+message=login thanh cong tu nhanh main
