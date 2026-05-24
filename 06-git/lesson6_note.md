@@ -153,8 +153,17 @@ node_modules
 dist/
 .env (aws, cloud)
 
+-Xảy ra 2 trường hợp với ignore
+1. file chưa từng commit -> thêm vào .gitignore là đủ
+2. file đã commit/push -> thêm vào .gitignore là chưa đủ , phải dùng git rm --cached ten-folder/ hoặc git rm -r --cached ten-folder/
+
+Thêm các file ko tracking vào gitignore :
+-viết trực tiếp tên file
+-folder : ten-folder/
+-các file log : *.log
 
 
+Cách check xem 1 file có nằm trong git ignore ko : git check-ignore -v .env 
 
 
 
