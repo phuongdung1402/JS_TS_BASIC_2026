@@ -145,3 +145,22 @@ git branch -a
 + Checkout về main trước
 -Xóa nhánh remote trên github : git push origin --delete ten-nhanh-muon-xoa
 -Xoá nhánh trên local : git branch -D ten-nhanh-muon-xoa
+
+
+-Git iginore:
+-sẽ nói cho git biết là những file này đừng theo dõi 
+node_modules
+dist/
+.env (aws, cloud)
+
+
+
+
+
+
+
+
+
+
+
+
