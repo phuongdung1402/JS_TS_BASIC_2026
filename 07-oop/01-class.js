@@ -111,6 +111,11 @@
 
 //     }
 // }
+
+
+
+
+
 //Từ khóa this trong class
 //TH1 : this ở trong constructor => Chính là obj đang được tạo
 // class HocVien3 {
@@ -124,7 +129,7 @@
 // }
 
 // let hv = new HocVien3("neko3")
-// console.log(hv);
+//console.log(hv);
 
 //TH2 : this trong method -> object đang gọi method đó
 // class LoginPage2 {
@@ -142,7 +147,8 @@
 // class Dashboard {
 //     tieuDe = "trangChu";
 //     taiDuLieu() {
-//         setTimeout(function () {
+//         //callback func (hàm thường bên trong - mất this)
+//         setTimeout(()=> {
 //             //this ko còn là dashboard nữa
 //             console.log(this.tieuDe);
 //         }, 1000)
@@ -151,12 +157,12 @@
 
 // let dash = new Dashboard()
 // dash.taiDuLieu()
-
 // class GioHangDemo {
 //     tenCuaHang = "neko shop";
 //     sanPham = ["Tra sua", "Ca phe"]
 
 //     inHoaDon() {
+//         //Arrow func ko có this riêng , tìm ra this bên ngoài
 //         this.sanPham.forEach( (sp) => {
 //             console.log(`${this.tenCuaHang}: ${sp}`);       
 //         })
@@ -185,16 +191,31 @@
 // checkout.moBangHamThuong()
 // checkout.moBangArrow()
 
-//let hamThuongBiTach = checkout.moBangHamThuong;
+//Tách method ra khỏi instance
+// let hamThuongBiTach = checkout.moBangHamThuong;
 // let hamArrowBiTach = checkout.moBangArrow;
 
 // hamArrowBiTach();
-//hamThuongBiTach();
+// hamThuongBiTach();
+
+// function truyenVaoCallBack(callback) {
+//     callback()
+// }
+
+//truyenVaoCallBack(hamThuongBiTach)
+//truyenVaoCallBack(hamArrowBiTach)
+
 
 //-> Arrow function giải quyết đc hết các vấn đề của chúng ta ? thì có nên dùng arrow function cho tất cả method của class hay ko 
 //-Ko nên 
-//Điểm mấu chốt : arrow trong class field : khóa this theo object đc tạo ra bởi new method thường: nằm trên prototype, 
-//tức là nằm trong "kho method chung" của class
+//Điểm mấu chốt : arrow trong class field : khóa this theo object đc tạo ra bởi new. Khi tạo ra nhiều instance , thì JS sẽ tạo ra 
+// từng hàm arrow mới cho từng instance
+//Method thường: nằm trên prototype, tức là nằm trong "kho method chung" của class . Khi tạo ra nhiều instance, gọi đến hàm thường.
+// thực chất chỉ là 1 hàm thường 
+//-> Tùy thuộc vào bản chất của method để lựa chọn viết hàm arrow :
+//1. Nếu viết hàm thường có logic sử dụng callback : thì 100% viết hàm arrow
+//2. Nếu hàm đó muốn tách ra, để truyền vào callback khác : thì hàm đấy viết bằng arrow
+//-> Còn lại các TH khác sẽ viết bằng hàm thường
 
 //BT: Tạo 1 class tên là ProductPage cho trang sản phẩm vs thuộc tính :
 //txtTenSP = '#productName'
@@ -206,14 +227,13 @@
 //flowMethod thucHienThemVaKiemTra(ten, Gia) : gọi 2 hàm trên
 
 // class ProductPage {
-
 //     txtTenSP = '#productName';
 //     txtGia = '#price';
 //     btnGioHang = '#btnCart';
 //     modalThongBao = '.notification'
 
 //     themSanPham(ten, gia) {
-//         console.log(`Đã thêm sản phẩm ${this.txtTenSP} - có giá ${this.txtTenSP} - Click : ${this.btnGioHang}`);
+//         console.log(`Đã thêm sản phẩm ${this.txtTenSP} : ${ten} - Có giá ${this.txtGia} : ${gia} - Click : ${this.btnGioHang}`);
 //     }
 
 //     kiemTraThongBao() {
@@ -230,35 +250,3 @@
 // product1.kiemTraThongBao();
 // console.log('=================');
 // product1.thucHienThemVaKiemTra('Cà phê', 45000);
-
-// 4 trụ cột của OOP ( Lập trình hướng đối tượng )
-//4.1 : JS nó cho phép 1 class mới (class con) nhận lại toàn bộ thuộc tính và phương thức của 1 class đã có (class cha)
-//bằng từ khóa extend và super() => tính kế thừa giúp loại bỏ hoàn toàn code trùng lặp ( DRY )
-//super() : truyền tham số cho cha
-//Nếu constructor của cha nhận tham số, con sẽ rơi vào vài tình huống 
-
-// class BasePage {
-
-//     header = '#thanhMenuTrenCung';
-
-//     bamNutTrangChu() {
-//         console.log(`Đã click nút Home trên thanh ${this.header}`);
-//     }
-
-//     chupManHinh(tenFile) {
-//         console.log(`Đã chụp màn hình và lưu thành ${tenFile}.png`);
-//     }
-// }
-
-// class LoginPage extends BasePage {
-//     nutDangNhap = '#loginButton';
-
-//     dienMatKhau() {
-//         console.log("Đã điền mật khẩu");
-//         this.chupManHinh("Sau khi điền pass")
-//     }
-// }
-
-// let trangDangNhap = new LoginPage()
-// trangDangNhap.bamNutTrangChu()
-// trangDangNhap.dienMatKhau()
