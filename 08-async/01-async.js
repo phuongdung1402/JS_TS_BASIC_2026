@@ -193,9 +193,9 @@
 // }
 
 // //C1
-// moTrangWeb("nhapsai.com").then(
+// moTrangWeb("nhapsai1.com").then(
 //     (trang)=> {
-//         // throw new Error("Lỗi bất ngờ")
+//         throw new Error("Lỗi bất ngờ")
 //         console.log(trang);
 //         return "Token abc_123"
 //     }).then((token)=> {
@@ -301,7 +301,7 @@
 //kiemTraMatKhau('Neko@23').then((result)=> console.log(result)).catch((error)=> console.log(error))
 
 //Callback hell
-console.log("Bắt đầu");
+// console.log("Bắt đầu");
 
 // new Promise((resolve) => {
 //     resolve("OK")
@@ -311,7 +311,8 @@ console.log("Bắt đầu");
 //         setTimeout(() => {
 //             reject("Lỗi promise bên trong")
 //         }, 1000)
-//     }).catch((err) => {
+//     })
+//     .catch((err) => {
 //         console.log("Catch bên trong bắt được", err);
 //     })
 // }).catch((err) => console.log("catch bên ngoài", err))
@@ -319,6 +320,7 @@ console.log("Bắt đầu");
 // console.log("Kết thúc");
 
 //dùng return
+// console.log("Bắt đầu..")
 // new Promise((resolve) => {
 //     resolve("OK")
 // }).then(() => {
@@ -363,7 +365,7 @@ function dangNhap(trangWeb, user, pass) {
 function themVaoGioHang(token, sanPham) {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            resolve({ token: token, sanPham: sanPham })
+            resolve({ token: token, sanPham: sanPham, soLuong: 2 })
         }, 1000)
     })
 }
@@ -371,90 +373,176 @@ function themVaoGioHang(token, sanPham) {
 function thanhToan(gioHang) {
     return new Promise((resolve) => {
         setTimeout(() => {
-            resolve("Hóa đơn " + gioHang.sanPham + gioHang.soLuong)
+            resolve("Hóa đơn " + gioHang.sanPham + " - " + gioHang.soLuong)
         }, 1000)
     })
 }
 
-console.log("Bắt đầu kịch bản test");
-moTrangWeb("neko.com").then((trangWeb) => {
-    console.log("1", trangWeb);
-    dangNhap(trangWeb, "admin", "Neko@123").then((token) => {
-        console.log("2", token);
-        themVaoGioHang(token, "Khoa hoc playwright").then((gioHang) => {
-            console.log("3", gioHang);
-            thanhToan(gioHang).then((hoadon) => {
-                console.log("4", hoadon);
-                console.log("TEST PASS");
-            })
-        })
-    })
-})
-
-// Flat chaining
-moTrangWeb("nekosensei.com").then((trangweb)=> {
-    console.log("1", trangweb);
-    return dangNhap(trangweb, "admin", "Neko@123")
-}).then()
+// console.log("Bắt đầu kịch bản test");
+// moTrangWeb("neko.com").then((trangWeb) => {
+//     console.log("1", trangWeb);
+//     dangNhap(trangWeb, "admin", "Neko@123").then((token) => {
+//         console.log("2", token);
+//         themVaoGioHang(token, "Khoa hoc playwright").then((gioHang) => {
+//             console.log("3", gioHang);
+//             thanhToan(gioHang).then((hoadon) => {
+//                 console.log("4", hoadon);
+//                 console.log("TEST PASS");
+//             })
+//             .catch((e) =>console.log("Loi thanh toan"))
+//         }).catch((e)=> console.log("Loi gio hang"))
+//     }).catch((e)=> console.log("Loi dang nhap"))
+// }).catch((e)=> console.log("Loi mo web"))
+// //callback hell 
 
 
+// // // Flat chaining
+// moTrangWeb("nekosensei.com").then((trangweb)=> {
+//     console.log("1", trangweb);
+//     return dangNhap(trangweb, "admin", "Neko@123")
+// }).then()
 
 
+//Cứu tinh callback hell : Async/Await
+//Là 1 lớp vỏ bọc của promise và then : viết code dễ nhìn 
+//async : biến 1 hàm thường thành 1 hàm bất đồng bộ, làm cho hàm đó 100% sẽ trả về 1 promise, dù mình có return 1 giá trị bth.
+//JS sẽ tự động bọc nó trong promise.resolve()
+//Bên trong hàm ta có quyền sử dụng từ await
 
-
-
-
-
-// //MỞ trang web (mất 1s)
-// function moTrangWeb(url) {
-//   return new Promise((resolve, reject) => {
-//     setTimeout(() => {
-//       if (url === "nhapsai.com") {
-//         reject("loi 404: ko tim thay trang");
-//       } else {
-//         resolve("Trang + " + url + "Đã tải xong");
-//       }
-//     }, 1000);
-//   });
+//declaration
+// async function layDuLieuUser() {
+//     // tự động bọc thành promise.resolve("Dữ liệu user")
+//     return "Du lieu user"
 // }
-// // Đăgg nhập:  cần kết quả từ b1 (mât 1s)
-// function dangNhap(trangWeb, user, pass) {
-//   return new Promise((resolve, reject) => {
-//     setTimeout(() => {
-//       if (pass === "saimatkhau") {
-//         reject("Sai mat khau");
-//       } else {
-//         resolve(" Token " + user.toUpperCase() + "_" + Date.now());
-//       }
-//     }, 1000);
-//   });
+// //expression
+// const layDonHang = async function () {
+//     return "Danh sach don hang"
 // }
-// //function themVao Gio Han
-// function themVaoGioHang(token, sanPham) {
-//   return new Promise((resolve) => {
-//     setTimeout(() => {
-//       resolve({ token: token, sanPham: sanPham, soLuong: 2 });
-//     }, 1000);
-//   });
+// //arrow
+// const laySanPham = async () => {
+//     return "Danh sach san pham"
 // }
-// function thanhToan(gioHang) {
-//   return new Promise((resolve) => {
-//     setTimeout(() => {
-//       resolve("Hóa đơn " + gioHang.sanPham + gioHang.soLuong);
-//     }, 1000);
-//   });
+
+// function hamThuong() {
+//     return "xin chao"
 // }
-// console.log("bắt đầu kịch bản test");
-// moTrangWeb("neko.com").then((trangweb) => {
-//   console.log("1", trangweb);
-//   dangNhap(trangWeb, "admin", "Neko@123").then((token) => {
-//     console.log("2", token);
-//     themVaoGioHang(token, "khoa hoc playwright").then((gioHang) => {
-//       console.log("3", giohang);
-//       thanhToan(gioHang).then((hoadon) => {
-//         console.log("4", hoadon);
-//         console.log("TEST PASS");
-//       });
-//     });
-//   });
-// });
+
+// console.log(hamThuong())
+
+// async function hamAsync() {
+//     return "xin chao"
+// }
+
+// console.log(hamAsync())
+// hamAsync().then((ketqua)=> {
+//     console.log("Nhan duoc", ketqua)
+// })
+
+//await : Đặt await trước lệnh trả về promise , nó sẽ tạm dừng dòng code bên trong hàm async, chờ promise hoàn tất , trả
+//về giá trị mà promise resolve(), có thể gán thẳng vào biến, ko làm đóng băng hệ thống
+
+// function goiApi(url) {
+//     return new Promise((resolve) => {
+//         setTimeout(() => {
+//             resolve({ status: 200, data: "Kết quả từ" + url })
+//         }, 2000);
+//     })
+// }
+
+//async - await (phải nhớ await chỉ đc khai báo trong hàm async
+
+// async function layDuLieu() {
+//     console.log("Đang gọi API")
+//     //await  : tạm dừng hàm layDuLieu tại dòng này.chờ 2s để gọi api resolve, lấy giá trị gán vào biến
+//     let ketQua = await goiApi("neko.com")
+//     console.log('Đã nhận', ketQua)
+// }
+
+// layDuLieu()
+
+
+// function chonNhaHang(ten) {
+//     return new Promise((resolve) => {
+//         setTimeout(() => resolve(ten), 1000)
+//     })
+// }
+
+// function xemMenu(nhaHang) {
+//     return new Promise((resolve) => {
+//         setTimeout(() => {
+//             resolve({
+//                 nhaHang: nhaHang,
+//                 monAn: ["Pho", "Ca phe"]
+//             }), 1000
+//         })
+
+//     })
+// }
+
+// async function datDoAnOnline() {
+//     console.log("Bat dau dat do an ....")
+//     let nhaHang = await chonNhaHang("quan neko")
+//     console.log(nhaHang)
+//     let menu = await xemMenu(nhaHang)
+//     console.log(menu)
+// }
+
+// datDoAnOnline()
+
+// async function datHangOnline() {
+//     let trangWeb = await moTrangWeb("neko.com")
+//     let token = await dangNhap(trangWeb, "username", "pass")
+//     let addProduct = await themVaoGioHang(token, ['ao so mi', 'quan bo'])
+//     let payment = await thanhToan(addProduct)
+//     console.log(payment)
+// }
+
+// datHangOnline()
+
+//VD :
+// async function layTen() {
+//     return "neko";
+// }
+
+// async function chaoHoi() {
+//     const ten = await layTen()
+//     return "xin chao" + ten
+// }
+
+// async function chayXinChao() {
+//     const loiChao = await chaoHoi()
+//     console.log(loiChao)
+// }
+
+// chayXinChao()
+
+//Bản chất : await có chờ đợi, nhưng nó chỉ đóng băng trong phạm vi cái hàm đó, còn các code thuộc phạm vi bên ngoài vẫn chạy
+//bản chất chờ đợi (pausing) nội bộ khác hoàn toàn vs việc đóng băng hệ thống
+
+//VD :
+const lamBitTet = () =>
+    new Promise(res =>
+        setTimeout(() =>
+            (res('Bit tet')), 3000))
+const vatNuocCam = () =>
+    new Promise(res =>
+        setTimeout(() =>
+            (res("Nuoc cam")), 1000))
+
+async function phucVuTuanTu() {
+    console.log('KHACH A : BAT DAU ORDER TUAN TU: ')
+    let start = Date.now()
+
+    let mon1 = await lamBitTet()
+    console.log(`Đã xong ${mon1} sau 3s. Tiep tuc vat nuoc cam`)
+
+    let mon2 = await vatNuocCam();
+
+    let thoiGian = (Date.now() - start) / 1000;
+    console.log(`Khách A nhận đủ đồ. Tổng thời gina : ${thoiGian}`)
+}
+
+phucVuTuanTu()
+console.log('KHACH B : CHO MUON MENU')
+
+//Async await : hỗ trợ tuần tự bên trong logic , vừa ko đóng băng luồng để chạy song song nhiều hàm async-await
