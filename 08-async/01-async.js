@@ -335,48 +335,48 @@
 // console.log("Kết thúc");
 
 //Mở trang web (1s)
-function moTrangWeb(url) {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            if (url === 'nhapsai.com') {
-                reject("Loi 404 : ko tim thay trang")
-            }
-            {
-                resolve("Trang " + url + "da tai xong")
-            }
-        }, 1000)
-    });
-}
+// function moTrangWeb(url) {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             if (url === 'nhapsai.com') {
+//                 reject("Loi 404 : ko tim thay trang")
+//             }
+//             {
+//                 resolve("Trang " + url + "da tai xong")
+//             }
+//         }, 1000)
+//     });
+// }
 
-//Đăng nhập : cần kết quả từ b1 (mất 1s)
-function dangNhap(trangWeb, user, pass) {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            if (pass === "saimatkhau") {
-                reject("Sai mật khẩu")
-            } else {
-                resolve("Token " + user.toUpperCase() + "_" + Date.now())
-            }
-        }, 1000)
-    })
-}
+// //Đăng nhập : cần kết quả từ b1 (mất 1s)
+// function dangNhap(trangWeb, user, pass) {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             if (pass === "saimatkhau") {
+//                 reject("Sai mật khẩu")
+//             } else {
+//                 resolve("Token " + user.toUpperCase() + "_" + Date.now())
+//             }
+//         }, 1000)
+//     })
+// }
 
-//function themVaoGioHang
-function themVaoGioHang(token, sanPham) {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            resolve({ token: token, sanPham: sanPham, soLuong: 2 })
-        }, 1000)
-    })
-}
+// //function themVaoGioHang
+// function themVaoGioHang(token, sanPham) {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             resolve({ token: token, sanPham: sanPham, soLuong: 2 })
+//         }, 1000)
+//     })
+// }
 
-function thanhToan(gioHang) {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve("Hóa đơn " + gioHang.sanPham + " - " + gioHang.soLuong)
-        }, 1000)
-    })
-}
+// function thanhToan(gioHang) {
+//     return new Promise((resolve) => {
+//         setTimeout(() => {
+//             resolve("Hóa đơn " + gioHang.sanPham + " - " + gioHang.soLuong)
+//         }, 1000)
+//     })
+// }
 
 // console.log("Bắt đầu kịch bản test");
 // moTrangWeb("neko.com").then((trangWeb) => {
@@ -520,29 +520,249 @@ function thanhToan(gioHang) {
 //bản chất chờ đợi (pausing) nội bộ khác hoàn toàn vs việc đóng băng hệ thống
 
 //VD :
-const lamBitTet = () =>
-    new Promise(res =>
-        setTimeout(() =>
-            (res('Bit tet')), 3000))
-const vatNuocCam = () =>
-    new Promise(res =>
-        setTimeout(() =>
-            (res("Nuoc cam")), 1000))
+// const lamBitTet = () =>
+//     new Promise(res =>
+//         setTimeout(() =>
+//             (res('Bit tet')), 3000))
+// const vatNuocCam = () =>
+//     new Promise(res =>
+//         setTimeout(() =>
+//             (res("Nuoc cam")), 1000))
 
-async function phucVuTuanTu() {
-    console.log('KHACH A : BAT DAU ORDER TUAN TU: ')
-    let start = Date.now()
+// async function phucVuTuanTu() {
+//     console.log('KHACH A : BAT DAU ORDER TUAN TU: ')
+//     let start = Date.now()
 
-    let mon1 = await lamBitTet()
-    console.log(`Đã xong ${mon1} sau 3s. Tiep tuc vat nuoc cam`)
+//     let mon1 = await lamBitTet()
+//     console.log(`Đã xong ${mon1} sau 3s. Tiep tuc vat nuoc cam`)
 
-    let mon2 = await vatNuocCam();
+//     let mon2 = await vatNuocCam();
 
-    let thoiGian = (Date.now() - start) / 1000;
-    console.log(`Khách A nhận đủ đồ. Tổng thời gina : ${thoiGian}`)
-}
+//     let thoiGian = (Date.now() - start) / 1000;
+//     console.log(`Khách A nhận đủ đồ. Tổng thời gina : ${thoiGian}`)
+// }
 
-phucVuTuanTu()
-console.log('KHACH B : CHO MUON MENU')
+// phucVuTuanTu()
+// console.log('KHACH B : CHO MUON MENU')
 
 //Async await : hỗ trợ tuần tự bên trong logic , vừa ko đóng băng luồng để chạy song song nhiều hàm async-await
+
+//Những điều cần nhớ:
+//forEach là method của array ( ko có break và continue) . Ko dùng đc hàm async await
+// const fruits = ["apple", "banana", "orange"]
+// fruits.forEach((item)=> console.log(item))
+//VD :
+
+// function goiApi(url) {
+//     return new Promise((resolve)=> {
+//         setTimeout(()=> {
+//             resolve(`Dữ liệu từ ${url}`)
+//         }, 1000)
+//     })
+// }
+
+// let danhSachUrl = ["user", "products", "orders"];
+
+// danhSachUrl.forEach(async (url)=> {
+//     let data = await goiApi(url);
+//     console.log(data);
+
+// })
+
+// async function goiTuanTu() {
+//     for(let url of danhSachUrl) {
+//         let data = await goiApi(url)
+//         console.log(data);
+
+//     }
+//     console.log("GOI XONG HÊT");
+
+// }
+// goiTuanTu()
+
+//Promise.all
+
+// function taiAnhAvatar() {
+//     return new Promise((resolve) => {
+//         setTimeout(() => resolve("Avatar đã tải xong"), 3000)
+//     })
+// }
+
+
+// function layDanhSachSanPham() {
+//     return new Promise((resolve) => {
+//         setTimeout(() => resolve("Lay danh sach san pham xong"), 2000)
+//     })
+// }
+
+
+// function docFileCauHinh() {
+//     return new Promise((resolve) => {
+//         setTimeout(() => resolve("Doc xong file cau hình"), 1000)
+//     })
+// }
+
+
+// async function chuanBiTuanTu() {
+//     let start = Date.now();
+
+//     let avatar = await taiAnhAvatar();
+//     console.log("DONE", avatar);
+
+//     let sanPham = await layDanhSachSanPham();
+//     console.log("DONE", sanPham);
+
+//     let config = await docFileCauHinh();
+//     console.log("DONE", config);
+
+//     let tongThoiGian = (Date.now() - start) / 1000;
+//     console.log(`Tổng thời gian ${tongThoiGian}`);
+
+// }
+// chuanBiTuanTu()
+
+// async function chuanBiSongSong() {
+//     let start = Date.now();
+
+//     let [avatar, sanPham, config] = await Promise.all([
+//         taiAnhAvatar(),
+//         layDanhSachSanPham(),
+//         docFileCauHinh()
+//     ])
+
+//     console.log("DONE", avatar);
+//     console.log("DONE", sanPham);
+//     console.log("DONE", config);
+
+
+//     let tongThoiGian = (Date.now() - start) / 1000;
+//     console.log(`Tổng thời gian ${tongThoiGian}`);
+
+// }
+// chuanBiSongSong()
+//-> Promise all : chạy song song và gom kết quả
+
+// let ketqua = await Promise.all([promise1, promise2,...])
+//Cách hoạt động của promise.all
+//1. nhận vào 1 mảng chứa nhiều promise
+//2.kích hoạt tất cả promise chạy cùng 1 lúc
+//3.đợi cho đến khi tất cả đều resolve xong
+//4.Trả về 1 mảng kết quả theo đúng thứ tự ban đầu
+//THỜI GIAN = thời gian tác vụ lâu nhất (ko cộng dồn)
+
+//Nếu bất kì promise nào trong mảng bị reject thì promise.all sẽ dừng ngay và nhảy vào catch(), các promise khác dù đã thành
+//công cũng bị bỏ qua
+
+// function thanhCong() {
+//     return new Promise((resolve) => {
+//         setTimeout(() => resolve("XONG"), 1000)
+//     })
+// }
+
+
+// function thatBai() {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => reject("server bị lỗi"), 500)
+//     })
+// }
+
+// async function testFailFast(params) {
+//     try {
+//         let ketQua = await Promise.all([thanhCong(), thatBai(), thanhCong()])
+//         console.log("Khong bao gio chay den day");
+
+//     } catch (loi) {
+//         console.log("Promise all that bai", loi);
+//     }
+// }
+// testFailFast()
+
+//await Promise.all( [
+// 1.Giang 1 cai bẫy đợi API thanh toan trả ve
+//page.waitForResponse('*/api/thanhtoan)
+// 2. đồng thời thực hiện hành động click
+//page.click('abc')
+//])
+
+// Trái ngược vs Promise.all là Promise.allSettled()
+//Giống hệt promise.all chạy tất cả cùng 1 lúc, nhưng ko dừng khi gặp lỗi, nó kiên nhẫn đợi tất cả chạy xong r trả về mảng 
+//kết quả, bao gồm cả thành công lẫn thất bại
+//Trả về mảng object, mỗi phần tử có dạng 
+// [{ status: 'fulfilled', value: <giá trị resolve>  <- thanh cong}
+//{status : 'rejected' , reason:<giá trị reject>  <-that bai}]
+
+//VD:
+function xoaTestAccount(tenAccount, thoiGian, xoaDuoc) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            if (xoaDuoc) {
+                resolve(`Đã xóa ${tenAccount}`)
+            } else {
+                reject(`Không xóa được ${tenAccount}`)
+            }
+        }, thoiGian)
+    })
+}
+
+async function donDepTaiKhoan() {
+    let ketQua = await Promise.allSettled([
+        xoaTestAccount("user_01", 1200, true),
+        xoaTestAccount("user_02", 900, false),
+        xoaTestAccount("user_03", 1500, true)
+    ])
+
+    console.log(ketQua);
+    
+    let baoCao = ketQua.map((item, index)=> {
+        let ten = ['user_01', 'user_02', 'user_03'][index];
+        //const userName = item.status === 'fulfilled' ? item.value : item.reason
+        return `${ten} : ${item.status === "fulfilled" ? "PASS" : "FAIL"}`
+    })
+    console.log(baoCao);
+    
+}
+
+donDepTaiKhoan()
+
+//Bắt lỗi trong async/await : try...catch ...finally
+//Cú pháp :
+//try{
+//code nguy hiểm có thể gây lỗi (bất kì dòng await nào có lỗi)
+//} catch (loi) {
+//xử lý khi bất kì await nào ở trên bị reject
+//bien loi chứa nội dung reject hoặc error object (khi gọi new Error)
+//} finnaly {
+//Luôn luôn chạy = dù try thành công hay catch bắt lỗi
+//dùng để dọn dẹp
+//}
+
+// function goiApi(url) {
+//     return new Promise((resolve, reject)=> {
+//         setTimeout(()=> {
+//             let thanhCong = Math.random() > 0.5;
+//             if(thanhCong) {
+//                 resolve({status : 200, data: "Ket qua tu "+url})
+//             } else {
+//                 reject("Lỗi 500 server" + url)
+//             }
+//         }, 2000)
+//     })
+// }
+
+// async function layDuLieuAnToan() {
+//     try {
+//         let user = await goiApi("api.neko.com.vn/user");
+//         console.log(user.data);
+
+//         let orders = await goiApi("api.neko.com.vn/orders");
+//         console.log(orders.data);
+        
+//     }catch (loi){
+//         console.log("Da xay ra loi", loi);
+//     } finally {
+//         console.log("DON DEP TAI NGUYEN");
+        
+//     }
+// }
+
+// layDuLieuAnToan()
