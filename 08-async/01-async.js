@@ -7,8 +7,7 @@
 // console.log("Khách A:Order Matcha ");
 // console.log("Nhân viên : OK. Doing...");
 
-// //Tác vụ nặng chạy đồng bộ : đóng băng hệ thống
-
+//  //Tác vụ nặng chạy đồng bộ : đóng băng hệ thống
 // let thoiGianBatDau = Date.now()
 // while (Date.now() - thoiGianBatDau < 3000) {
 //     //Blocking CPU bị nhốt trong vòng lặp này (trong suốt 3s)
@@ -67,7 +66,7 @@
 // Đầu ra của new promise : chúng ta sẽ dùng then hoặc catch để đón thông tin
 
 // taoBienLai(true).then((ketQua)=> {
-//     console.log("Then nhận", ketQua);
+//     console.log("Then nhận : ", ketQua);
 // })
 
 // taoBienLai(false).catch((Loi)=> {
@@ -89,7 +88,8 @@
 //         }, 5000)
 //     })
 // }
-// console.log("1.Gửi yêu cầu đặt hàng");
+
+//console.log("1.Gửi yêu cầu đặt hàng");
 // datHangOnline("SP001", true).then((donHang)=> {
 //     console.log("3. Then() Nhận đơn hàng  : ", donHang);
 //     return donHang.maDon
@@ -98,7 +98,6 @@
 // }).catch((loi)=> {
 //     console.log("Không chạy vào đây vì SP001 thành công", loi.message);
 // })
-
 // console.log("2.Code dưới này vẫn chạy ngon, không chờ Promise xong");
 
 // datHangOnline("SP002", false).then((donHang)=> {
@@ -162,7 +161,7 @@
 // moTrangWeb("neko.com").then(
 //     (trang)=> {
 //         console.log(trang);
-//         return "TOKEN_ABC_123"
+//         return 'TOKEN_ABC_123'
 //     }).then((token)=> {
 //         console.log("Lay token : ", token);
 //         return { sp : "ao thun", soLuong : 3} 
@@ -179,7 +178,7 @@
 //C2 : Mình có thể dùng catch() khi dùng then() 2 tham số (ít dùng )
 //C3 : catch() xen giữa chuỗi (nâng cao) -> bắt lỗi từng bước, xử lí xong rồi chạy tiếp
 
-//VD : C1 
+//VD : 
 // function moTrangWeb(url) {
 //     return new Promise((resolve, reject)=> {
 //         setTimeout(()=> {
@@ -192,8 +191,8 @@
 //     })
 // }
 
-// //C1
-// moTrangWeb("nhapsai1.com").then(
+//C1
+// moTrangWeb("nhapdung.com").then(
 //     (trang)=> {
 //         throw new Error("Lỗi bất ngờ")
 //         console.log(trang);
@@ -201,30 +200,27 @@
 //     }).then((token)=> {
 //         console.log("Lay token", token);
 //         return {sp : "ao thun", soLuong : 3}
-
 //     }).then((gioHang)=> {
 //         console.log("Gio hang ", gioHang);
 //     }).catch((loi)=> {
 //         //Vi url sai -> reject -> nhảy vào đây, bỏ qua 2 bước then
 //         console.log(loi);
-
 //     });
 
-// //C2    
+//C2    
 // moTrangWeb("nhapsai.com").then(
 //     (data) => {
 //         console.log("Thanh cong", data)
 //     },
 //     (loi) => {
-//         console.log("That bai", loi);
+//         console.log("That bai : ", loi);
 //     }
 // )
-
 
 // moTrangWeb("nekosensei.com").then(
 //     (data) => {
 //         throw new Error("Lỗi bất ngờ bên trong")
-//         //console.log("Thanh cong", data)
+//         console.log("Thanh cong", data)
 //     },
 //     (loi) => {
 //         console.log("Ham 2 ko thấy lỗi này", loi);
@@ -243,7 +239,7 @@
 // }, 5000)
 
 // console.log("ID hen gio", idHenGio);
-// //clearTimeout(idHenGio)
+// clearTimeout(idHenGio)
 // console.log("Da huy bom");
 
 // Được dùng để giá lập trạng thái delay , hoặc khi hệ thống xử lí các tác vụ IO.
@@ -278,7 +274,7 @@
 // }
 
 // // goiEchoApi():
-// goiEchoApi.then((data)=> console.log("echo api tra ve", data.message)).catch((loi)=> console.log(loi))
+//goiEchoApi().then((data)=> console.log("echo api tra ve", data.message)).catch((loi)=> console.log(loi))
 
 //BT :
 // function kiemTraMatKhau(matKhau) {
@@ -330,6 +326,7 @@
 //             reject("Lỗi promise bên trong")
 //         }, 1000)
 //     })
+    
 // }).catch((err) => console.log("catch bên ngoài", err))
 
 // console.log("Kết thúc");
@@ -348,7 +345,7 @@
 //     });
 // }
 
-// //Đăng nhập : cần kết quả từ b1 (mất 1s)
+// // //Đăng nhập : cần kết quả từ b1 (mất 1s)
 // function dangNhap(trangWeb, user, pass) {
 //     return new Promise((resolve, reject) => {
 //         setTimeout(() => {
@@ -393,7 +390,7 @@
 //         }).catch((e)=> console.log("Loi gio hang"))
 //     }).catch((e)=> console.log("Loi dang nhap"))
 // }).catch((e)=> console.log("Loi mo web"))
-// //callback hell 
+//callback hell 
 
 
 // // // Flat chaining
@@ -449,13 +446,14 @@
 //     })
 // }
 
-//async - await (phải nhớ await chỉ đc khai báo trong hàm async
+// //async - await (phải nhớ await chỉ đc khai báo trong hàm async
 
 // async function layDuLieu() {
 //     console.log("Đang gọi API")
 //     //await  : tạm dừng hàm layDuLieu tại dòng này.chờ 2s để gọi api resolve, lấy giá trị gán vào biến
 //     let ketQua = await goiApi("neko.com")
 //     console.log('Đã nhận', ketQua)
+    
 // }
 
 // layDuLieu()
@@ -691,38 +689,38 @@
 // [{ status: 'fulfilled', value: <giá trị resolve>  <- thanh cong}
 //{status : 'rejected' , reason:<giá trị reject>  <-that bai}]
 
-//VD:
-function xoaTestAccount(tenAccount, thoiGian, xoaDuoc) {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            if (xoaDuoc) {
-                resolve(`Đã xóa ${tenAccount}`)
-            } else {
-                reject(`Không xóa được ${tenAccount}`)
-            }
-        }, thoiGian)
-    })
-}
+// //VD:
+// function xoaTestAccount(tenAccount, thoiGian, xoaDuoc) {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             if (xoaDuoc) {
+//                 resolve(`Đã xóa ${tenAccount}`)
+//             } else {
+//                 reject(`Không xóa được ${tenAccount}`)
+//             }
+//         }, thoiGian)
+//     })
+// }
 
-async function donDepTaiKhoan() {
-    let ketQua = await Promise.allSettled([
-        xoaTestAccount("user_01", 1200, true),
-        xoaTestAccount("user_02", 900, false),
-        xoaTestAccount("user_03", 1500, true)
-    ])
+// async function donDepTaiKhoan() {
+//     let ketQua = await Promise.allSettled([
+//         xoaTestAccount("user_01", 1200, true),
+//         xoaTestAccount("user_02", 900, false),
+//         xoaTestAccount("user_03", 1500, true)
+//     ])
 
-    console.log(ketQua);
+//     console.log(ketQua);
     
-    let baoCao = ketQua.map((item, index)=> {
-        let ten = ['user_01', 'user_02', 'user_03'][index];
-        //const userName = item.status === 'fulfilled' ? item.value : item.reason
-        return `${ten} : ${item.status === "fulfilled" ? "PASS" : "FAIL"}`
-    })
-    console.log(baoCao);
+//     let baoCao = ketQua.map((item, index)=> {
+//         let ten = ['user_01', 'user_02', 'user_03'][index];
+//         //const userName = item.status === 'fulfilled' ? item.value : item.reason
+//         return `${ten} : ${item.status === "fulfilled" ? "PASS" : "FAIL"}`
+//     })
+//     console.log(baoCao);
     
-}
+// }
 
-donDepTaiKhoan()
+// donDepTaiKhoan()
 
 //Bắt lỗi trong async/await : try...catch ...finally
 //Cú pháp :

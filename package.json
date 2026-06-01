@@ -1,0 +1,25 @@
+{
+  "name": "202603_js_ts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phuongdung1402/JS_TS_BASIC_2026.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/phuongdung1402/JS_TS_BASIC_2026/issues"
+  },
+  "homepage": "https://github.com/phuongdung1402/JS_TS_BASIC_2026#readme",
+  "devDependencies": {
+    "tsx": "^4.22.3",
+    "typescript": "^6.0.3"
+  }
+}
