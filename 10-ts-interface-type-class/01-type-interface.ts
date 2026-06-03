@@ -8,66 +8,72 @@
 //Giống như bản thiết kế (nghiêng về hình dạng)
 
 //Khai báo interface
-// interface UserTest {
-//     id: number;
-//     name: string;
-//     email: string;
-//     age? : number;
-//     readonly createdAt : Date;
+interface UserTest {
+    id: number;
+    name: string;
+    email: string;
+    age? : number;
+    readonly createdAt : Date;
+}
 
-// }
-
-// const user : UserTest = {
-//     id: 1,
-//     name: 'neko',
-//     email: '123@gmail.com',
-//     createdAt: new Date()
-// }
+const user : UserTest = {
+    id: 1,
+    name: 'neko',
+    email: 'neko@gmail.com',
+    createdAt: new Date()
+}
 //gán lại 
-//user.createdAt = new Date() -> lỗi
+// user.createdAt = new Date() -> lỗi
+// console.log(user);
+
 
 // function greet(user: UserTest) : string {
 //     return  `Hello ${user.name} , email : ${user.email}`
 // }
+// console.log(greet(user));
 
 //Khai báo method trong interface
 //C1 : Dùng shorthand
 //C2 : Dùng arrow func
 
-// interface Calculator {
-//     //C1 : Cách phổ biến, khuyên nên dùng
-//     add(a: number, b: number): number;
-//     subtract(a: number, b:number): number;
+interface Calculator {
+    //C1 : Cách phổ biến, khuyên nên dùng
+    add(a: number, b: number): number;
+    subtract(a: number, b:number): number;
 
-//     //C2 : ít dùng
-//     multiply : (a: number, b: number) => number;
-//     divide : (a: number, b: number) => number
-// }
+    //C2 : ít dùng
+    multiply : (a: number, b: number) => number;
+    divide : (a: number, b: number) => number
+}
 
-// const calc : Calculator = {
-//     add(a,b) {
-//         return a+b
-//     },
+const calc : Calculator = {
+    add(a,b) {
+        return a+b
+    },
 
-//     subtract(a,b) {
-//         return a -b 
-//     },
-//     multiply : (a,b) => a*b,
-//     divide : (a,b) => a/b,
-// }
+    subtract(a,b) {
+        return a -b 
+    },
+    multiply : (a,b) => a*b,
+    divide : (a,b) => a/b,
+}
 
 // //Nhưng mình cũng có thể implement ngược lại vẫn hợp lệ
-// const calc2 : Calculator = {
-//     add : (a,b) => a+b ,
+const calc2 : Calculator = {
+    add : (a,b) => a+b ,
 
-//     subtract(a,b) {
-//         return a -b 
-//     },
-//     multiply(a,b) {
-//        return a*b
-//     } ,
-//     divide : (a,b) => a/b,
-// }
+    subtract(a,b) {
+        return a -b 
+    },
+    multiply(a,b) {
+       return a*b
+    } ,
+    divide : (a,b) => a/b,
+}
+
+console.log(calc2.add(4,5));
+console.log(calc2.divide(100,5));
+
 
 // //
 // interface UserService {
@@ -333,32 +339,32 @@
 //Gộp kiểu : (intersection type & )
 //Dùng gộp nhiều type thành 1
 //ví dụ
-type User6 = {
-    id: number;
-    name: string
-}
+// type User6 = {
+//     id: number;
+//     name: string
+// }
 
-type HasTimeStampe = {
-    createdAt : string
-}
+// type HasTimeStampe = {
+//     createdAt : string
+// }
 
-type AdminUser = User6 & HasTimeStampe & {
-    role : "admin";
-    permission : string []
-}
-const admin : AdminUser = {
+// type AdminUser = User6 & HasTimeStampe & {
+//     role : "admin";
+//     permission : string []
+// }
+// const admin : AdminUser = {
 
-}
+// }
 
-//Khác key
-type A1 = {id: string}
-type B1 = {email: string}
-type C1 = A1 & B1
+// //Khác key
+// type A1 = {id: string}
+// type B1 = {email: string}
+// type C1 = A1 & B1
 
-//Trùng key , cùng kiểu 
-type A2 = {id: number}
-type B2 = {id: number}
-type C2 = A2 & B2
+// //Trùng key , cùng kiểu 
+// type A2 = {id: number}
+// type B2 = {id: number}
+// type C2 = A2 & B2
 
 //Trùng key , khác kiểu -> tránh trường hợp này
 // type A3 = {id: string}
@@ -367,29 +373,29 @@ type C2 = A2 & B2
 // //Type của thằng C3 -> kiểu never
 // const c3 : C3 = {id: 1}
 
-interface IA {
-    id : number
-}
+// interface IA {
+//     id : number
+// }
 
-interface IB {
-    id: string
-}
+// interface IB {
+//     id: string
+// }
 
-interface IC extends IA, IB {
+// interface IC extends IA, IB {
 
-}
+// }
 
 //Kết luận : Các kiểu chỉ type làm được
 //Đây là những thứ interface ko thể mô tả
 
 //primitive alias
-type ID2 = string | number
+// type ID2 = string | number
 
-//tuple
-type Coordinate = [number, number]
+// //tuple
+// type Coordinate = [number, number]
 
-//function type
-type CallBack = (error : Error | null, data : string) => void
+// //function type
+// type CallBack = (error : Error | null, data : string) => void
 
 //QUY TẮC CHỌN 
 //Câu hỏi duy nhất : Mình đang mô tả 1 object shape hay 1 thứ khác
