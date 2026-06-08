@@ -131,7 +131,7 @@
 //     return "https://neko.vn"
 // };
 
-// console.log(layUrl);
+// console.log(layUrl());
 
 //Arrow function : nâng cấp của function expression , rút gọn tối đa cú pháp
 //const tenHam = (thamso,...) => {
@@ -315,7 +315,8 @@
 //     const {ten, tuoi = 25, email, vaiTro = 'tester'} = options
 //     console.log(`${ten}, ${tuoi}, ${email}, ${vaiTro}`);
 // }
-// taoUser({ ten:'neko', email: 'neko@vn.com'})
+
+//taoUser({ ten:'neko', email: 'neko@vn.com'})
 
 //c2
 // function taoUser2({ten, tuoi = 25, email, vaiTro = 'tester'}) {
@@ -333,7 +334,7 @@
 // console.log(env);
 
 
-//Bỏ qua phần tử ko cần
+// //Bỏ qua phần tử ko cần
 // const [firstName, , city] = ["neko", 25, "hanoi"]
 
 // console.log(firstName);
@@ -356,7 +357,7 @@
 // console.log(statusCode);
 // console.log(noiDung);
 
-//giá trị mặc định + đổi tên
+// //giá trị mặc định + đổi tên
 // const {ten, tuoi = 18, vaiTro: role="viewer"} = {ten: "neko"};
 // console.log(ten);
 // console.log(tuoi);
@@ -368,7 +369,7 @@
 //     console.log(`${ten}, ${email}, ${tuoi}`);
 // }
 
-// hienThiUser({ten: "Neko", email: "a"})
+// hienThiUser({ten: "Neko", email: "abc@gmail.com"})
 
 //destruct lồng (nested)
 
@@ -533,15 +534,15 @@
 // console.log(mangGoc);
 // console.log(mangSaoChep);
 
-// //Gộp 2 mảng lại thành 1 
+//Gộp 2 mảng lại thành 1 
 // const mang1 = ["A", "B"]
 
 // const mang2 = ["C", "D"]
 // const mangGop = [...mang1, ...mang2]
 // console.log(mangGop);
 
-// //Chèn phần tử vào giữa
-// // [0, ... , 4, 5]
+//Chèn phần tử vào giữa
+// [0, ... , 4, 5]
 // const mangMoi = [0, ...mangGoc, 4, 5]
 // console.log(mangMoi);
 
@@ -566,11 +567,11 @@
 
 //Spread trong tham số hàm
 //const danhSachGia = [10000, 20000, 30000]
-//Math.max ko nhận vào mảng , nhận tham số lẻ
+// Math.max ko nhận vào mảng , nhận tham số lẻ
 //const giaMax = Math.max(danhSachGia)
-//const giaMax = Math.max(...danhSachGia)
+// const giaMax = Math.max(...danhSachGia)
 
-//console.log(giaMax);
+// console.log(giaMax);
 
 //BT : Có dữ liệu như sau 
 // const configMacDinh = {
@@ -663,7 +664,7 @@
 //     soDienThoaiCuaKhach()
 // }
 
-// //Chú ý ko có dấu ngoặc () ở hàm gọi lại
+//Chú ý ko có dấu ngoặc () ở hàm gọi lại
 // choBanTrong(quayLaiAn)
 
 //function layDuLieuTest() {return "Dữ liệu test"}
@@ -699,14 +700,14 @@
 // }
 
 //c1
-//setTimeout(inThongBao, 5000)
+// setTimeout(inThongBao, 5000)
 
-//c2
+// //c2
 // setTimeout(function() {
 //     console.log("Đã đợi xong");
 // }, 3000)
 
-//c3
+// //c3
 // setTimeout(()=> {
 //     console.log("Đã đợi xong");
 // }, 3000)
@@ -714,11 +715,11 @@
 //Ứng dụng thực tế : callback thường xảy ra ở các hàm xử lí array 
 //Array callback methods
 //Map : biến đổi mảng cũ thành 1 mảng mới, nhận vào 1 callback func, thường là có 3 tham số nhưng thực tế chỉ dùng 1 
-//const mangMoi = mangcu.map((phantu, index,mangGoc)=>{
-    //phantu = phantuhientai,
-    //index = vị trí 0,1,2
-    //mang goc
-    //return giaTrimoi (bắt buộc phải return)})
+// const mangMoi = mangcu.map((phantu, index,mangGoc)=>{
+//     phantu = phantuhientai,
+//     index = vị trí 0,1,2
+//     mang goc
+//     return giaTrimoi (bắt buộc phải return)})
 
 // const giaSanPhamUI = [100000, 250000, 500000]
 // const giaMoi = giaSanPhamUI.map((gia)=> {return gia * 2})
@@ -733,7 +734,6 @@
 // const hoTen = users.map((u)=> {
 //     return `${u.ho} ${u.ten}`
 // })
-
 // console.log(hoTen);
 
 
@@ -742,17 +742,17 @@
     //dieukien})
 //->Nó sẽ check điều kiện : nếu return true - giữ , false - bỏ
 
-const sanPhamUI = [
-    {ten: "Chuột", gia: 150000, tonKho: true},
-    {ten: "Bàn phím", gia: 500000, tonKho: false},
-    {ten: "Màn hình", gia: 300000, tonKho: true},
-    {ten: "Tai nghe", gia: 200000, tonKho: true},
-]
-//const mangMoi = []
-// for(let sanPham of sanPhamUI) {
-//     if(sanPham.tonKho) {mangMoi.push(sanPham)}
-// }
-// console.log(mangMoi);
+// const sanPhamUI = [
+//     {ten: "Chuột", gia: 150000, tonKho: true},
+//     {ten: "Bàn phím", gia: 500000, tonKho: false},
+//     {ten: "Màn hình", gia: 300000, tonKho: true},
+//     {ten: "Tai nghe", gia: 200000, tonKho: true},
+// ]
+// // const mangMoi = []
+// // for(let sanPham of sanPhamUI) {
+// //     if(sanPham.tonKho) {mangMoi.push(sanPham)}
+// // }
+// // console.log(mangMoi);
 
 // const mangMoi = sanPhamUI.filter((sanPham)=> {return sanPham.tonKho})
 // console.log(mangMoi);
@@ -777,30 +777,30 @@ const sanPhamUI = [
 
 //------BTVN ------------------------------------------------------------------------------------------------------------
 //Object trong JS được truyền theo dạng tham chiếu
-// const input = {
-//     email: " A@gmail.com ",
-//     role: "admin"
-// }
+const input = {
+    email: "            A@gmail.com        ",
+    role: "admin"
+}
 
-// function normalize(data) {
-//     data.email = data.email.trim();
-//     data.role = data.role.toLowerCase()
-// }
-// function normalizeInput(input) {
-//     return {
-//         ...input,
-//         email: input.email.trim(),
-//         role: input.role.toLowerCase()
-//     }
-// }
-// function logOriginal(data) {
-//     console.log(data.email);
-// }
+function normalize(data) {
+    data.email = data.email.trim();
+    data.role = data.role.toLowerCase()
+}
+function normalizeInput(input) {
+    return {
+        ...input,
+        email: input.email.trim(),
+        role: input.role.toLowerCase()
+    }
+}
+function logOriginal(data) {
+    console.log(data.email);
+}
 
-// logOriginal(input)
-// // normalize(input)
-// console.log(normalizeInput(input))
-// logOriginal(input)
+//logOriginal(input)
+//normalize(input)
+console.log(normalizeInput(input))
+logOriginal(input)
 
 //Vấn đề normalize ko tạo object mới, nó sửa luôn input gốc. nếu chỗ khác vẫn nghĩ input là dữ liệu ban đầu thì sẽ lỗi logic
 

@@ -64,8 +64,11 @@
 // }
 
 // Đầu ra của new promise : chúng ta sẽ dùng then hoặc catch để đón thông tin
+<<<<<<< HEAD
 //taoBienLai(false).then((ketqua)=> console.log(ketqua)).catch((err)=> console.log(err))
 
+=======
+>>>>>>> 8441ad97cce9c6e78a7a52864c46b80644e7567b
 // taoBienLai(true).then((ketQua)=> {
 //     console.log("Then nhận : ", ketQua);
 // })
@@ -73,6 +76,7 @@
 // taoBienLai(false).catch((Loi)=> {
 //     console.log("Catch nhận", Loi);
 // })
+
 
 // function datHangOnline(maDon, conHang) {
 //     return new Promise((resolve, reject)=> {
@@ -178,7 +182,6 @@
 //C1 : catch() ở cuối chuỗi (hay dùng nhất): bắt lỗi từ bất kì then() nào phía trên văng lỗi
 //C2 : Mình có thể dùng catch() khi dùng then() 2 tham số (ít dùng )
 //C3 : catch() xen giữa chuỗi (nâng cao) -> bắt lỗi từng bước, xử lí xong rồi chạy tiếp
-
 //VD : 
 // function moTrangWeb(url) {
 //     return new Promise((resolve, reject)=> {
@@ -274,7 +277,11 @@
 //     })
 // }
 
+<<<<<<< HEAD
 // // // goiEchoApi():
+=======
+// // goiEchoApi():
+>>>>>>> 8441ad97cce9c6e78a7a52864c46b80644e7567b
 // goiEchoApi().then((data)=> console.log("echo api tra ve", data.message)).catch((loi)=> console.log(loi))
 
 //BT :
@@ -289,17 +296,17 @@
 //             }
 //         }, 1500)
 //     })
-
 // }
 
 // kiemTraMatKhau('Neko@123').then((data)=> console.log(data))
 // kiemTraMatKhau('abczyx').catch((loi)=> console.log(loi))
 
-//kiemTraMatKhau('Neko@23').then((result)=> console.log(result)).catch((error)=> console.log(error))
+// kiemTraMatKhau('Neko@13').then((result)=> console.log(result)).catch((error)=> console.log(error))
 
 //Callback hell
 console.log("Bắt đầu");
 
+<<<<<<< HEAD
 new Promise((resolve) => {
     resolve("OK")
 }).then(() => {
@@ -313,6 +320,21 @@ new Promise((resolve) => {
     //     console.log("Catch bên trong bắt được", err);
     // })
 }).catch((err) => console.log("Catch bên ngoài", err))
+=======
+// new Promise((resolve, reject) => {
+//     resolve("OK");
+//     //reject(new Error('Lỗi bên ngoài '))
+// }).then(() => {
+//     console.log("Then 1");
+//     new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             reject("Lỗi promise bên trong")
+//         }, 1000)
+//     }).catch((err) => {
+//         console.log("Catch bên trong bắt được", err);
+//     })
+// }).catch((err) => console.log("catch bên ngoài", err))
+>>>>>>> 8441ad97cce9c6e78a7a52864c46b80644e7567b
 
 console.log("Kết thúc");
 
@@ -333,19 +355,20 @@ console.log("Kết thúc");
 // console.log("Kết thúc");
 
 //Mở trang web (1s)
-// function moTrangWeb(url) {
-//     return new Promise((resolve, reject) => {
-//         setTimeout(() => {
-//             if (url === 'nhapsai.com') {
-//                 reject("Loi 404 : ko tim thay trang")
-//             }
-//             {
-//                 resolve("Trang " + url + "da tai xong")
-//             }
-//         }, 1000)
-//     });
-// }
+function moTrangWeb(url) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            if (url === 'nhapsai.com') {
+                reject("Loi 404 : ko tim thay trang")
+            }
+            {
+                resolve("Trang " + url + "da tai xong")
+            }
+        }, 1000)
+    });
+}
 
+<<<<<<< HEAD
 // //Đăng nhập : cần kết quả từ b1 (mất 1s)
 // function dangNhap(trangWeb, user, pass) {
 //     return new Promise((resolve, reject) => {
@@ -358,26 +381,40 @@ console.log("Kết thúc");
 //         }, 1000)
 //     })
 // }
+=======
+//Đăng nhập : cần kết quả từ b1 (mất 1s)
+function dangNhap(trangWeb, user, pass) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            if (pass === "saimatkhau") {
+                reject("Sai mật khẩu")
+            } else {
+                resolve("Token " + user.toUpperCase() + "_" + Date.now())
+            }
+        }, 1000)
+    })
+}
+>>>>>>> 8441ad97cce9c6e78a7a52864c46b80644e7567b
 
-// //function themVaoGioHang
-// function themVaoGioHang(token, sanPham) {
-//     return new Promise((resolve, reject) => {
-//         setTimeout(() => {
-//             resolve({ token: token, sanPham: sanPham, soLuong: 2 })
-//         }, 1000)
-//     })
-// }
+//function themVaoGioHang
+function themVaoGioHang(token, sanPham) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve({ token: token, sanPham: sanPham, soLuong: 2 })
+        }, 1000)
+    })
+}
 
-// function thanhToan(gioHang) {
-//     return new Promise((resolve) => {
-//         setTimeout(() => {
-//             resolve("Hóa đơn " + gioHang.sanPham + " - " + gioHang.soLuong)
-//         }, 1000)
-//     })
-// }
+function thanhToan(gioHang) {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve("Hóa đơn " + gioHang.sanPham + " - " + gioHang.soLuong)
+        }, 1000)
+    })
+}
 
 // console.log("Bắt đầu kịch bản test");
-// moTrangWeb("neko.com").then((trangWeb) => {
+// moTrangWeb("nhapsai.com").then((trangWeb) => {
 //     console.log("1", trangWeb);
 //     dangNhap(trangWeb, "admin", "Neko@123").then((token) => {
 //         console.log("2", token);
@@ -394,12 +431,27 @@ console.log("Kết thúc");
 //callback hell 
 
 
+<<<<<<< HEAD
 // Flat chaining
 // moTrangWeb("nekosensei.com").then((trangweb)=> {
+=======
+// // // Flat chaining
+// moTrangWeb("neko.com").then((trangweb)=> {
+>>>>>>> 8441ad97cce9c6e78a7a52864c46b80644e7567b
 //     console.log("1", trangweb);
-//     return dangNhap(trangweb, "admin", "Neko@123")
-// }).then()
-
+//     return dangNhap(trangweb, "admin", "saimatkhau")
+// }).then((token)=> {
+//     console.log("2", token);
+//     return themVaoGioHang(token, "Áo quần adidas")
+// }).then((gioHang)=> {
+//     console.log("3" , gioHang);
+//     return thanhToan(gioHang)
+// }).then((hoaDon)=> {
+//     console.log("4", hoaDon);
+// })
+// .catch((err)=> {
+//     console.log("Lỗi : ", err);  
+// })
 
 //Cứu tinh callback hell : Async/Await
 //Là 1 lớp vỏ bọc của promise và then : viết code dễ nhìn 
@@ -483,7 +535,7 @@ console.log("Kết thúc");
 //     console.log(menu)
 // }
 
-// datDoAnOnline()
+//datDoAnOnline()
 
 // async function datHangOnline() {
 //     let trangWeb = await moTrangWeb("neko.com")
@@ -527,7 +579,6 @@ console.log("Kết thúc");
 //     console.log(`Đã xong ${mon1} sau 3s. Tiep tuc vat nuoc cam`)
 
 //     let mon2 = await vatNuocCam();
-
 //     let thoiGian = (Date.now() - start) / 1000;
 //     console.log(`Khách A nhận đủ đồ. Tổng thời gina : ${thoiGian}`)
 // }
@@ -570,12 +621,13 @@ console.log("Kết thúc");
 
 //Promise.all
 
-// function taiAnhAvatar() {
-//     return new Promise((resolve) => {
-//         setTimeout(() => resolve("Avatar đã tải xong"), 3000)
-//     })
-// }
+function taiAnhAvatar() {
+    return new Promise((resolve) => {
+        setTimeout(() => resolve("Avatar đã tải xong"), 3000)
+    })
+}
 
+<<<<<<< HEAD
 // function layDanhSachSanPham() {
 //     return new Promise((resolve) => {
 //         setTimeout(() => resolve("Lay danh sach san pham xong"), 2000)
@@ -587,6 +639,19 @@ console.log("Kết thúc");
 //         setTimeout(() => resolve("Doc xong file cau hình"), 1000)
 //     })
 // }
+=======
+function layDanhSachSanPham() {
+    return new Promise((resolve) => {
+        setTimeout(() => resolve("Lay danh sach san pham xong"), 2000)
+    })
+}
+
+function docFileCauHinh() {
+    return new Promise((resolve) => {
+        setTimeout(() => resolve("Doc xong file cau hình"), 1000)
+    })
+}
+>>>>>>> 8441ad97cce9c6e78a7a52864c46b80644e7567b
 
 // async function chuanBiTuanTu() {
 //     let start = Date.now();
@@ -652,19 +717,24 @@ console.log("Kết thúc");
 //     try {
 //         let ketQua = await Promise.all([thanhCong(), thatBai(), thanhCong()])
 //         console.log("Khong bao gio chay den day");
-
 //     } catch (loi) {
 //         console.log("Promise all that bai", loi);
 //     }
 // }
 // testFailFast()
 
+<<<<<<< HEAD
 //await Promise.all( [
 // 1.Giăng 1 cai bẫy đợi API thanh toan trả ve
 //page.waitForResponse('*/api/thanhtoan')
+=======
+// await Promise.all( [
+// 1.Giang 1 cai bẫy đợi API thanh toan trả ve
+// page.waitForResponse('*/api/thanhtoan)
+>>>>>>> 8441ad97cce9c6e78a7a52864c46b80644e7567b
 // 2. đồng thời thực hiện hành động click
-//page.click('abc')
-//])
+// page.click('abc')
+// ])
 
 // Trái ngược vs Promise.all là Promise.allSettled()
 //Giống hệt promise.all chạy tất cả cùng 1 lúc, nhưng ko dừng khi gặp lỗi, nó kiên nhẫn đợi tất cả chạy xong r trả về mảng 
@@ -673,7 +743,7 @@ console.log("Kết thúc");
 // [{ status: 'fulfilled', value: <giá trị resolve>  <- thanh cong}
 //{status : 'rejected' , reason:<giá trị reject>  <-that bai}]
 
-// //VD:
+//VD:
 // function xoaTestAccount(tenAccount, thoiGian, xoaDuoc) {
 //     return new Promise((resolve, reject) => {
 //         setTimeout(() => {
@@ -718,24 +788,25 @@ console.log("Kết thúc");
 //dùng để dọn dẹp
 //}
 
-// function goiApi(url) {
-//     return new Promise((resolve, reject)=> {
-//         setTimeout(()=> {
-//             let thanhCong = Math.random() > 0.5;
-//             if(thanhCong) {
-//                 resolve({status : 200, data: "Ket qua tu "+url})
-//             } else {
-//                 reject("Lỗi 500 server" + url)
-//             }
-//         }, 2000)
-//     })
-// }
+function goiApi(url) {
+    return new Promise((resolve, reject)=> {
+        setTimeout(()=> {
+            let thanhCong = Math.random() > 0.5;
+            if(thanhCong) {
+                resolve({status : 200, data: "Ket qua tu "+url})
+            } else {
+                reject("Lỗi 500 server" + url)
+            }
+        }, 2000)
+    })
+}
 
-// async function layDuLieuAnToan() {
-//     try {
-//         let user = await goiApi("api.neko.com.vn/user");
-//         console.log(user.data);
+async function layDuLieuAnToan() {
+    try {
+        let user = await goiApi("api.neko.com.vn/user");
+        console.log(user.data);
 
+<<<<<<< HEAD
 //         let orders = await goiApi("api.neko.com.vn/orders");
 //         console.log(orders.data);   
 //     }catch (loi){
@@ -744,5 +815,16 @@ console.log("Kết thúc");
 //         console.log("DON DEP TAI NGUYEN");
 //     }
 // }
+=======
+        let orders = await goiApi("api.neko.com.vn/orders");
+        console.log(orders.data);
+        
+    }catch (loi){
+        console.log("Da xay ra loi", loi);
+    } finally {
+        console.log("DON DEP TAI NGUYEN");    
+    }
+}
+>>>>>>> 8441ad97cce9c6e78a7a52864c46b80644e7567b
 
-// layDuLieuAnToan()
+layDuLieuAnToan()
