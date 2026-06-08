@@ -7,33 +7,33 @@
 // A. Quy tắc vàng : kẻ đứng trước dấu chấm . = this
 
 
-const user = {
-    hoTen : 'neko',
-    tuoi: 18,
-    gioiThieu() { 
-        // có sử dụng this. this ở đây chính là object user
-        console.log(`Tôi là ${this.hoTen}, ${this.tuoi} tuổi`);
-    }
-}
+// const user = {
+//     hoTen : 'neko',
+//     tuoi: 18,
+//     gioiThieu() { 
+//         // có sử dụng this. this ở đây chính là object user
+//         console.log(`Tôi là ${this.hoTen}, ${this.tuoi} tuổi`);
+//     }
+// }
 
-user.gioiThieu()
+// user.gioiThieu()
 
-const sanPham = {
-    ten: "iphone 15",
-    gia: 2500000,
-    soLuong: 10,
+// const sanPham = {
+//     ten: "iphone 15",
+//     gia: 2500000,
+//     soLuong: 10,
 
-    inThongTin() {
-        console.log(this);
-        console.log(this.ten);
-        console.log(this.gia);
-    },
+//     inThongTin() {
+//         console.log(this);
+//         console.log(this.ten);
+//         console.log(this.gia);
+//     },
 
-    giamGia(phanTram) {
-        this.gia = this.gia * ( 1- phanTram / 100);
-        console.log(`${this.ten} sau giam gia: ${this.gia.toLocaleString()}đ`);
-    }
-}
+//     giamGia(phanTram) {
+//         this.gia = this.gia * ( 1- phanTram / 100);
+//         console.log(`${this.ten} sau giam gia: ${this.gia.toLocaleString()}đ`);
+//     }
+// }
 
-sanPham.inThongTin()
-sanPham.giamGia(20)
+// sanPham.inThongTin()
+// sanPham.giamGia(20)

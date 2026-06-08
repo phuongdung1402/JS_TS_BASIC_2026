@@ -64,6 +64,7 @@
 // }
 
 // Đầu ra của new promise : chúng ta sẽ dùng then hoặc catch để đón thông tin
+//taoBienLai(false).then((ketqua)=> console.log(ketqua)).catch((err)=> console.log(err))
 
 // taoBienLai(true).then((ketQua)=> {
 //     console.log("Then nhận : ", ketQua);
@@ -89,7 +90,7 @@
 //     })
 // }
 
-//console.log("1.Gửi yêu cầu đặt hàng");
+// console.log("1.Gửi yêu cầu đặt hàng");
 // datHangOnline("SP001", true).then((donHang)=> {
 //     console.log("3. Then() Nhận đơn hàng  : ", donHang);
 //     return donHang.maDon
@@ -185,16 +186,16 @@
 //             if(url === "nhapsai.com") {
 //                 reject("Lỗi 404 ko tìm thấy trang")
 //             } else {
-//                 resolve("Trang + " +url+" đã tải xong")
+//                 resolve("Trang " +url+" đã tải xong")
 //             }
 //         }, 1000)
 //     })
 // }
 
 //C1
-// moTrangWeb("nhapdung.com").then(
+// moTrangWeb("nhapsai0.com").then(
 //     (trang)=> {
-//         throw new Error("Lỗi bất ngờ")
+//         throw new Error("Lỗi bất ngờ xảy ra trong then")
 //         console.log(trang);
 //         return "Token abc_123"
 //     }).then((token)=> {
@@ -208,7 +209,7 @@
 //     });
 
 //C2    
-// moTrangWeb("nhapsai.com").then(
+// moTrangWeb("nhapsai1.com").then(
 //     (data) => {
 //         console.log("Thanh cong", data)
 //     },
@@ -252,9 +253,9 @@
 // fetch("https://api-neko-coffee.autoneko.com/public/test/echo?any_param=").then(
 //     (response) => response.json()
 // ).then((data)=> {
-//     console.log("data", data);
+//     console.log("data : ", data);
 
-//     console.log("message", data.message);
+//     console.log("message : ", data.message);
 // }).catch((loi)=> console.log(loi))
 
 //nâng cấp gọi api
@@ -273,8 +274,8 @@
 //     })
 // }
 
-// // goiEchoApi():
-//goiEchoApi().then((data)=> console.log("echo api tra ve", data.message)).catch((loi)=> console.log(loi))
+// // // goiEchoApi():
+// goiEchoApi().then((data)=> console.log("echo api tra ve", data.message)).catch((loi)=> console.log(loi))
 
 //BT :
 // function kiemTraMatKhau(matKhau) {
@@ -297,23 +298,23 @@
 //kiemTraMatKhau('Neko@23').then((result)=> console.log(result)).catch((error)=> console.log(error))
 
 //Callback hell
-// console.log("Bắt đầu");
+console.log("Bắt đầu");
 
-// new Promise((resolve) => {
-//     resolve("OK")
-// }).then(() => {
-//     console.log("Then 1");
-//     new Promise((resolve, reject) => {
-//         setTimeout(() => {
-//             reject("Lỗi promise bên trong")
-//         }, 1000)
-//     })
-//     .catch((err) => {
-//         console.log("Catch bên trong bắt được", err);
-//     })
-// }).catch((err) => console.log("catch bên ngoài", err))
+new Promise((resolve) => {
+    resolve("OK")
+}).then(() => {
+    console.log("Then 1");
+    new Promise((resolve, reject) => {
+        setTimeout(() => {
+            reject("Lỗi promise bên trong")
+        }, 1000)
+    })
+    // .catch((err) => {
+    //     console.log("Catch bên trong bắt được", err);
+    // })
+}).catch((err) => console.log("Catch bên ngoài", err))
 
-// console.log("Kết thúc");
+console.log("Kết thúc");
 
 //dùng return
 // console.log("Bắt đầu..")
@@ -345,14 +346,14 @@
 //     });
 // }
 
-// // //Đăng nhập : cần kết quả từ b1 (mất 1s)
+// //Đăng nhập : cần kết quả từ b1 (mất 1s)
 // function dangNhap(trangWeb, user, pass) {
 //     return new Promise((resolve, reject) => {
 //         setTimeout(() => {
 //             if (pass === "saimatkhau") {
 //                 reject("Sai mật khẩu")
 //             } else {
-//                 resolve("Token " + user.toUpperCase() + "_" + Date.now())
+//                 resolve("Token : " + user.toUpperCase() + "_" + Date.now())
 //             }
 //         }, 1000)
 //     })
@@ -393,7 +394,7 @@
 //callback hell 
 
 
-// // // Flat chaining
+// Flat chaining
 // moTrangWeb("nekosensei.com").then((trangweb)=> {
 //     console.log("1", trangweb);
 //     return dangNhap(trangweb, "admin", "Neko@123")
@@ -430,7 +431,7 @@
 //     return "xin chao"
 // }
 
-// console.log(hamAsync())
+// // console.log(hamAsync())
 // hamAsync().then((ketqua)=> {
 //     console.log("Nhan duoc", ketqua)
 // })
@@ -441,23 +442,21 @@
 // function goiApi(url) {
 //     return new Promise((resolve) => {
 //         setTimeout(() => {
-//             resolve({ status: 200, data: "Kết quả từ" + url })
+//             resolve({ status: 200, data: "Kết quả từ " + url })
 //         }, 2000);
 //     })
 // }
 
-// //async - await (phải nhớ await chỉ đc khai báo trong hàm async
+// // //async - await (phải nhớ await chỉ đc khai báo trong hàm async
 
 // async function layDuLieu() {
 //     console.log("Đang gọi API")
 //     //await  : tạm dừng hàm layDuLieu tại dòng này.chờ 2s để gọi api resolve, lấy giá trị gán vào biến
 //     let ketQua = await goiApi("neko.com")
-//     console.log('Đã nhận', ketQua)
-    
+//     console.log('Đã nhận: ', ketQua)
 // }
 
 // layDuLieu()
-
 
 // function chonNhaHang(ten) {
 //     return new Promise((resolve) => {
@@ -473,7 +472,6 @@
 //                 monAn: ["Pho", "Ca phe"]
 //             }), 1000
 //         })
-
 //     })
 // }
 
@@ -504,7 +502,7 @@
 
 // async function chaoHoi() {
 //     const ten = await layTen()
-//     return "xin chao" + ten
+//     return "xin chao " + ten
 // }
 
 // async function chayXinChao() {
@@ -518,14 +516,8 @@
 //bản chất chờ đợi (pausing) nội bộ khác hoàn toàn vs việc đóng băng hệ thống
 
 //VD :
-// const lamBitTet = () =>
-//     new Promise(res =>
-//         setTimeout(() =>
-//             (res('Bit tet')), 3000))
-// const vatNuocCam = () =>
-//     new Promise(res =>
-//         setTimeout(() =>
-//             (res("Nuoc cam")), 1000))
+// const lamBitTet = () => new Promise(res => setTimeout(() => (res('Bit tet')), 3000))
+// const vatNuocCam = () => new Promise(res => setTimeout(() => (res("Nuoc cam")), 1000))
 
 // async function phucVuTuanTu() {
 //     console.log('KHACH A : BAT DAU ORDER TUAN TU: ')
@@ -564,14 +556,12 @@
 // danhSachUrl.forEach(async (url)=> {
 //     let data = await goiApi(url);
 //     console.log(data);
-
 // })
 
 // async function goiTuanTu() {
 //     for(let url of danhSachUrl) {
 //         let data = await goiApi(url)
 //         console.log(data);
-
 //     }
 //     console.log("GOI XONG HÊT");
 
@@ -586,20 +576,17 @@
 //     })
 // }
 
-
 // function layDanhSachSanPham() {
 //     return new Promise((resolve) => {
 //         setTimeout(() => resolve("Lay danh sach san pham xong"), 2000)
 //     })
 // }
 
-
 // function docFileCauHinh() {
 //     return new Promise((resolve) => {
 //         setTimeout(() => resolve("Doc xong file cau hình"), 1000)
 //     })
 // }
-
 
 // async function chuanBiTuanTu() {
 //     let start = Date.now();
@@ -622,7 +609,7 @@
 // async function chuanBiSongSong() {
 //     let start = Date.now();
 
-//     let [avatar, sanPham, config] = await Promise.all([
+//     let [ avatar, sanPham, config ] = await Promise.all([
 //         taiAnhAvatar(),
 //         layDanhSachSanPham(),
 //         docFileCauHinh()
@@ -632,17 +619,15 @@
 //     console.log("DONE", sanPham);
 //     console.log("DONE", config);
 
-
 //     let tongThoiGian = (Date.now() - start) / 1000;
 //     console.log(`Tổng thời gian ${tongThoiGian}`);
-
 // }
 // chuanBiSongSong()
 //-> Promise all : chạy song song và gom kết quả
 
 // let ketqua = await Promise.all([promise1, promise2,...])
 //Cách hoạt động của promise.all
-//1. nhận vào 1 mảng chứa nhiều promise
+//1.nhận vào 1 mảng chứa nhiều promise
 //2.kích hoạt tất cả promise chạy cùng 1 lúc
 //3.đợi cho đến khi tất cả đều resolve xong
 //4.Trả về 1 mảng kết quả theo đúng thứ tự ban đầu
@@ -656,7 +641,6 @@
 //         setTimeout(() => resolve("XONG"), 1000)
 //     })
 // }
-
 
 // function thatBai() {
 //     return new Promise((resolve, reject) => {
@@ -676,8 +660,8 @@
 // testFailFast()
 
 //await Promise.all( [
-// 1.Giang 1 cai bẫy đợi API thanh toan trả ve
-//page.waitForResponse('*/api/thanhtoan)
+// 1.Giăng 1 cai bẫy đợi API thanh toan trả ve
+//page.waitForResponse('*/api/thanhtoan')
 // 2. đồng thời thực hiện hành động click
 //page.click('abc')
 //])
@@ -709,7 +693,7 @@
 //         xoaTestAccount("user_03", 1500, true)
 //     ])
 
-//     console.log(ketQua);
+//     //console.log(ketQua);
     
 //     let baoCao = ketQua.map((item, index)=> {
 //         let ten = ['user_01', 'user_02', 'user_03'][index];
@@ -753,13 +737,11 @@
 //         console.log(user.data);
 
 //         let orders = await goiApi("api.neko.com.vn/orders");
-//         console.log(orders.data);
-        
+//         console.log(orders.data);   
 //     }catch (loi){
 //         console.log("Da xay ra loi", loi);
 //     } finally {
 //         console.log("DON DEP TAI NGUYEN");
-        
 //     }
 // }
 
