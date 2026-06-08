@@ -386,20 +386,105 @@
 // b.increment()
 // c.increment()
 
-// console.log(a.count)
-// console.log(b.count)
-// console.log(c.count)
+// // console.log(a.count)
+// // console.log(b.count)
+// // console.log(c.count)
 
 // console.log(Counter.totalCreated);
 // Counter.showTotal()
 
 
+// class CounterChild extends Counter {
+
+    
+// }
+// const childCounter = new CounterChild("child")
+// childCounter.totalCreated -> lỗi , ko gọi đc
+
+// console.log(CounterChild.totalCreated);
+
+//Lí do tại sao thực tế khi code mà các hàm chứa static ngta ko dùng extends :
+//static : ko có tính đa hình : có override nhưng thực ra nó là shadow ( che khuất )
+
+// class Parent {
+//     static greet() {
+//         return "hello from parent"
+//     }
+// }
+
+// class Child extends Parent {
+//     static greet(): string {
+//          return "hello from child"
+//     }
+// }
+
+// console.log(Parent.greet());
+// console.log(Child.greet());
+
+//case khác
+//khi class cha có method gọi static method khác của chính nó
+
+// class BaseReport {
+//     static format(msg : string) : string {
+//         return  `[BASE] ${msg}`
+//     }
+
+//     static report(msg: string) : void {
+//         console.log(BaseReport.format(msg));
+//     }
+// }
+
+// class JsonReporter extends BaseReport {
+//     //class con tự định nghĩa lại format (bởi vì tính đa hình) -nhưng đây là shadow ko phải override
+//     static format(msg: string): string {
+//         return `{"level": "info", "msg":"${msg}"}`
+//     }
+// }
+
+// BaseReport.report("Hello")
+// JsonReporter.report("Hello")
 
 
+// class BaseInstance {
+//     format(msg : string) : string {
+//         return  `[BASE] ${msg}`
+//     }
 
+//     report(msg: string) : void {
+//         console.log(this.format(msg));
+//     }
+// }
+// class JsonInstance extends BaseInstance {
+//     //class con tự định nghĩa lại format (bởi vì tính đa hình) -nhưng đây là shadow ko phải override
+//     format(msg: string): string {
+//         return `{"level": "info", "msg":"${msg}"}`
+//     }
+// }
 
+// const reporter : BaseInstance = new JsonInstance();
+// reporter.report("hello")
 
+//Lý do 2 : static đc thiết kế để dùng trực tiếp ko phải mở rộng
+//Utility class : đây là class hỗ trợ cho chta khi code
 
+// class StringUtils {
+//     static capitalize(string) : string{};
+//     static isEmail(string) : boolean;
+// }
 
+//tạo biến để dùng chung
+// class AppConfig {
+//     static readonly APP_NAME = "Neko shop";
+//     static readonly API_URL = "https://..."
+// }
 
+//Thực tế sử dụng :
+//Static property: dữ liệu chia sẻ 
+//VD: AppConfig.API_URL 
+// console.log(AppConfig.API_URL);
 
+//Static method : utility functions
+// StringUtils.capitalize()
+// StringUtils.isEmail()
+
+//Ưu điểm : ko cần khởi tạo obj , chỉ cần gọi trực tiếp từ class (chấm tới phương thức hoặc biến mình cần dùng)

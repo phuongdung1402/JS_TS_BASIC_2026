@@ -64,7 +64,6 @@
 // }
 
 // Đầu ra của new promise : chúng ta sẽ dùng then hoặc catch để đón thông tin
-
 // taoBienLai(true).then((ketQua)=> {
 //     console.log("Then nhận : ", ketQua);
 // })
@@ -72,6 +71,7 @@
 // taoBienLai(false).catch((Loi)=> {
 //     console.log("Catch nhận", Loi);
 // })
+
 
 // function datHangOnline(maDon, conHang) {
 //     return new Promise((resolve, reject)=> {
@@ -89,7 +89,7 @@
 //     })
 // }
 
-//console.log("1.Gửi yêu cầu đặt hàng");
+// console.log("1.Gửi yêu cầu đặt hàng");
 // datHangOnline("SP001", true).then((donHang)=> {
 //     console.log("3. Then() Nhận đơn hàng  : ", donHang);
 //     return donHang.maDon
@@ -177,7 +177,6 @@
 //C1 : catch() ở cuối chuỗi (hay dùng nhất): bắt lỗi từ bất kì then() nào phía trên văng lỗi
 //C2 : Mình có thể dùng catch() khi dùng then() 2 tham số (ít dùng )
 //C3 : catch() xen giữa chuỗi (nâng cao) -> bắt lỗi từng bước, xử lí xong rồi chạy tiếp
-
 //VD : 
 // function moTrangWeb(url) {
 //     return new Promise((resolve, reject)=> {
@@ -274,7 +273,7 @@
 // }
 
 // // goiEchoApi():
-//goiEchoApi().then((data)=> console.log("echo api tra ve", data.message)).catch((loi)=> console.log(loi))
+// goiEchoApi().then((data)=> console.log("echo api tra ve", data.message)).catch((loi)=> console.log(loi))
 
 //BT :
 // function kiemTraMatKhau(matKhau) {
@@ -288,27 +287,26 @@
 //             }
 //         }, 1500)
 //     })
-
 // }
 
 // kiemTraMatKhau('Neko@123').then((data)=> console.log(data))
 // kiemTraMatKhau('abczyx').catch((loi)=> console.log(loi))
 
-//kiemTraMatKhau('Neko@23').then((result)=> console.log(result)).catch((error)=> console.log(error))
+// kiemTraMatKhau('Neko@13').then((result)=> console.log(result)).catch((error)=> console.log(error))
 
 //Callback hell
 // console.log("Bắt đầu");
 
-// new Promise((resolve) => {
-//     resolve("OK")
+// new Promise((resolve, reject) => {
+//     resolve("OK");
+//     //reject(new Error('Lỗi bên ngoài '))
 // }).then(() => {
 //     console.log("Then 1");
 //     new Promise((resolve, reject) => {
 //         setTimeout(() => {
 //             reject("Lỗi promise bên trong")
 //         }, 1000)
-//     })
-//     .catch((err) => {
+//     }).catch((err) => {
 //         console.log("Catch bên trong bắt được", err);
 //     })
 // }).catch((err) => console.log("catch bên ngoài", err))
@@ -332,51 +330,51 @@
 // console.log("Kết thúc");
 
 //Mở trang web (1s)
-// function moTrangWeb(url) {
-//     return new Promise((resolve, reject) => {
-//         setTimeout(() => {
-//             if (url === 'nhapsai.com') {
-//                 reject("Loi 404 : ko tim thay trang")
-//             }
-//             {
-//                 resolve("Trang " + url + "da tai xong")
-//             }
-//         }, 1000)
-//     });
-// }
+function moTrangWeb(url) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            if (url === 'nhapsai.com') {
+                reject("Loi 404 : ko tim thay trang")
+            }
+            {
+                resolve("Trang " + url + "da tai xong")
+            }
+        }, 1000)
+    });
+}
 
-// // //Đăng nhập : cần kết quả từ b1 (mất 1s)
-// function dangNhap(trangWeb, user, pass) {
-//     return new Promise((resolve, reject) => {
-//         setTimeout(() => {
-//             if (pass === "saimatkhau") {
-//                 reject("Sai mật khẩu")
-//             } else {
-//                 resolve("Token " + user.toUpperCase() + "_" + Date.now())
-//             }
-//         }, 1000)
-//     })
-// }
+//Đăng nhập : cần kết quả từ b1 (mất 1s)
+function dangNhap(trangWeb, user, pass) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            if (pass === "saimatkhau") {
+                reject("Sai mật khẩu")
+            } else {
+                resolve("Token " + user.toUpperCase() + "_" + Date.now())
+            }
+        }, 1000)
+    })
+}
 
-// //function themVaoGioHang
-// function themVaoGioHang(token, sanPham) {
-//     return new Promise((resolve, reject) => {
-//         setTimeout(() => {
-//             resolve({ token: token, sanPham: sanPham, soLuong: 2 })
-//         }, 1000)
-//     })
-// }
+//function themVaoGioHang
+function themVaoGioHang(token, sanPham) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve({ token: token, sanPham: sanPham, soLuong: 2 })
+        }, 1000)
+    })
+}
 
-// function thanhToan(gioHang) {
-//     return new Promise((resolve) => {
-//         setTimeout(() => {
-//             resolve("Hóa đơn " + gioHang.sanPham + " - " + gioHang.soLuong)
-//         }, 1000)
-//     })
-// }
+function thanhToan(gioHang) {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve("Hóa đơn " + gioHang.sanPham + " - " + gioHang.soLuong)
+        }, 1000)
+    })
+}
 
 // console.log("Bắt đầu kịch bản test");
-// moTrangWeb("neko.com").then((trangWeb) => {
+// moTrangWeb("nhapsai.com").then((trangWeb) => {
 //     console.log("1", trangWeb);
 //     dangNhap(trangWeb, "admin", "Neko@123").then((token) => {
 //         console.log("2", token);
@@ -394,11 +392,21 @@
 
 
 // // // Flat chaining
-// moTrangWeb("nekosensei.com").then((trangweb)=> {
+// moTrangWeb("neko.com").then((trangweb)=> {
 //     console.log("1", trangweb);
-//     return dangNhap(trangweb, "admin", "Neko@123")
-// }).then()
-
+//     return dangNhap(trangweb, "admin", "saimatkhau")
+// }).then((token)=> {
+//     console.log("2", token);
+//     return themVaoGioHang(token, "Áo quần adidas")
+// }).then((gioHang)=> {
+//     console.log("3" , gioHang);
+//     return thanhToan(gioHang)
+// }).then((hoaDon)=> {
+//     console.log("4", hoaDon);
+// })
+// .catch((err)=> {
+//     console.log("Lỗi : ", err);  
+// })
 
 //Cứu tinh callback hell : Async/Await
 //Là 1 lớp vỏ bọc của promise và then : viết code dễ nhìn 
@@ -485,7 +493,7 @@
 //     console.log(menu)
 // }
 
-// datDoAnOnline()
+//datDoAnOnline()
 
 // async function datHangOnline() {
 //     let trangWeb = await moTrangWeb("neko.com")
@@ -504,7 +512,7 @@
 
 // async function chaoHoi() {
 //     const ten = await layTen()
-//     return "xin chao" + ten
+//     return "xin chao " + ten
 // }
 
 // async function chayXinChao() {
@@ -535,7 +543,6 @@
 //     console.log(`Đã xong ${mon1} sau 3s. Tiep tuc vat nuoc cam`)
 
 //     let mon2 = await vatNuocCam();
-
 //     let thoiGian = (Date.now() - start) / 1000;
 //     console.log(`Khách A nhận đủ đồ. Tổng thời gina : ${thoiGian}`)
 // }
@@ -564,14 +571,12 @@
 // danhSachUrl.forEach(async (url)=> {
 //     let data = await goiApi(url);
 //     console.log(data);
-
 // })
 
 // async function goiTuanTu() {
 //     for(let url of danhSachUrl) {
 //         let data = await goiApi(url)
 //         console.log(data);
-
 //     }
 //     console.log("GOI XONG HÊT");
 
@@ -580,26 +585,23 @@
 
 //Promise.all
 
-// function taiAnhAvatar() {
-//     return new Promise((resolve) => {
-//         setTimeout(() => resolve("Avatar đã tải xong"), 3000)
-//     })
-// }
+function taiAnhAvatar() {
+    return new Promise((resolve) => {
+        setTimeout(() => resolve("Avatar đã tải xong"), 3000)
+    })
+}
 
+function layDanhSachSanPham() {
+    return new Promise((resolve) => {
+        setTimeout(() => resolve("Lay danh sach san pham xong"), 2000)
+    })
+}
 
-// function layDanhSachSanPham() {
-//     return new Promise((resolve) => {
-//         setTimeout(() => resolve("Lay danh sach san pham xong"), 2000)
-//     })
-// }
-
-
-// function docFileCauHinh() {
-//     return new Promise((resolve) => {
-//         setTimeout(() => resolve("Doc xong file cau hình"), 1000)
-//     })
-// }
-
+function docFileCauHinh() {
+    return new Promise((resolve) => {
+        setTimeout(() => resolve("Doc xong file cau hình"), 1000)
+    })
+}
 
 // async function chuanBiTuanTu() {
 //     let start = Date.now();
@@ -632,7 +634,6 @@
 //     console.log("DONE", sanPham);
 //     console.log("DONE", config);
 
-
 //     let tongThoiGian = (Date.now() - start) / 1000;
 //     console.log(`Tổng thời gian ${tongThoiGian}`);
 
@@ -657,7 +658,6 @@
 //     })
 // }
 
-
 // function thatBai() {
 //     return new Promise((resolve, reject) => {
 //         setTimeout(() => reject("server bị lỗi"), 500)
@@ -668,19 +668,18 @@
 //     try {
 //         let ketQua = await Promise.all([thanhCong(), thatBai(), thanhCong()])
 //         console.log("Khong bao gio chay den day");
-
 //     } catch (loi) {
 //         console.log("Promise all that bai", loi);
 //     }
 // }
 // testFailFast()
 
-//await Promise.all( [
+// await Promise.all( [
 // 1.Giang 1 cai bẫy đợi API thanh toan trả ve
-//page.waitForResponse('*/api/thanhtoan)
+// page.waitForResponse('*/api/thanhtoan)
 // 2. đồng thời thực hiện hành động click
-//page.click('abc')
-//])
+// page.click('abc')
+// ])
 
 // Trái ngược vs Promise.all là Promise.allSettled()
 //Giống hệt promise.all chạy tất cả cùng 1 lúc, nhưng ko dừng khi gặp lỗi, nó kiên nhẫn đợi tất cả chạy xong r trả về mảng 
@@ -689,7 +688,7 @@
 // [{ status: 'fulfilled', value: <giá trị resolve>  <- thanh cong}
 //{status : 'rejected' , reason:<giá trị reject>  <-that bai}]
 
-// //VD:
+//VD:
 // function xoaTestAccount(tenAccount, thoiGian, xoaDuoc) {
 //     return new Promise((resolve, reject) => {
 //         setTimeout(() => {
@@ -734,33 +733,32 @@
 //dùng để dọn dẹp
 //}
 
-// function goiApi(url) {
-//     return new Promise((resolve, reject)=> {
-//         setTimeout(()=> {
-//             let thanhCong = Math.random() > 0.5;
-//             if(thanhCong) {
-//                 resolve({status : 200, data: "Ket qua tu "+url})
-//             } else {
-//                 reject("Lỗi 500 server" + url)
-//             }
-//         }, 2000)
-//     })
-// }
+function goiApi(url) {
+    return new Promise((resolve, reject)=> {
+        setTimeout(()=> {
+            let thanhCong = Math.random() > 0.5;
+            if(thanhCong) {
+                resolve({status : 200, data: "Ket qua tu "+url})
+            } else {
+                reject("Lỗi 500 server" + url)
+            }
+        }, 2000)
+    })
+}
 
-// async function layDuLieuAnToan() {
-//     try {
-//         let user = await goiApi("api.neko.com.vn/user");
-//         console.log(user.data);
+async function layDuLieuAnToan() {
+    try {
+        let user = await goiApi("api.neko.com.vn/user");
+        console.log(user.data);
 
-//         let orders = await goiApi("api.neko.com.vn/orders");
-//         console.log(orders.data);
+        let orders = await goiApi("api.neko.com.vn/orders");
+        console.log(orders.data);
         
-//     }catch (loi){
-//         console.log("Da xay ra loi", loi);
-//     } finally {
-//         console.log("DON DEP TAI NGUYEN");
-        
-//     }
-// }
+    }catch (loi){
+        console.log("Da xay ra loi", loi);
+    } finally {
+        console.log("DON DEP TAI NGUYEN");    
+    }
+}
 
-// layDuLieuAnToan()
+layDuLieuAnToan()
