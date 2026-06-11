@@ -22,8 +22,9 @@
 //     email: 'neko@gmail.com',
 //     createdAt: new Date()
 // }
-// //gán lại 
-// user.createdAt = new Date() -> lỗi
+
+//gán lại thuộc tính readonly : ko được phép
+// user.createdAt = new Date()    -> lỗi
 // console.log(user);
 
 
@@ -74,7 +75,7 @@
 // console.log(calc2.add(4,5));
 // console.log(calc2.divide(100,5));
 
-
+// 
 // interface UserService {
 //     baseUrl : string;
 //     getUser(id: number) : Promise<{name: string; email: string}>;
@@ -180,54 +181,50 @@
 
 
 //Best Practice: Kết hợp interface làm hợp đồng, class implement
-// interface PageObject {
-//     url : string;
-//     goTo() : Promise<void>
-//     isLoaded() : Promise<boolean>
-//    // takeScreenshot(name: string) : Promise<void>
-// }
+interface PageObject {
+    url : string;
+    goTo() : Promise<void>
+    isLoaded() : Promise<boolean>
+    takeScreenshot(name: string) : Promise<void>
+}
 
-// class FakeBrowser {
-//     async open(url: string) {
-//         console.log(`Mo ${url}`);
-//     }
-// }
+class FakeBrowser {
+    async open(url: string) {
+        console.log(`Mo ${url}`);
+    }
+}
 
-// //implement sử dụng trong class nếu muốn sử dụng interface
-// class BasePage implements PageObject {
-//     url =  '/';
-//     constructor(protected browser: FakeBrowser) {}
+//implement sử dụng trong class nếu muốn sử dụng interface
+class BasePage implements PageObject {
+    url =  '/';
+    constructor(protected browser: FakeBrowser) {}
 
-//     async goTo(): Promise<void> {
-//         await this.browser.open(this.url)
-//     }
+    async goTo(): Promise<void> {
+        await this.browser.open(this.url)
+    }
 
-//     async isLoaded() {
-//         return true;
-//     }
-//     // async takeScreenshot(name: string): Promise<void> {
+    async isLoaded() {
+        return true;
+    }
+    async takeScreenshot(name: string): Promise<void> {
         
-//     // }
-// }
+    }
+}
 
 //Page kế thừa code từ BasePage (class extends ) và gián tiếp tuân theo pageobject interface
 
-// class LoginPageObj extends BasePage {
-//     url = "/login";
-//     async isLoaded() {
-//         console.log('Kiem tra form login');
-//         return true
-//     }
-// }
+class LoginPageObj extends BasePage {
+    url = "/login";
+    async isLoaded() {
+        console.log('Kiem tra form login');
+        return true
+    }
+}
 
 // class ProductPageObj extends BasePage {
 //     url = "/login";
-//     async isLoaded() {
-//         console.log('Kiem tra product page')
-//         return true
-//     }
 
-// }
+}
 
 //Pattern này kết hợp 3 vai trò
 //interface PageObject : vai trò hợp đồng , bắt buộc mọi page phải có url, goTo, isLoad

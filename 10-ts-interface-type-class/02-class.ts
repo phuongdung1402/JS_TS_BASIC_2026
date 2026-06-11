@@ -4,7 +4,7 @@
 //Có 3 cách để thõa mãn quy tắc này
 //1. class field có giá trị mặc định -> ko cần constructor
 
-// class LoginPage {
+//  class LoginPage {
 //     url : string = "/login";
 //     txtUsername : string = "#username";
 //     txtPassword : string = "#password";
@@ -113,9 +113,8 @@
 // }
 
 // const appC = new AppConfig("2.0");
-//     console.log(appC.appName);
-//     console.log(appC.version);
-
+// console.log(appC.appName);
+// console.log(appC.version);
 
 //Dấu ! : field này chắc chắn có giá trị trc khi tôi dùng nó, dù hiện tại chưa gán giá trị
 // class UserOK {
@@ -151,14 +150,15 @@
 //     }
 // }
 
-// async function runSQL {
+// async function runSQL() {
 //     const db = new Database();
+//     db.connection2 = 'connected...'
 //     console.log(db.isConnected());
 //     await db.connect("mongo://localhost: 28101")
 
 //     console.log(db.query("SELECT * FROM"))
 // }
-
+// runSQL()
 //Constructor()
 //parameter properties = shorthand
 //có thể khai báo+gán thuộc tính
@@ -233,15 +233,15 @@
 // }
 
 // const cat = new Animal("meo","meww meww")
-// cat.speak();
+// console.log(cat.speak());
 // cat.name = "meo may";
-// cat.speak();
+// console.log(cat.speak());
 
 // //-private : chỉ trong class, đánh dấu thuộc tính chỉ truy cập từ bên trong chính class đó, code bên ngoài và class con ko đụng
 // //được. Đây là công cụ đóng gói dữ liệu nhạy cảm
 // class BankAccount {
 
-//     constructor(public ownwer : string, private balance: string, private pin : string) {}
+//     constructor(public ownwer : string, private balance: number, private pin : string) {}
 
 //     deposit(amount: number) {
 //         this.balance += amount
@@ -256,7 +256,7 @@
 
 // const account = new BankAccount("neko", "2000000", "123456")
 // account.getBalance('123456')
-//console.log(account.balance);
+// console.log(account.balance);
 
 
 
@@ -291,7 +291,7 @@
 // const loginPage3 = new LoginPage3();
 // loginPage3.goto();
 // console.log(loginPage3.url);
-// console.log(loginPage3.baseUrl);
+//console.log(loginPage3.secret);
 
 // class User3 {
 //     // _convention prefix
@@ -318,8 +318,8 @@
 // user3.name = "Mimi"
 // console.log(user3.name);
 
-//RETURN TYPE : kiểu trả về
-//TS sẽ kiểm tra 
+// RETURN TYPE : kiểu trả về
+// TS sẽ kiểm tra 
 
 //Promise<T>
 //Trả về object hoặc array
@@ -361,6 +361,11 @@
 // class Counter {
 //     //thuộc tính mà mỗi instance hay object đều có 1 bản
 //     count: number = 0;
+//     //static biến đếm chung cho tất cả thuộc về class
+//     static totalCreated : number = 0;
+//     static showTotal() : void {
+//         console.log(`Tổng cộng đc tạo ${Counter.totalCreated}`);
+//     }
 
 //     constructor(public name : string) 
 //     {
@@ -371,13 +376,7 @@
 //         this.count++
 //     }
 
-//     //static biến đếm chung cho tất cả thuộc về class
-//     static totalCreated : number = 0;
-//     static showTotal() : void {
-//         console.log(`Tổng cộng đc tạo ${Counter.totalCreated}`);
-//     }
 // }
-
 // const a = new Counter("Counter A");
 // const b = new Counter("Counter B");
 // const c = new Counter("Counter C");
@@ -401,7 +400,7 @@
     
 // }
 // const childCounter = new CounterChild("child")
-//childCounter.totalCreated //-> lỗi , ko gọi đc
+// childCounter.totalCreated -> lỗi , ko gọi đc
 
 // console.log(CounterChild.totalCreated);
 
@@ -416,7 +415,7 @@
 
 // class Child extends Parent {
 //     static greet(): string {
-//          return "hello from child"
+//         return "hello from child"
 //     }
 // }
 
@@ -457,7 +456,7 @@
 //     }
 // }
 // class JsonInstance extends BaseInstance {
-//     //class con tự định nghĩa lại format (bởi vì tính đa hình) -nhưng đây là shadow ko phải override
+    
 //     format(msg: string): string {
 //         return `{"level": "info", "msg":"${msg}"}`
 //     }
@@ -466,15 +465,15 @@
 // const reporter : BaseInstance = new JsonInstance();
 // reporter.report("hello")
 
-//Lý do 2 : static đc thiết kế để dùng trực tiếp ko phải mở rộng
-//Utility class : đây là class hỗ trợ cho chta khi code
+// Lý do 2 : static đc thiết kế để dùng trực tiếp ko phải mở rộng
+// Utility class : đây là class hỗ trợ cho chta khi code
 
 // class StringUtils {
-//     static capitalize(string) : string{};
-//     static isEmail(string) : boolean;
+//     static capitalize(str: string) : string {};
+//     static isEmail(str: string) : boolean;
 // }
 
-//tạo biến để dùng chung
+// tạo biến để dùng chung
 // class AppConfig {
 //     static readonly APP_NAME = "Neko shop";
 //     static readonly API_URL = "https://..."
@@ -482,11 +481,19 @@
 
 //Thực tế sử dụng :
 //Static property: dữ liệu chia sẻ 
-//VD: AppConfig.API_URL 
+// class AppConfig {
+//     static readonly APP_NAME = "Neko shop";
+//     static readonly API_URL = "https://..."
+// }
+// AppConfig.API_URL 
 // console.log(AppConfig.API_URL);
 
-//Static method : utility functions
-// StringUtils.capitalize()
-// StringUtils.isEmail()
+// //Static method - utility functions
+// class StringUtils {
+//   static capitalize(str: string): string {};
+//   static isEmail(str: string): boolean;
+// }
+// StringUtils.capitalize('abc')
+// StringUtils.isEmail('abc@gmail.com')
 
 //Ưu điểm : ko cần khởi tạo obj , chỉ cần gọi trực tiếp từ class (chấm tới phương thức hoặc biến mình cần dùng)
