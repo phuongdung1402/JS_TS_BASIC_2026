@@ -8,22 +8,23 @@
 //Giống như bản thiết kế (nghiêng về hình dạng)
 
 //Khai báo interface
-interface UserTest {
-    id: number;
-    name: string;
-    email: string;
-    age? : number;
-    readonly createdAt : Date;
-}
+// interface UserTest {
+//     id: number;
+//     name: string;
+//     email: string;
+//     age? : number;
+//     readonly createdAt : Date;
+// }
 
-const user : UserTest = {
-    id: 1,
-    name: 'neko',
-    email: 'neko@gmail.com',
-    createdAt: new Date()
-}
-//gán lại 
-// user.createdAt = new Date() -> lỗi
+// const user : UserTest = {
+//     id: 1,
+//     name: 'neko',
+//     email: 'neko@gmail.com',
+//     createdAt: new Date()
+// }
+
+//gán lại thuộc tính readonly : ko được phép
+// user.createdAt = new Date()    -> lỗi
 // console.log(user);
 
 
@@ -36,46 +37,45 @@ const user : UserTest = {
 //C1 : Dùng shorthand
 //C2 : Dùng arrow func
 
-interface Calculator {
-    //C1 : Cách phổ biến, khuyên nên dùng
-    add(a: number, b: number): number;
-    subtract(a: number, b:number): number;
+// interface Calculator {
+//     //C1 : Cách phổ biến, khuyên nên dùng
+//     add(a: number, b: number): number;
+//     subtract(a: number, b:number): number;
 
-    //C2 : ít dùng
-    multiply : (a: number, b: number) => number;
-    divide : (a: number, b: number) => number
-}
+//     //C2 : ít dùng
+//     multiply : (a: number, b: number) => number;
+//     divide : (a: number, b: number) => number
+// }
 
-const calc : Calculator = {
-    add(a,b) {
-        return a+b
-    },
+// const calc : Calculator = {
+//     add(a,b) {
+//         return a+b
+//     },
 
-    subtract(a,b) {
-        return a -b 
-    },
-    multiply : (a,b) => a*b,
-    divide : (a,b) => a/b,
-}
+//     subtract(a,b) {
+//         return a -b 
+//     },
+//     multiply : (a,b) => a*b,
+//     divide : (a,b) => a/b,
+// }
 
 // //Nhưng mình cũng có thể implement ngược lại vẫn hợp lệ
-const calc2 : Calculator = {
-    add : (a,b) => a+b ,
+// const calc2 : Calculator = {
+//     add : (a,b) => a+b ,
 
-    subtract(a,b) {
-        return a -b 
-    },
-    multiply(a,b) {
-       return a*b
-    } ,
-    divide : (a,b) => a/b,
-}
+//     subtract(a,b) {
+//         return a -b 
+//     },
+//     multiply(a,b) {
+//        return a*b
+//     } ,
+//     divide : (a,b) => a/b,
+// }
 
-console.log(calc2.add(4,5));
-console.log(calc2.divide(100,5));
+// console.log(calc2.add(4,5));
+// console.log(calc2.divide(100,5));
 
-
-// //
+// 
 // interface UserService {
 //     baseUrl : string;
 //     getUser(id: number) : Promise<{name: string; email: string}>;
@@ -90,6 +90,7 @@ console.log(calc2.divide(100,5));
 //         }
 //     }
 // }
+
 
 //Extends 
 //Tạo interface con từ cha, kế thừa toàn bộ thuộc tính và thêm cái mới
@@ -177,50 +178,50 @@ console.log(calc2.divide(100,5));
 
 // runTest()
 //Best Practice: Kết hợp interface làm hợp đồng, class implement
-// interface PageObject {
-//     url : string;
-//     goTo() : Promise<void>
-//     isLoaded() : Promise<boolean>
-//    // takeScreenshot(name: string) : Promise<void>
-// }
+interface PageObject {
+    url : string;
+    goTo() : Promise<void>
+    isLoaded() : Promise<boolean>
+    takeScreenshot(name: string) : Promise<void>
+}
 
-// class FakeBrowser {
-//     async open(url: string) {
-//         console.log(`Mo ${url}`);
-//     }
-// }
+class FakeBrowser {
+    async open(url: string) {
+        console.log(`Mo ${url}`);
+    }
+}
 
-// //implement sử dụng trong class nếu muốn sử dụng interface
-// class BasePage implements PageObject {
-//     url =  '/';
-//     constructor(protected browser: FakeBrowser) {}
+//implement sử dụng trong class nếu muốn sử dụng interface
+class BasePage implements PageObject {
+    url =  '/';
+    constructor(protected browser: FakeBrowser) {}
 
-//     async goTo(): Promise<void> {
-//         await this.browser.open(this.url)
-//     }
+    async goTo(): Promise<void> {
+        await this.browser.open(this.url)
+    }
 
-//     async isLoaded() {
-//         return true;
-//     }
-//     // async takeScreenshot(name: string): Promise<void> {
+    async isLoaded() {
+        return true;
+    }
+    async takeScreenshot(name: string): Promise<void> {
         
-//     // }
-// }
+    }
+}
 
 //Page kế thừa code từ BasePage (class extends ) và gián tiếp tuân theo pageobject interface
 
-// class LoginPageObj extends BasePage {
-//     url = "/login";
-//     async isLoaded() {
-//         console.log('Kiem tra form login');
-//         return true
-//     }
-// }
+class LoginPageObj extends BasePage {
+    url = "/login";
+    async isLoaded() {
+        console.log('Kiem tra form login');
+        return true
+    }
+}
 
-// class ProductPageObj extends BasePage {
-//     url = "/login";
+class ProductPageObj extends BasePage {
+    url = "/login";
 
-// }
+}
 
 //Pattern này kết hợp 3 vai trò
 //interface PageObject : vai trò hợp đồng , bắt buộc mọi page phải có url, goTo, isLoad

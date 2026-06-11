@@ -264,3 +264,62 @@
 // }
 
 // runTest()
+
+
+
+
+
+
+
+
+
+// regular class ko thể làm class cha tốt nếu trong các trường hợp
+//1.class con phải tuân theo 1 số quy tắc gì đó (implement abstract class)
+//2.abstract class : ko cần phải tạo instance - new ( sai logic )
+class BasePage7 {
+    baseUrl = "abc.com";
+
+    constructor(protected path: string) {}
+    navigate() : void {}
+
+    //abstract isLoaded()
+
+}
+
+class LoginPage8 extends BasePage7 {
+    isLoad() : boolean {
+        return true
+    }
+
+}
+
+class CartPage extends BasePage7 {
+    addToCart() : void {}
+}
+
+//2. regular class làm cha khi cha đã hoàn chỉnh 100%, tự dùng đc 1 mình, và con chỉ thêm các tính năng chứ ko cần override
+class HttpClient {
+    constructor(protected baseUrl: string) {}
+
+    async get<T>(path: string) : Promise<T> {
+        return {} as T
+    }
+}
+
+class AuthHttpClient extends HttpClient {
+    constructor(baseUrl: string, private token: string) {
+        super(baseUrl)
+    }
+
+    //thêm method mới mà cha ko có
+    async getWithAuth<T>(path: string) : Promise<T> {
+        return this.get<T>(path)
+    }
+}
+
+//Cả cha và con đều dùng độc lập
+//cha dùng 1 mình api test đơn giản (ko cần auth)
+const simpleClient = new HttpClient("abc")
+//await simpleClient.get("abc")
+
+const authClient = new AuthHttpClient("abc", "tokenAbc")
