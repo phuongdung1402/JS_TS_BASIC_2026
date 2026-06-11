@@ -10,12 +10,16 @@
 // function chayTest() {
 //     console.log(`Đang chạy test trên ${tenMoiTruong}`);
 //     console.log(`URL ${baseUrl}`);
+//     tenMoiTruong = 'DEVELOP'
 // }
 
 // function chayTestKhac() {
 //     console.log(`Hàm khác cũng thấy ${tenMoiTruong}`);
-
 // }
+
+// chayTest()
+// chayTestKhac()
+
 //B . Function scope (hàm vi phạm)
 //Biến đc khai báo bên trong function : biến sẽ tồn tại trong hàm , và sẽ mất đi khi hàm chạy xong
 // function taoTaiKhoan() {
@@ -41,7 +45,7 @@
 //Bất kì biến nào nằm trong ngoặc nhọn của if, for, while ,.. đều là 1 block scope
 //Biến ở trong block scope chỉ hoạt động bên trong scope 
 
-//D. Lưu ý : Object ko phạm 1 scope, vai trò hoàn toàn khác nhau. Phân biệt giữa scope và object
+//D. Lưu ý : Object ko phải 1 scope, vai trò hoàn toàn khác nhau. Phân biệt giữa scope và object
 //scope : phạm vi biên
 //object : đối tượng chứa dữ liệu , cặp value - key ( truy cập thuộc tính của object : object.thuộc tính)
 
@@ -59,9 +63,10 @@
 //         console.log(mau);
 //     }
 //     trong()
-//     console.log(gia);
+//     //console.log(gia);
 // }
+
 // ngoai()
-// console.log(size);
+//console.log(size);
 
 

@@ -29,7 +29,7 @@
 // dangNhap("adminNeko2", "abc2")
 
 //từ khóa return - đầu ra
-//Return trả về 1 giá trị từ bên trong function ra bên ngoài, có thể là number, strinng, boolean,object, array...
+//Return trả về 1 giá trị từ bên trong function ra bên ngoài, có thể là number, string, boolean,object, array...
 //Nơi gọi hàm sẽ nhận lại giá trị đó, khi gặp return , function sẽ dừng lại ngay ở đó
 
 // function tinhTongTien(a,b) {
@@ -39,11 +39,14 @@
 // }
 
 // let tienThanhToan = tinhTongTien(100,2)
-// console.log(tienThanhToan);
+//console.log(tienThanhToan);
 
 // function laySoMayMan() {
 //     return 8
 // }
+
+// const result = laySoMayMan()
+// console.log(result)
 
 //sau return : các dòng code phía dưới ko chạy nữa
 // function demoReturn() {
@@ -53,7 +56,6 @@
 //     console.log('dong nay ko duoc chay');
 // }
 // console.log(demoReturn());
-
 
 // function cleanPrice(rawString) {
 //     if(!rawString) return 0
@@ -96,7 +98,6 @@
 
 // const checkLoginStatus = function() {
 //     return true
-
 // }
 
 //Ưu điểm : An toàn hơn nhờ const. Với declaration , mình có thể vô tình khai báo trùng tên hàm đã khai báo trc , hàm trc sẽ bị ghi đè âm thầm mà ko hề báo lỗi
@@ -147,8 +148,8 @@
 // const tinhTongRutGon = (a,b) => a+b
 
 //Ko hỗ trợ hoisting
-//Ưu điểm : cú pháp ngắn, hay sử dụng khi viết callback (.map, filter)
-// ko có this riêng -> an toàn khi sử dụng với setTimeout, forEach()
+//Ưu điểm : cú pháp ngắn, hay sử dụng khi viết callback (.map, .filter)
+//ko có this riêng -> an toàn khi sử dụng với setTimeout, forEach()
 //lưu ý khi viết vs object
 //khi debug lỗi sẽ ko hiển thị tên trong stack trace
 
@@ -273,7 +274,7 @@
 //Khi người gọi ko truyền đủ tham số , JS tự động chuyển giá trị mặc định
 
 // function dangNhap(user, pass, moiTruong = "staging") {
-//     console.log(`${moiTruong} Đăng nhập : ${user} - ${pass}`);
+//     console.log(`${moiTruong} - Đăng nhập : ${user} - ${pass}`);
 // }
 
 // dangNhap("admin", "123456")
@@ -284,8 +285,8 @@
 //     console.log(`${ten}, ${tuoi}, ${email}, ${vaiTro}`);
 // }
 
-// taoTestUser("neko", "neko@vn.com")
-// //neu muon bo qua tham so giua
+//taoTestUser("neko", "neko@vn.com")
+//neu muon bo qua tham so giua
 // taoTestUser("neko2", undefined, "neko2@vn.com")
 
 //Quy tắc : Luôn đặt tham số default ở cuối , nếu có nhiều hơn 3 tham số thì mình sẽ dùng option object
@@ -315,13 +316,12 @@
 //     console.log(`${ten}, ${tuoi}, ${email}, ${vaiTro}`);
 // }
 
-// taoUser({ ten:'neko', email: 'neko@vn.com'})
+//taoUser({ ten:'neko', email: 'neko@vn.com'})
 
 //c2
 // function taoUser2({ten, tuoi = 25, email, vaiTro = 'tester'}) {
 //     console.log(`${ten}, ${tuoi}, ${email}, ${vaiTro}`);
 // }
-
 // taoUser2({ten: 'Neko2', email: 'neko2@gmail.com'})
 
 
@@ -346,7 +346,7 @@
 //Object destructuring
 //Bóc tách thuộc tính qua tên object
 
-// const response = {status : 200, body: "ok", headers: {}}
+//const response = {status : 200, body: "ok", headers: {}}
 
 // const { status , body}= response
 // console.log(status);
@@ -394,6 +394,46 @@
 //     [ "  search product  ", {browser: "   webkit    ", env: "   staging   "}, "  PASS  "],
 //     [ " ", {browser: "   chromium    ", env: "   dev   "}, "  PASS  "],
 // ]
+
+// function taoBaoCaoTest(item) {
+//     let totalValid = 0, inValid = 0;
+//     let pass = [], fail = [];
+
+//     for(let i=0;i< item.length;i++) {
+//         const [rawTestName, {browser, env} , rawStatus] = item[i];
+//         testName = rawTestName.trim();
+//         testBrowser = browser.trim();
+//         testEnv = env.trim();
+//         testStatus = rawStatus.trim();
+
+//         if(testName.length === 0) {
+//             inValid++;
+//             continue;
+//         }
+
+//         if(testStatus !== 'PASS' && testStatus !== 'FAIL') {
+//             inValid++;
+//         }
+//         if(testName!=='' && testStatus==='PASS') {
+//             const resultPass = `${testName} - ${testBrowser} - ${testEnv}`
+//             pass.push(resultPass);
+//             totalValid++;
+//         }
+//         if(testName!=='' && testStatus==='FAIL') {
+//             const resultFail = `${testName} - ${testBrowser} - ${testEnv}`
+//             fail.push(resultFail)
+//         }
+//     }
+
+//     return {
+//         totalValid,
+//         inValid,
+//         pass,
+//         fail
+//     }  
+// }
+
+// console.log(taoBaoCaoTest(testRuns))
 // Bài toán
 // // Viết hàm taoBaoCaoTest(testRuns) để tạo báo cáo từ danh sách kết quả test.
 // // Yêu cầu
@@ -472,7 +512,6 @@
 
 // console.log(taoBaoCaoTest(testRuns));
 
-
 // const status3 = "DONE";
 // if(!status3) {
 //     console.log("invalid");
@@ -488,7 +527,7 @@
 //sẽ tạo object mới
 
 // Chức năng : Sao chép và gộp mảng
-// const mangGoc = [1,2,3]
+//const mangGoc = [1,2,3]
 // const mangSaoChep = [...mangGoc]
 // mangSaoChep.push(9999)
 
@@ -507,6 +546,7 @@
 // const mangMoi = [0, ...mangGoc, 4, 5]
 // console.log(mangMoi);
 
+
 //Spread với object - Sao chép và ghi đè
 // const configMacDinh = {
 //     baseUrl: 'https://staging.neko.vn',
@@ -520,18 +560,18 @@
 //     baseUrl: "https://neko.vn",
 //     retries: 0
 // }
-// console.log(configProd);
+// //console.log(configProd);
 
 // const configDebug = {...configMacDinh, headless: false}
+// console.log(configDebug)
 
 //Spread trong tham số hàm
 //const danhSachGia = [10000, 20000, 30000]
-//Math.max ko nhận vào mảng , nhận tham số lẻ
-// const giaMax1 = Math.max(danhSachGia)
+// Math.max ko nhận vào mảng , nhận tham số lẻ
+//const giaMax = Math.max(danhSachGia)
 // const giaMax = Math.max(...danhSachGia)
 
-// console.log(giaMax1);
-// console.log(giaMax)
+// console.log(giaMax);
 
 //BT : Có dữ liệu như sau 
 // const configMacDinh = {
@@ -572,6 +612,7 @@
 //   slowestRespone: 3400
 // }
 
+
 // function taoCauHinhChayTest() {
 //     const configCuoi = { ...configMacDinh, ...configGhiDe }
 //     const tagsGop = [...tagsMacDinh, ...tagsThem]
@@ -604,8 +645,6 @@
 // }
 
 // console.log(taoCauHinhChayTest());
-
-
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Function callback (Hàm gọi lại)
 //Callback là 1 hàm A đc truyền vào làm tham số cho 1 hàm khác (hàm B) -> khi hàm B làm xong việc sẽ lôi hàm A ra để chạy
@@ -628,8 +667,7 @@
 //Chú ý ko có dấu ngoặc () ở hàm gọi lại
 // choBanTrong(quayLaiAn)
 
-// function layDuLieuTest() {return "Dữ liệu test"}
-
+//function layDuLieuTest() {return "Dữ liệu test"}
 // const ketQua = layDuLieuTest()
 // console.log(ketQua);
 // console.log( typeof ketQua);
@@ -640,7 +678,7 @@
 // console.log(typeof copyHam);
 
 //Bản thân : 1 hàm ko có return , sau khi chạy xong -> JS tự trả về giá trị mặc định là undefined
-//Quy tắc nhớ : khi truyền callbasck luôn viết tên hàm trần ( ko có dấu ())
+//Quy tắc nhớ : khi truyền callback luôn viết tên hàm trần ( ko có dấu ())
 //Callback có tham số : hàm nhận callback có thể truyền dữ liệu ngược lại cho callback khi gọi
 
 // function thongBaoKetQua(tenBaiTest, ketQua) {
@@ -657,18 +695,16 @@
 // chayTest("login thành công", thongBaoKetQua)
 // chayTest("đăng kí thiếu email", thongBaoKetQua)
 
-
 // function inThongBao () {
 //     console.log("Đã đợi xong");
 // }
 
-// //c1
+//c1
 // setTimeout(inThongBao, 5000)
 
 // //c2
 // setTimeout(function() {
 //     console.log("Đã đợi xong");
-    
 // }, 3000)
 
 // //c3
@@ -704,7 +740,6 @@
 //Filter - Lọc phần tử thỏa mãn điều kiện
 //Cú pháp : const mangLoc = mangGoc.filter((callBack)=> {
     //dieukien})
-
 //->Nó sẽ check điều kiện : nếu return true - giữ , false - bỏ
 
 // const sanPhamUI = [
@@ -713,11 +748,11 @@
 //     {ten: "Màn hình", gia: 300000, tonKho: true},
 //     {ten: "Tai nghe", gia: 200000, tonKho: true},
 // ]
-//const mangMoi = []
-// for(let sanPham of sanPhamUI) {
-//     if(sanPham.tonKho) {mangMoi.push(sanPham)}
-// }
-// console.log(mangMoi);
+// // const mangMoi = []
+// // for(let sanPham of sanPhamUI) {
+// //     if(sanPham.tonKho) {mangMoi.push(sanPham)}
+// // }
+// // console.log(mangMoi);
 
 // const mangMoi = sanPhamUI.filter((sanPham)=> {return sanPham.tonKho})
 // console.log(mangMoi);
@@ -734,7 +769,7 @@
 //     {id: 3, ten: "cat", role : "tester"},
 // ]
 
-// const mangMoi = users.find((user)=> user.role==="admin")
+// const mangMoi = users.find((user)=>  user.role==="admin")
 // console.log(mangMoi);
 
 // const userTester = users.find((user)=> user.role === 'tester')
