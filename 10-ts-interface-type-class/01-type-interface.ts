@@ -8,21 +8,21 @@
 //Giống như bản thiết kế (nghiêng về hình dạng)
 
 //Khai báo interface
-interface UserTest {
-    id: number;
-    name: string;
-    email: string;
-    age? : number;
-    readonly createdAt : Date;
-}
+// interface UserTest {
+//     id: number;
+//     name: string;
+//     email: string;
+//     age? : number;
+//     readonly createdAt : Date;
+// }
 
-const user : UserTest = {
-    id: 1,
-    name: 'neko',
-    email: 'neko@gmail.com',
-    createdAt: new Date()
-}
-//gán lại 
+// const user : UserTest = {
+//     id: 1,
+//     name: 'neko',
+//     email: 'neko@gmail.com',
+//     createdAt: new Date()
+// }
+// //gán lại 
 // user.createdAt = new Date() -> lỗi
 // console.log(user);
 
@@ -36,46 +36,45 @@ const user : UserTest = {
 //C1 : Dùng shorthand
 //C2 : Dùng arrow func
 
-interface Calculator {
-    //C1 : Cách phổ biến, khuyên nên dùng
-    add(a: number, b: number): number;
-    subtract(a: number, b:number): number;
+// interface Calculator {
+//     //C1 : Cách phổ biến, khuyên nên dùng
+//     add(a: number, b: number): number;
+//     subtract(a: number, b:number): number;
 
-    //C2 : ít dùng
-    multiply : (a: number, b: number) => number;
-    divide : (a: number, b: number) => number
-}
+//     //C2 : ít dùng
+//     multiply : (a: number, b: number) => number;
+//     divide : (a: number, b: number) => number
+// }
 
-const calc : Calculator = {
-    add(a,b) {
-        return a+b
-    },
+// const calc : Calculator = {
+//     add(a,b) {
+//         return a+b
+//     },
 
-    subtract(a,b) {
-        return a -b 
-    },
-    multiply : (a,b) => a*b,
-    divide : (a,b) => a/b,
-}
+//     subtract(a,b) {
+//         return a -b 
+//     },
+//     multiply : (a,b) => a*b,
+//     divide : (a,b) => a/b,
+// }
 
 // //Nhưng mình cũng có thể implement ngược lại vẫn hợp lệ
-const calc2 : Calculator = {
-    add : (a,b) => a+b ,
+// const calc2 : Calculator = {
+//     add : (a,b) => a+b ,
 
-    subtract(a,b) {
-        return a -b 
-    },
-    multiply(a,b) {
-       return a*b
-    } ,
-    divide : (a,b) => a/b,
-}
+//     subtract(a,b) {
+//         return a -b 
+//     },
+//     multiply(a,b) {
+//        return a*b
+//     } ,
+//     divide : (a,b) => a/b,
+// }
 
-console.log(calc2.add(4,5));
-console.log(calc2.divide(100,5));
+// console.log(calc2.add(4,5));
+// console.log(calc2.divide(100,5));
 
 
-// //
 // interface UserService {
 //     baseUrl : string;
 //     getUser(id: number) : Promise<{name: string; email: string}>;
@@ -90,6 +89,8 @@ console.log(calc2.divide(100,5));
 //         }
 //     }
 // }
+
+// console.log(userService.getUser(1))
 
 //Extends 
 //Tạo interface con từ cha, kế thừa toàn bộ thuộc tính và thêm cái mới
@@ -126,8 +127,9 @@ console.log(calc2.divide(100,5));
 // }
 
 // const superAdmin : SuperAdmin = {
-    
+   
 // }
+
 //Lưu ý :
 //Khi interface con khai báo lại 1 key đã có ở cha, TS bắt buộc kiểu mới phải tương thích (gán được ) với kiểu cha
 // interface Base {
@@ -172,10 +174,11 @@ console.log(calc2.divide(100,5));
 // async function runTest() {
 //     const user = await fakeGetUser(1)
 //     console.log(user.email);
-    
 // }
 
 // runTest()
+
+
 //Best Practice: Kết hợp interface làm hợp đồng, class implement
 // interface PageObject {
 //     url : string;
@@ -219,6 +222,10 @@ console.log(calc2.divide(100,5));
 
 // class ProductPageObj extends BasePage {
 //     url = "/login";
+//     async isLoaded() {
+//         console.log('Kiem tra product page')
+//         return true
+//     }
 
 // }
 
@@ -232,7 +239,7 @@ console.log(calc2.divide(100,5));
 //class ProductPage extends BasePage (thieu isLoad)
 //nhờ hợp đồng này, cả team chắc chắn page nào cũng có đủ method chuẩn
 
-//bỏ code này mọi page ko cần viết lại hàm goto và isloaded
+//bỏ code lặp. mọi page ko cần viết lại hàm goto và isloaded
 //khi hợp đồng thay đổi TS sẽ báo hết chỗ cần sửa , ví dụ thêm method
 //Quy tắc interface lo phần "phải có gì" (an toàn kiểu, thống nhất team) .Còn class extends lo phần (làm ntn) -> tái sử dụng code
 
@@ -273,6 +280,7 @@ console.log(calc2.divide(100,5));
 
 // const api = new ApiService()
 // api.log()
+// console.log(api.toJSON())
 
 //2.TYPE ALIAS
 //Mình có thể dán nhãn lên bất kì thứ gì (obj, string, number, function, type)
@@ -336,6 +344,7 @@ console.log(calc2.divide(100,5));
 //     }
 // }
 
+
 //Gộp kiểu : (intersection type & )
 //Dùng gộp nhiều type thành 1
 //ví dụ
@@ -353,24 +362,29 @@ console.log(calc2.divide(100,5));
 //     permission : string []
 // }
 // const admin : AdminUser = {
-
+    
 // }
 
-// //Khác key
+//Khác key
 // type A1 = {id: string}
 // type B1 = {email: string}
 // type C1 = A1 & B1
 
-// //Trùng key , cùng kiểu 
+//Trùng key , cùng kiểu 
 // type A2 = {id: number}
 // type B2 = {id: number}
 // type C2 = A2 & B2
+// const demo1 : C2 ={
+//     id: 3
+// }
 
 //Trùng key , khác kiểu -> tránh trường hợp này
 // type A3 = {id: string}
 // type B3 = {id: number}
 // type C3 = A3 & B3
-// //Type của thằng C3 -> kiểu never
+
+
+//Type của thằng C3 -> kiểu never
 // const c3 : C3 = {id: 1}
 
 // interface IA {
@@ -382,7 +396,6 @@ console.log(calc2.divide(100,5));
 // }
 
 // interface IC extends IA, IB {
-
 // }
 
 //Kết luận : Các kiểu chỉ type làm được

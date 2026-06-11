@@ -1,6 +1,6 @@
 //null và undefined
 //undefined: chưa đc định nghĩa, trạng thái mặc định mà do chính JS gán cho biến của bạn khi bạn bỏ quên
-//null : trống rỗng, vô giá trị -> trạng thái do con ng chủ động gán vào
+//null : trống rỗng, vô giá trị -> trạng thái do con người chủ động gán vào
 
 //Khi nào thì gặp undefined:
 //1.khai báo biến nhưng quên chưa gán giá trị

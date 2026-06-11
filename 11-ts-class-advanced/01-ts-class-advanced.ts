@@ -17,7 +17,7 @@
 // console.log(buddy.greet());
 // console.log(buddy.bark());
 
-// //TH2 : class con có constructor riêng () thì phải gọi super
+//TH2 : class con có constructor riêng () thì phải gọi super
 
 // class AnimalBase2 {
 //     constructor(public name: string) {}
@@ -35,8 +35,7 @@
 
 // const dog2 = new Dog2("buddy", "golden")
 
-// //TH đặc biệt : cha ko có constructor , nhưng con có constructor thì vẫn phải gọi super
-
+//TH đặc biệt : cha ko có constructor , nhưng con có constructor thì vẫn phải gọi super
 // class Base {
 //     sayHi() {
 //         return `Hi from base`

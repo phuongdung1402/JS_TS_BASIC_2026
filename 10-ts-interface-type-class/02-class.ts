@@ -116,6 +116,7 @@
 //     console.log(appC.appName);
 //     console.log(appC.version);
 
+
 //Dấu ! : field này chắc chắn có giá trị trc khi tôi dùng nó, dù hiện tại chưa gán giá trị
 // class UserOK {
 //     name!: string;
@@ -143,7 +144,6 @@
 //             throw new Error("Chua co ket noi")
 //         }}
 //         return `${this.connection3} ${sql}`
-
 //     }
 
 //     isConnected(): boolean {
@@ -213,10 +213,10 @@
 // }
 
 // const tcg2 = new TestConfig2();
-// tcg2.summary()
+// console.log(tcg2.summary())
 
 // const tcg3 = new TestConfig2("firefox");
-// tcg3.summary()
+// console.log(tcg3.summary())
 
 
 //Access modifier :phân quyền truy cập
@@ -256,7 +256,7 @@
 
 // const account = new BankAccount("neko", "2000000", "123456")
 // account.getBalance('123456')
-// console.log(account.balance);
+//console.log(account.balance);
 
 
 
@@ -272,7 +272,7 @@
 //     ) {}
 
 //     protected getFullUrl () : string {
-//         return `${this.baseUrl} ${this.url}`
+//         return `${this.baseUrl} - ${this.url}`
 //     }
 // }
 
@@ -291,7 +291,7 @@
 // const loginPage3 = new LoginPage3();
 // loginPage3.goto();
 // console.log(loginPage3.url);
-//console.log(loginPage3.secret);
+// console.log(loginPage3.baseUrl);
 
 // class User3 {
 //     // _convention prefix
@@ -331,15 +331,17 @@
 //         this.results.push({name, passed})
 //     }
 
+//     //return object
 //     getSummary() : [total: number, passed: number, failed:number] {
 //         const passed = this.results.filter((r)=> r.passed).length;
 //         return {
 //             total: this.results.length,
 //             passed,
-//             failed: this.results.length - passed
+//             failed: this.results.length - passed,
 //         }
 //     }
 
+//     //return array
 //     getFailedTest () : string [] {
 //         return this.results.filter((r)=> !r.passed).map((r)=> r.name)
 //     }
@@ -386,9 +388,9 @@
 // b.increment()
 // c.increment()
 
-// // console.log(a.count)
-// // console.log(b.count)
-// // console.log(c.count)
+// console.log(a.count)
+// console.log(b.count)
+// console.log(c.count)
 
 // console.log(Counter.totalCreated);
 // Counter.showTotal()
@@ -399,7 +401,7 @@
     
 // }
 // const childCounter = new CounterChild("child")
-// childCounter.totalCreated -> lỗi , ko gọi đc
+//childCounter.totalCreated //-> lỗi , ko gọi đc
 
 // console.log(CounterChild.totalCreated);
 

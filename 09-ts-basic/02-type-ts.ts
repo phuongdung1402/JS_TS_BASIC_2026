@@ -76,7 +76,9 @@
 
 // let hocSinhDiHoc : HocSinh | null = null
 // hocSinhDiHoc = {ten: 'Dihoc'}
+// console.log(hocSinhDiHoc)
 // hocSinhDiHoc = null
+// console.log(hocSinhDiHoc)
 
 //Nếu dữ liệu có sử dụng undefined : dữ liệu có thể chưa tồn tại ko đc truyền 
 //Nếu dữ liệu có sử dụng null : tôi biết biến này, nhưng hiện tại ko có
@@ -116,12 +118,12 @@
 // userTimDuoc = undefined
 
 
-// function hienThiMaDonHang(orderId: string| number) {
-//     if(typeof orderId === 'string') {
-//         return orderId.toUpperCase()
-//     }
-//     return orderId.toString()
-// }
+function hienThiMaDonHang(orderId: string| number) {
+    if(typeof orderId === 'string') {
+        return orderId.toUpperCase()
+    }
+    return orderId.toString()
+}
 
 //Literal string union : chọn trong danh sách cố định
 //Nghĩa là thay vì string quá rộng ta liệt kê chính xác giá trị đc phép
@@ -183,6 +185,7 @@
 //Thuộc tính readonly trong mảng (chỉ đọc , ko sửa dữ liệu)
 // const testRoles : readonly string [] = ["admin", "editor"]
 // console.log(testRoles[0]);
+
 // //Các method dùng trong array (giống với js)
 // type ApiUser = {
 //     id: number;
