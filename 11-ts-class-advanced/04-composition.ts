@@ -182,4 +182,212 @@ class Eagle {
 //Composition : cần linh hoạt muốn tái dụng module độc lập
 //->module các phần logic có khả năng tái sử dụng -> class và inject hay gọi composition từ đó
 
-//
+//Thay vì nhét mọi thứ vào 1 basepage rồi bắt mọi page con kế thừa, ta sẽ tách từng khả năng thành 1 helper riêng
+//mỗi page object chứa (has - a)
+
+
+class NavigationHelper {
+    constructor(private baseUrl: string) {}
+
+    goTo(path: string) {
+        console.log(`Dieu huong ${this.baseUrl} ${path}`);
+        
+    }
+}
+
+class ScreenShotHelper{
+    capture(name: string) {
+        console.log(`Chup man hinh ${name}.png}`)
+    }
+}
+
+class LoginPage9{
+    private nav = new NavigationHelper("https://autoneko.com");
+    private scr = new ScreenShotHelper()
+
+    async login(username: string, password: string) : Promise<void> {
+        this.nav.goTo("/login")
+        console.log(`Nhap username: ${username}`);
+        console.log(`Nhap password: ${password}`);
+        this.scr.capture("after-login")
+        
+    }
+}
+
+class ProductPage {
+    private nav = new NavigationHelper("https://autoneko.com");
+    async openProduct(id: number): Promise<void> {
+        this.nav.goTo(`/product/${id}`)
+        console.log(`Da mo san pham ${id}`);
+    }
+
+}
+
+const loginpage9 = new LoginPage9()
+
+//Dependency injection
+//Tiêm phụ thuộc - thay vì class tự tạo thứ nó cần (dependency), nó nhận từ bên ngoài đưa vào
+//DI có 3 yếu tố :
+//Dependency : thứ class cần để hoạt động
+//injection : ng tạo ra dependency để đưa cho class
+//consumer: class nhận dependency và sử dụng
+
+//Nhược điểm composition
+//1 . ko test độc lập đc , vì loginpage9 tự new dependency bên trong
+//2 . ko swap được - muốn đổi implementation phải sửa code -> mỗi lần đổi env/ loại navigation -> sửa code -> mỗi lần sửa phải test lại toàn bộ
+//3 . tight coupling - mọi sự thay đổi của helper lan vào page -> dẫn tới mọi page phải sửa theo
+
+//Cách nhận : chta thường nhận qua interface (abstraction), ko phải class cụ thể
+//Viết lại vd trên
+//B1 : Định nghĩa interface - đây là dependency
+interface INavigation {
+    goTo(path: string) : void
+}
+
+interface IScreenshot {
+    capture(name: string) : void
+}
+
+//B2 : Implement interface - những thứ sẽ đc inject -> injector
+
+class RealNavigation implements INavigation {
+    constructor(private baseUrl: string) {}
+
+    goTo(path: string) {
+        console.log(`Dieu huong ${this.baseUrl} ${path}`);
+        
+    }
+}
+
+class RealScreenshot implements IScreenshot {
+    capture(name: string) {
+        console.log(`Chup man hinh ${name}.png`);
+        
+    }
+}
+
+//Testing : unittest - mocktesting ( FE BE )
+
+class MockNavigation implements INavigation {
+    goTo(path: string): void {
+        console.log('mock');
+        
+    }
+}
+
+class MockScreenShot implements INavigation {
+    goTo(path: string): void {
+        console.log('mock');
+        
+    }
+}
+
+class Loginpage10 {
+    //nhận interface - ko phải class cụ thể
+    //loginPage10 ko biết và ko cần biết nav, scr là REAL hay MOCK
+    constructor(private nav : INavigation, private scr: IScreenshot) {}
+    async login(username: string, password: string) : Promise<void> {
+        this.nav.goTo("/login")
+        console.log(`Nhap username: ${username}`);
+        console.log(`Nhap password: ${password}`);
+        this.scr.capture("after-login")
+        
+    }
+}
+
+//sử dụng
+const realLogin = new Loginpage10(new RealNavigation("http/...", "chrome"));
+
+//TRONG TS : Kiểu dữ liệu của 1 tham số có thể là interface, type alias, hoặc class
+interface ILogger {
+    log(msg: string) : void;
+}
+
+abstract class AbsLogger {
+    abstract log(msg: string) : void
+}
+
+class Logger {
+    log(msg: string) {
+        console.log('Default');
+    }
+}
+
+class ConsoleLogger implements ILogger {
+    log(msg: string): void {
+        console.log('Console logg');
+        
+    }
+}
+
+class UserService {
+    constructor(private Logger: ILogger | AbsLogger | Logger) {}
+}
+
+new UserService(new ConsoleLogger())
+//TS dùng kiểu cấu trúc, nó ko quan tâm logger đc khai báo là interface, abstract, hay class
+//nó chỉ quan tâm obj truyền vào có method là log(msg: string) : void ko -> có hợp lệ
+//tính đa hình nền tảng của DI - Constructor có thể nhận bất kì obj nào thỏa mãn cái shape đấy
+// hi gọi tới thg class, phụ thuộc vào thg đc tiêm vào 
+//gọi abstract , hành vi quyết định lúc runtime
+
+
+//Ví dụ interface + inheritance + composition + DI
+
+//Interface - dependency
+interface IHttpClient {
+    get(path: string) : Promise<string>
+    post(path: string, body: string) : Promise<string>
+}
+
+interface IValidator {
+    checkStatus(response: string, expected: string) : boolean;
+    checkContain(response: string, keyword: string) : boolean
+}
+
+interface IAuth {
+    login(user:  string) : void;
+    logout() : void
+}
+
+//Implementation - injector
+class RealHttpClient implements IHttpClient {
+    constructor(private baseUrl: string) {
+    
+    }
+
+    async get(path: string): Promise<string> {
+        console.log(`Get ${this.baseUrl} ${path}`);
+        return `{"status": "ok"}`
+
+    }
+
+    async post(path: string, body: string) : Promise<string> {
+        console.log(`POST ${this.baseUrl} ${path}`);
+        return `{"id":1, "created": true}`
+        
+    }
+}
+
+class ReadValidator implements IValidator {
+    checkStatus(response: string, expected: string): boolean {
+        const ok = response.includes(`"status": `)
+    }
+
+    checkContains(response: string, keyword: string): boolean {
+        const ok = response.includes(keyword)
+    }
+}
+
+class RealAuth implements IAuth {
+    private token : string | null = null
+
+    login (user: string) : void {
+        this.token = `token-${user}-xxx`
+    }
+
+    logout(){
+        this.
+        
+    }
+}
