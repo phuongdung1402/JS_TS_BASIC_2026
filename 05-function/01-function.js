@@ -39,7 +39,7 @@
 // }
 
 // let tienThanhToan = tinhTongTien(100,2)
-//console.log(tienThanhToan);
+// console.log(tienThanhToan);
 
 // function laySoMayMan() {
 //     return 8
@@ -122,6 +122,7 @@
 // }
 
 // console.log(utils.lamSach("   HELLO     "));
+
 
 //Chọn hàm theo điều kiện
 // const moiTruong = "staging"

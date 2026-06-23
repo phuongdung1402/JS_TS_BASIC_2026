@@ -5,8 +5,7 @@
 
 //VD : Khi test API : có rất nhiều API ví dụ user, product, order
 //Điểm chung là : sẽ có những method ví dụ như thêm , sửa , xóa , update (CRUD)
-//T có thể là bất cứ thứ gì , có thể là string, number, boolean,... điều này linh hoạt, nhưng có 1 vấn đề : mình 
-//ko thể dùng bất kì property nào của T , vì TS ko biết T là kiểu gì
+
 
 //Generic constraints : giới hạn kiểu được phép
 class Repository<T> {
@@ -20,6 +19,9 @@ class Repository<T> {
     findById(id: number) : T | undefined {
         return this.items.find(item => item.id === id)
     }
+// ->T có thể là bất cứ thứ gì , có thể là string, number, boolean,... điều này linh hoạt, nhưng có 1 vấn đề : mình 
+//ko thể dùng bất kì property nào của T , vì TS ko biết T là kiểu gì
+//-> để giải quyết vấn đề này dùng generic constraints - giới hạn kiểu đc phép
 
     getAll() : T[] {
         //trả về 1 mảng , copy mảng gốc
@@ -31,6 +33,7 @@ class Repository<T> {
     }
 }
 
+//mô hình hóa toàn bộ dữ liệu, thực thể API thành các interface
 interface User {
     id: number,
     name: string,
@@ -43,7 +46,7 @@ interface Product {
     price: number
 }
 
-const userRepo = new Repository<User>
+const userRepo = new Repository<User>()
 userRepo.add({id: 1, name: 'neko1', email:'neko1@gmail.com'})
 userRepo.add({id: 2, name: 'neko2', email: 'neko2@gmail.com'})
 console.log(userRepo.count());
@@ -57,6 +60,7 @@ const productRepo = new Repository<Product>
 interface Hasid {
     id: number;
 }
+//mở rộng 1 interface ta dùng extends
 interface Order extends Hasid {
     product : string,
     total: number

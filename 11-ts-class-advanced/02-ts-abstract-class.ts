@@ -266,24 +266,26 @@ abstract class BaseTest {
 // runTest()
 
 //Lý do tại sao ko đưa luôn interface vào làm abstract method:
-//1. Lý do 1 : interface có thể tái sử dụng mà ko cần extends
-//Nếu 2 class thuộc 2 hệ khác nhau thì ta nên dùng interface để đáp ứng sự tái sự dụng
+//1. Lý do 1 : interface có thể tái sử dụng mà ko cần extends ( nếu extends thì sẽ vô hình chung cõng thêm các method khác
+//ko cần thiết)
+//Nếu 2 class thuộc 2 hệ khác nhau thì ta nên dùng interface để đáp ứng sự tái sử dụng
 // class ApiHealthCheck implements Verifiable {
 //     verify(): boolean {
 //         return true;
 //     }
 // }
 
-// //2. Lý do 2 : interface cho phép 1 class có nhiều vai trò
+//2. Lý do 2 : interface cho phép 1 class có nhiều vai trò ( 1 class có thể implement nhiều interface )
 // class CheckoutTest extends BaseTest implements Runnable, Verifiable {
 
 // }
 //mỗi 1 interface đóng 1 vai trò riêng
+
 //3. Lý do 3 : interface giúp cho việc mock testing dễ hơn
-//mock testing : tạo môi trường ảo, fake số liệu ( dùng test api )
+//mock testing : tạo môi trường ảo, fake số liệu , giả lập luồng chạy ( dùng test api )
 //test UI : ko dùng mock testing
 
-// regular class ko thể làm class cha tốt nếu trong các trường hợp
+// regular class ko thể làm class cha tốt nếu 1 trong các trường hợp
 //1.class con phải tuân theo 1 số quy tắc gì đó (implement abstract class)
 //2.abstract class : ko cần phải tạo instance - new ( sai logic )
 // class BasePage7 {
@@ -304,6 +306,7 @@ abstract class BaseTest {
 // }
 
 // class CartPage extends BasePage7 {
+// quên viết method isLoad()
 //     addToCart() : void {}
 // }
 
@@ -336,5 +339,5 @@ abstract class BaseTest {
 // const authClient = new AuthHttpClient("abc", "tokenAbc")
 
 //KẾT LUẬN :
-//Interface làm cha : khi ko có code chung chia sẻ, và phải cần đa kế thừa
+//Interface làm cha : khi ko có code chung chia sẻ, và cần đa kế thừa
 //Abstract class làm cha : khi mong muốn ép class con cần có các method cần có . class cha ko có ý nghĩa khi đứng 1 mình
