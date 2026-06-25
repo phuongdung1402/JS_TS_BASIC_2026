@@ -148,99 +148,99 @@
 // fill('userName', 'neko123')
 
 //VD : Quản lí danh sách API endpoint
-const API_ROUTES = {
-    LOGIN: "/api/auth/login",
-    REGISTER:"/api/auth/register",
-    PROFILE: "/api/auth/profile"
-} as const
+// const API_ROUTES = {
+//     LOGIN: "/api/auth/login",
+//     REGISTER:"/api/auth/register",
+//     PROFILE: "/api/auth/profile"
+// } as const
 
 
-type ApiRoutesType = typeof API_ROUTES;
-//TH A : Lấy ds key 
-type RouteKey = keyof typeof API_ROUTES
+// type ApiRoutesType = typeof API_ROUTES;
+// //TH A : Lấy ds key 
+// type RouteKey = keyof typeof API_ROUTES
 
 //TH B : Lấy ds value
 //biến kiểu dữ liệu -> thế giới kiểu qua typeof
 //lấy keyof typeof của API_Route -> bộ key
 //từ bộ key -> dùng để tra giá trị của obj -> lấy ra value tương ứng
-type RouthPath = typeof API_ROUTES[keyof typeof API_ROUTES]
+//type RouthPath = typeof API_ROUTES[keyof typeof API_ROUTES]
 //-> typeof OBJ [keyof typeof OBJ]
 //Lợi ích:
-function goTo(path: RouthPath) {}
-goTo('')
+// function goTo(path: RouthPath) {}
+// goTo('')
 
 //GENERIC TYPE 
-function boSoVaoHop(x: number) : number {
-    return x
-}
+// function boSoVaoHop(x: number) : number {
+//     return x
+// }
 
-function boStringVaoHop (x: string) : string {
-    return x;
-}
+// function boStringVaoHop (x: string) : string {
+//     return x;
+// }
 
-function boCaiGiCungDuoc(x: any) : any {
-    return x
-}
+// function boCaiGiCungDuoc(x: any) : any {
+//     return x
+// }
 
-const kq = boCaiGiCungDuoc(200)
+// const kq = boCaiGiCungDuoc(200)
 //hạn chế dùng any
 
 //Sinh ra 1 kiểu là generic<T> -> Tạo ra 1 cái biến đại diện cho type ( thường đặt tên là T)
 //Nó hoạt động như sau : user ném vào type gì, hàm sẽ ghi nhớ type đó là T , hàm trả về kết quả cũng là T
 
-function caiHopThanKy<T>(data : T) : T {
-    return data
-}
+// function caiHopThanKy<T>(data : T) : T {
+//     return data
+// }
 
-const so = caiHopThanKy(100)
-const chu = caiHopThanKy("abcd");
-
-
-//Cú pháp generic
-//trong func (arrow ) thì generic đặt trc dấu ngoặc tròn
-const getFirstItem = <T>(arr: T[]) : T | undefined => {
-    return arr[0]
-}
-
-const n1 = getFirstItem(["1","2", "3"])
-const n2 = getFirstItem([4,5,6])
+// const so = caiHopThanKy(100)
+// const chu = caiHopThanKy("abcd");
 
 
-//generic trong interface( rất hay dùng trong API)
-interface ApiResponse<Data> {
-    status: number;
-    message: string;
-    data: Data
-}
+// //Cú pháp generic
+// //trong func (arrow ) thì generic đặt trc dấu ngoặc tròn
+// const getFirstItem = <T>(arr: T[]) : T | undefined => {
+//     return arr[0]
+// }
 
-//định nghĩa data cụ thể
-interface User {
-    id: number;
-    name: string
-}
-interface Product {
-    sku: string;
-    price: number
-}
+// const n1 = getFirstItem(["1","2", "3"])
+// const n2 = getFirstItem([4,5,6])
 
-//sử dụng
-const userRes: ApiResponse<User> ={
-    status: 200,
-    message: "Success",
-    data: {
-        id: 1,
-        name: 'Tung'
-    }
-}
 
-const productUser : ApiResponse<Product> = {
-    status: 200,
-    message: "Success",
-    data : {
-        sku: "IP15",
-        price: 300
-    }
-}
+// //generic trong interface( rất hay dùng trong API)
+// interface ApiResponse<Data> {
+//     status: number;
+//     message: string;
+//     data: Data
+// }
+
+// //định nghĩa data cụ thể
+// interface User {
+//     id: number;
+//     name: string
+// }
+// interface Product {
+//     sku: string;
+//     price: number
+// }
+
+// //sử dụng
+// const userRes: ApiResponse<User> ={
+//     status: 200,
+//     message: "Success",
+//     data: {
+//         id: 1,
+//         name: 'Tung'
+//     }
+// }
+
+// const productUser : ApiResponse<Product> = {
+//     status: 200,
+//     message: "Success",
+//     data : {
+//         sku: "IP15",
+//         price: 300
+//     }
+// }
 
 //generic trong class 
 //class TenClass<T> {}
@@ -248,73 +248,73 @@ const productUser : ApiResponse<Product> = {
 //Generic trong type cú pháp tương tự vs interface, nhưng thường dùng cho các cấu trúc dữ liệu đơn giản
 //vdu như phân trang , hoặc các cặp giá trị
 
-type PaginatedList<T> = {
-    items: T[];
-    total: number;
-    page: number
-}
+// type PaginatedList<T> = {
+//     items: T[];
+//     total: number;
+//     page: number
+// }
 
-type Student = {id: number, name: string}
-const studentList : PaginatedList<Student> = {
-    items : [{id: 1, name: 'Tung'}],
-    total: 20,
-    page: 1
-}
+// type Student = {id: number, name: string}
+// const studentList : PaginatedList<Student> = {
+//     items : [{id: 1, name: 'Tung'}],
+//     total: 20,
+//     page: 1
+// }
 
 //Generic constrainst ( ràng buộc )
 //Mình muốn kiểu T phải thỏa mãn điều kiện nào đó , sẽ viết thêm extends
-function logLength<T>(arg: T) {
-    console.log(arg.length); //-> lỗi
-}
-interface HasLength {
-    length: number
-}
+// function logLength<T>(arg: T) {
+//     console.log(arg.length); //-> lỗi
+// }
+// interface HasLength {
+//     length: number
+// }
 
-function logLength1<T extends HasLength>(arg: T) {
-    console.log(arg.length);
-}
+// function logLength1<T extends HasLength>(arg: T) {
+//     console.log(arg.length);
+// }
 
-logLength1('hello world')
-logLength1([1,2,3])
-logLength({length: 2, value: "abc"})
-logLength1(123) //-> lỗi
+// logLength1('hello world')
+// logLength1([1,2,3])
+// logLength({length: 2, value: "abc"})
+// logLength1(123) //-> lỗi
 
-//Cách viết khác:
-function logLength2<T extends {length: number}>(arg: T) {
-    console.log(arg.length);
-}
+// //Cách viết khác:
+// function logLength2<T extends {length: number}>(arg: T) {
+//     console.log(arg.length);
+// }
 
-function upperCase<T extends string> (s: T) {
-    return s.toUpperCase()
-}
+// function upperCase<T extends string> (s: T) {
+//     return s.toUpperCase()
+// }
 
-upperCase('abc')
-upperCase(123) //-> lỗi
+// upperCase('abc')
+// upperCase(123) //-> lỗi
 
-type RESULT = "PASS" | "FAIL" | "SKIP"
-function ghiKetQua<T extends RESULT>(status: T) {
-    console.log(status);
-}
+// type RESULT = "PASS" | "FAIL" | "SKIP"
+// function ghiKetQua<T extends RESULT>(status: T) {
+//     console.log(status);
+// }
 
-ghiKetQua('')
-//T extends X = "bất kì gtri nào thuộc kiểu T đều phải đc dùng ở chỗ cần kiểu X", tức là T là 1 tập con của X
+// ghiKetQua('')
+// //T extends X = "bất kì gtri nào thuộc kiểu T đều phải đc dùng ở chỗ cần kiểu X", tức là T là 1 tập con của X
 
-function xuLy<T extends {id: number} & {name: string}>(item : T) {
-    console.log(item.id);
-    console.log(item.name);
+// function xuLy<T extends {id: number} & {name: string}>(item : T) {
+//     console.log(item.id);
+//     console.log(item.name);
     
-}
+// }
 
 //Generic mặc định ( default type)
 //Ý nghĩa : nếu ng gọi ko chỉ định T, thì coi như T là kiểu mặc định này
 //nó giúp mình vừa giữ đc tính linh hoạt của generic, vừa ko bắt ng dùng phải gõ type ở trường hợp phổ biến
 
-interface StorageBox<T = string> {
-    item: T
-}
+// interface StorageBox<T = string> {
+//     item: T
+// }
 
-const box1 : StorageBox = {item: "hello"}
-const box2 : StorageBox<number> = {item : 2}
+// const box1 : StorageBox = {item: "hello"}
+// const box2 : StorageBox<number> = {item : 2}
 
 //Generic với nhiều tham số 
 //Thực tế 1 hàm hoặc 1 type thường sẽ giữ nhiều mối  hiệu kiểu cùng lúc
@@ -325,76 +325,122 @@ const box2 : StorageBox<number> = {item : 2}
 //tạo 1 hàm makePair -> nhận 2 giá trị bất kì và trả về kiểu tuple [first, second] : 
 //TS phải nhớ vị trí thứ nhất là gì và vị trí thứ 2 là kiểu gì
 
-function makePair<TFirst, TSecond>(first: TFirst, second: TSecond) : [TFirst, TSecond] {
-    return [first, second]
-}
+// function makePair<TFirst, TSecond>(first: TFirst, second: TSecond) : [TFirst, TSecond] {
+//     return [first, second]
+// }
 
-const pair1 = makePair("hello", 123)
-console.log(pair1[0].toUpperCase());
-console.log(pair1[1].toFixed(2));
+// const pair1 = makePair("hello", 123)
+// console.log(pair1[0].toUpperCase());
+// console.log(pair1[1].toFixed(2));
 
-const pair2 = makePair(true, {id: 1, name: 'neko'})
-console.log(pair2[0] === true);
-console.log(pair2[1].name);
+// const pair2 = makePair(true, {id: 1, name: 'neko'})
+// console.log(pair2[0] === true);
+// console.log(pair2[1].name);
 
 
 //API trả về thành công hoặc thất bại
 //-------
-interface ApiError {
-  code: number;
-  message: string;
-}
+// interface ApiError {
+//   code: number;
+//   message: string;
+// }
 
-type ApiSuccess<Tdata> = {
-  success: true;
-  data: Tdata;
-  error: null;
-};
+// type ApiSuccess<Tdata> = {
+//   success: true;
+//   data: Tdata;
+//   error: null;
+// };
 
-type ApiFailure<TError> = {
-  success: false;
-  data: null;
-  error: TError;
-};
+// type ApiFailure<TError> = {
+//   success: false;
+//   data: null;
+//   error: TError;
+// };
 
-type ApiResult<TData, TError = ApiError> =
-  | ApiSuccess<TData>
-  | ApiFailure<TError>;
+// type ApiResult<TData, TError = ApiError> =
+//   | ApiSuccess<TData>
+//   | ApiFailure<TError>;
 
-//Api dang nhap
+// //Api dang nhap
 
-interface User3 {
-  id: number;
-  email: string;
-  role: "admin" | "user";
-}
+// interface User3 {
+//   id: number;
+//   email: string;
+//   role: "admin" | "user";
+// }
 
-interface LoginError {
-  field: "email" | "password";
-  reason: string;
-}
+// interface LoginError {
+//   field: "email" | "password";
+//   reason: string;
+// }
 
-const sucessRes: ApiResult<User3, LoginError> = {
-  success: true,
-  data: { id: 1, email: "2", role: "admin" },
-  error: null,
-};
+// const sucessRes: ApiResult<User3, LoginError> = {
+//   success: true,
+//   data: { id: 1, email: "2", role: "admin" },
+//   error: null,
+// };
 
-const failedRes: ApiResult<User3, LoginError> = {
-  success: false,
-  data: null,
-  error: {
-    field: "email",
-    reason: "sai email",
-  },
-};
+// const failedRes: ApiResult<User3, LoginError> = {
+//   success: false,
+//   data: null,
+//   error: {
+//     field: "email",
+//     reason: "sai email",
+//   },
+// };
 
-function printLoginResult(result: ApiResult<User3, LoginError>) {
-  if (result.success) {
-    //Ts biết result.data là user
-    console.log(result.data.role);
-    console.log(result.data.id);
-  } else {
-    console.log(result.error.reason);
-  }
-}
+// function printLoginResult(result: ApiResult<User3, LoginError>) {
+//   if (result.success) {
+//     //Ts biết result.data là user
+//     console.log(result.data.role);
+//     console.log(result.data.id);
+//   } else {
+//     console.log(result.error.reason);
+//   }
+// }
+
+// //thường kết hợp với constraints ( extends )
+
+// const userData = {
+//     name:'neko',
+//     age: 30,
+//     active: true
+// }
+//viết 1 hàm nhận vào 1 obj -> và tham số thứ 2 là tự động điền các key
+
+//TKey bị ràng buộc chỉ đc là key của TObject
+//TObject đc suy luận từ obj truyền vào
+// function getProperty<TObject, Tkey extends keyof TObject>(obj: TObject, key: Tkey) : TObject[Tkey] {
+//     return obj[key]
+// }
+
+// const userNameData = getProperty(userData, 'name')
+
+//VD khác :
+//menu chia 2 bên rõ ràng : đồ uống, đồ ăn
+// interface Menu {
+//     drinks : {
+//         coffee: 'Ca phe den',
+//         tea: 'Tra dao',
+//         milk : 'Sua tuoi'
+//     };
+//     food: {
+//         bread: 'Banh mi',
+//         pizza: 'Pizza xuc xich',
+//         burger: 'Banh mi kep'
+//     }
+// }
+
+// //viết 1 hàm tự gợi ý category là drink hay food -> gợi ý là món gì ở trong category
+// function orderMenu(category: string,  item: string) {
+//     console.log(`Goi mon ${item} trong ${category}`);
+// }
+
+// //Tư duy : chta cần 1 biến n để đại diện cho category KH chọn
+// //tham số đầu tiên : category -> N ( N phải là 1 trong các ngăn của menu) -> keyof menu
+// //tham số thứ 2 : item -> keyof menu[N]
+// function orderSmart<N extends keyof Menu>(category : N, item: keyof Menu[N]) {
+//     console.log(`Đang order... ${String(item)}`);
+// }
+// orderSmart('drinks', 'tea')
+// orderSmart('food', 'pizza')
