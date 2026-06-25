@@ -32,7 +32,7 @@
 // }
 
 // const chaoNeko = taoMayChao("Neko")
-//console.log(chaoNeko);
+// console.log(chaoNeko);
 // chaoNeko()
 
 //Hình thái 2: Callback : chạy trễ sau đó ko cần return
