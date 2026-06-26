@@ -89,50 +89,64 @@ const loginTestData = [
 
 
 function taoPayloadDangNhap(form, options) {
-    let invalid = 0
+    // let invalid = 0
     let isValid = true
-    let payload = ''
+    // let payload = ''
     let error = []
     let pass = []
-    //const rememberBoolean = ["true", "on", "yes"]
+    const rememberBoolean = ["true", "on", "yes"]
+    let rememberChuanHoa =''
 
+    
+    //YC2 : Dùng object destructuring + default value để lấy dữ liệu từ options
     let { defaultRole, allowedRoles, minPasswordLength } = options
-    if (!defaultRole) { defaultRole = 'guest' }
-    if (!minPasswordLength) { minPasswordLength = 8 }
+    // if (!defaultRole) { defaultRole = 'guest' }
+    // if (!minPasswordLength) { minPasswordLength = 8 }
+
 
     for (const data of form) {
+        //YC1 : Dùng object destructuring để lấy dữ liệu từ formInput.
         let { name, formInput: { username, password, role, rememberMe, device } } = data
+        //YC3 : Chuẩn hóa dữ liệu
         const nameChuanHoa = username.trim().toLowerCase()
         const passChuanHoa = password.trim()
-        const roleChuanHoa = role.trim().toLowerCase()
+        let roleChuanHoa = role.trim().toLowerCase()
+        if(roleChuanHoa === '') {isValid = false, roleChuanHoa = defaultRole}
         const deviceChuanHoa = device.trim()
-        let rememberChuanHoa = rememberMe
+    
+        if(typeof rememberMe === 'string') {
+            isValid = false
+            rememberChuanHoa = rememberBoolean.includes(rememberMe) ? true : false
+        } else {
+            rememberChuanHoa = rememberMe
+        }
 
         //if (typeof rememberMe === 'string') { rememberChuanHoa = rememberMe.trim().toLowerCase() }
 
-        if(rememberMe === true || rememberMe === 'yes' || rememberMe === 'on') {
-            rememberChuanHoa = true
-        } else {
-            rememberChuanHoa = false
-        }
-
-        if (nameChuanHoa === '' || nameChuanHoa.includes(' ')) { invalid++ }
-        if (passChuanHoa.length < minPasswordLength) { invalid++ }
-        if (!allowedRoles.includes(roleChuanHoa)) { invalid++ }
+        // if(rememberMe === true || rememberMe === 'yes' || rememberMe === 'on') {
+        //     rememberChuanHoa = true
+        // } else {
+        //     rememberChuanHoa = false
+        // }
+        //YC 4 : Kiểm tra hợp lệ
+        if (nameChuanHoa === '' || nameChuanHoa.includes(' ')) { isValid = false }
+        if (passChuanHoa.length < minPasswordLength) { isValid = false }
+        if (!allowedRoles.includes(roleChuanHoa)) { isValid = false }
         // if (rememberBoolean.includes(rememberChuanHoa)) { rememberChuanHoa === true }
         // else { rememberChuanHoa === false }
 
-        payload = { nameChuanHoa, passChuanHoa, roleChuanHoa, rememberChuanHoa, deviceChuanHoa }
+        const payload = {nameChuanHoa , passChuanHoa, roleChuanHoa, rememberChuanHoa, deviceChuanHoa  }
+        const {username, password, role, rememberMe, device } = payload
+        //let result = { isValid , payload : {nameChuanHoa , passChuanHoa, roleChuanHoa, rememberChuanHoa, deviceChuanHoa  }}
 
-        if (invalid != 0) {
+        if (!isValid) {
             error.push(payload)
         } else {
             pass.push(payload)
         }
-        invalid = 0
+        isValid=true
     }
     return {
-        isValid,
         pass,
         error
     }
