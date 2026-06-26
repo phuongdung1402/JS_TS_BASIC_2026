@@ -99,7 +99,7 @@ function taoPayloadDangNhap(form, options) {
 
     
     //YC2 : Dùng object destructuring + default value để lấy dữ liệu từ options
-    let { defaultRole, allowedRoles, minPasswordLength } = options
+    let { defaultRole = 'guest', allowedRoles, minPasswordLength } = options
     // if (!defaultRole) { defaultRole = 'guest' }
     // if (!minPasswordLength) { minPasswordLength = 8 }
 
