@@ -561,7 +561,7 @@
 //     baseUrl: "https://neko.vn",
 //     retries: 0
 // }
-// //console.log(configProd);
+//console.log(configProd);
 
 // const configDebug = {...configMacDinh, headless: false}
 // console.log(configDebug)
@@ -778,30 +778,30 @@
 
 //------BTVN ------------------------------------------------------------------------------------------------------------
 //Object trong JS được truyền theo dạng tham chiếu
-const input = {
-    email: "            A@gmail.com        ",
-    role: "Admin"
-}
+// const input = {
+//     email: "            A@gmail.com        ",
+//     role: "Admin"
+// }
 
-function normalize(data) {
-    data.email = data.email.trim();
-    data.role = data.role.toLowerCase()
-}
-function normalizeInput(input) {
-    return {
-        ...input,
-        email: input.email.trim(),
-        role: input.role.toLowerCase()
-    }
-}
-function logOriginal(data) {
-    console.log(data.email);
-}
+// function normalize(data) {
+//     data.email = data.email.trim();
+//     data.role = data.role.toLowerCase()
+// }
+// function normalizeInput(input) {
+//     return {
+//         ...input,
+//         email: input.email.trim(),
+//         role: input.role.toLowerCase()
+//     }
+// }
+// function logOriginal(data) {
+//     console.log(data.email);
+// }
 
-logOriginal(input)
-normalize(input)
-// normalizeInput(input)
-logOriginal(input)
+// logOriginal(input)
+// normalize(input)
+// // normalizeInput(input)
+// logOriginal(input)
 
 //Vấn đề normalize ko tạo object mới, nó sửa luôn input gốc. nếu chỗ khác vẫn nghĩ input là dữ liệu ban đầu thì sẽ lỗi logic
 

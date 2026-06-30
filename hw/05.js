@@ -128,80 +128,185 @@
 //     console.log(taoPayloadDangNhap(loginTestData[i].formInput, loginOptions))
 // }
 //---------------------------------------------------------------------------------------------------------------------
-const testCaseConfig = {
-  minPriority: 1,
-  maxPriority: 5,
+// const testCaseConfig = {
+//   minPriority: 1,
+//   maxPriority: 5,
+// };
+
+// const rawRows = [
+//   [" TC_LOGIN_001 ", "login", "1", " smoke ", "active"],
+//   ["TC_LOGIN_001", "login", "2", "regression", "active"],
+//   ["TC_SEARCH_002", "search", "0", "smoke", "active"],
+//   ["TC_CART_003", "", "3", "checkout", "inactive"],
+//   ["TC_PAY_004", "payment", "2", " critical ", "ACTIVE"],
+//   ["TC_ORDER_005", "order", "5", "sanity", "inactive"],
+//   ["TC_ORDER_006", " order ", "4", " SANITY ", "active"],
+//   ["LOGIN_007", "login", "2", "smoke", "active"],
+//   ["TC_USER_008", "user", "6", "regression", "active"],
+//   ["TC_API_009", "api", "3", "api", "disabled"],
+//   ["TC_API_010", "api", "2", " api ", "active"],
+//   ["TC_API_010", "api", "2", " api ", "active"],
+//   ["TC_REPORT_011", "report", "1", " nightly ", "INACTIVE"],
+//   [" TC_EMPTY_012 ", "   ", "2", "misc", "active"],
+// ];
+
+// function chuanHoaDanhSachTest(rawRows, config){
+//     let validCases = [] , invalidCase = [] , duplicateId = [] , seenId = []
+
+//     for(let i=0;i<rawRows.length;i++) {
+//         let invalid = 0 
+//         //YC1 : Dùng array destructuring để bóc từng cột.
+//         let [id, module, priority, tag, status] = rawRows[i];
+//         //YC2: Chuẩn hóa
+//         id = id.trim().toUpperCase()
+//         module = module.trim().toLowerCase()
+//         priority = parseInt(priority)
+//         tag = tag.trim().toLowerCase()
+//         status = status.trim().toLowerCase()
+
+//         let raw = {id, module, priority , tag, status} 
+
+//         if(!id.startsWith('TC_', 0)) {invalid++}
+//         if(module === '') {invalid++}
+//         if(priority < config.minPriority || priority > config.maxPriority) {invalid++}
+//         if(status !== 'active' && status !== 'inactive') { invalid++ }
+
+//         let isDuplicate = false
+//         for(let j=0;j<seenId.length;j++) {
+//             if(id === seenId[j]) {
+//                 invalid++
+//                 duplicateId.push(id)
+//                 isDuplicate = true
+//                 break;
+//             }
+//         }
+
+//         if(!isDuplicate) {
+//             seenId.push(id)
+//         }
+
+//         if(invalid!=0) {invalidCase.push(raw)}
+//         else {validCases.push(raw)}
+//     }
+
+//     return {
+//             validCases,
+//             invalidCase,
+//             summary : {
+//                 total : rawRows.length,
+//                 valid: validCases.length,
+//                 invalid: invalidCase.length,
+//                 duplicateId
+//             }
+//         }
+// }
+
+// console.log(chuanHoaDanhSachTest(rawRows, testCaseConfig))
+//--------------------------------------------------------------------------------------------------------------------
+
+const configCase1 = {
+  defaultConfig: {
+    env: "local",
+    baseUrl: "http://localhost:3000",
+    timeout: 30000,
+    retries: 0,
+    headed: true,
+    browsers: ["chromium"],
+    reporter: {
+      type: "html",
+      output: "reports/default",
+    },
+  },
+  envConfig: {
+    env: "staging",
+    baseUrl: "https://staging.neko.dev",
+    retries: 1,
+    browsers: ["chromium", "firefox"],
+  },
+  overrideConfig: {
+    timeout: 500,
+    headed: true,
+    browsers: [" Chromium ", "chromium", "webkit"],
+    reporter: {
+      type: "html",
+      output: "reports/custom",
+    },
+  },
 };
 
-const rawRows = [
-  [" TC_LOGIN_001 ", "login", "1", " smoke ", "active"],
-  ["TC_LOGIN_001", "login", "2", "regression", "active"],
-  ["TC_SEARCH_002", "search", "0", "smoke", "active"],
-  ["TC_CART_003", "", "3", "checkout", "inactive"],
-  ["TC_PAY_004", "payment", "2", " critical ", "ACTIVE"],
-  ["TC_ORDER_005", "order", "5", "sanity", "inactive"],
-  ["TC_ORDER_006", " order ", "4", " SANITY ", "active"],
-  ["LOGIN_007", "login", "2", "smoke", "active"],
-  ["TC_USER_008", "user", "6", "regression", "active"],
-  ["TC_API_009", "api", "3", "api", "disabled"],
-  ["TC_API_010", "api", "2", " api ", "active"],
-  ["TC_API_010", "api", "2", " api ", "active"],
-  ["TC_REPORT_011", "report", "1", " nightly ", "INACTIVE"],
-  [" TC_EMPTY_012 ", "   ", "2", "misc", "active"],
-];
-
-function chuanHoaDanhSachTest(rawRows, config){
-    let validCases = [] , invalidCase = [] , duplicateId = [] , seenId = []
-
-    for(let i=0;i<rawRows.length;i++) {
-        let invalid = 0 
-        //YC1 : Dùng array destructuring để bóc từng cột.
-        let [id, module, priority, tag, status] = rawRows[i];
-        //YC2: Chuẩn hóa
-        id = id.trim().toUpperCase()
-        module = module.trim().toLowerCase()
-        priority = parseInt(priority)
-        tag = tag.trim().toLowerCase()
-        status = status.trim().toLowerCase()
-
-        let raw = {id, module, priority , tag, status} 
-
-        if(!id.startsWith('TC_', 0)) {invalid++}
-        if(module === '') {invalid++}
-        if(priority < config.minPriority || priority > config.maxPriority) {invalid++}
-        if(status !== 'active' && status !== 'inactive') { invalid++ }
-
-        let isDuplicate = false
-        for(let j=0;j<seenId.length;j++) {
-            if(id === seenId[j]) {
-                invalid++
-                duplicateId.push(id)
-                isDuplicate = true
-                break;
-            }
-        }
-     
-        if(!isDuplicate) {
-            seenId.push(id)
-        }
-        
-        if(invalid!=0) {invalidCase.push(raw)}
-        else {validCases.push(raw)}
-
-
-        
+const configCase2 = {
+  defaultConfig: {
+    env: "ci",
+    baseUrl: "https://ci.neko.dev",
+    timeout: 10000,
+    retries: 2,
+    headed: true,
+    browsers: ["chromium"],
+    reporter: {
+      type: "html",
+      output: "reports/ci",
+    },
+  },
+  envConfig: {},
+  overrideConfig: {
+    reporter: {
+      output: "reports/new-part"
     }
+  },
+};
 
-    return {
-            validCases,
-            invalidCase,
-            summary : {
-                total : rawRows.length,
-                valid: validCases.length,
-                invalid: invalidCase.length,
-                duplicateId
-            }
-        }
+const configCase3 = {
+  defaultConfig: {
+    env: "staging",
+    baseUrl: "ftp://bad-url",
+    timeout: 2000,
+    retries: 1,
+    headed: false,
+    browsers: ["firefox"],
+    reporter: {
+      type: "json",
+      output: "reports/json",
+    },
+  },
+  envConfig: {},
+  overrideConfig: {},
+};
+
+const configCase4 = {
+  defaultConfig: {
+    env: "test",
+    baseUrl: "https://prod.neko.dev",
+    timeout: 5000,
+    retries: 1,
+    headed: false,
+    browsers: ["webkit"],
+    reporter: {
+      type: "html",
+      output: "reports/test",
+    },
+  },
+  envConfig: {},
+  overrideConfig: {},
+};
+
+const configCase5 = {
+  defaultConfig: {
+    env: "local",
+    baseUrl: "http://localhost:3000",
+    timeout: 30000,
+    retries: -1,
+    headed: false,
+    browsers: [],
+    reporter: {
+      type: "",
+      output: "",
+    },
+  },
+  envConfig: {},
+  overrideConfig: {},
+};
+
+function taoCauHinhCuoi(defaultConfig, envConfig, overrideConfig) {
+  const config = { ...defaultConfig, ...envConfig, ...overrideConfig }
+  return config
 }
-
-console.log(chuanHoaDanhSachTest(rawRows, testCaseConfig))
