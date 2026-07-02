@@ -91,10 +91,9 @@ const loginTestData = [
 function taoPayloadDangNhap(form, options) {
     let invalid = 0
     let isValid = true
-    let payload = ''
     let error = []
     let pass = []
-    //const rememberBoolean = ["true", "on", "yes"]
+    const rememberBoolean = ["true", "on", "yes"]
 
     let { defaultRole, allowedRoles, minPasswordLength } = options
     if (!defaultRole) { defaultRole = 'guest' }
@@ -108,21 +107,21 @@ function taoPayloadDangNhap(form, options) {
         const deviceChuanHoa = device.trim()
         let rememberChuanHoa = rememberMe
 
-        //if (typeof rememberMe === 'string') { rememberChuanHoa = rememberMe.trim().toLowerCase() }
+        if (typeof rememberMe === 'string') { rememberChuanHoa = rememberMe.trim().toLowerCase() }
 
-        if(rememberMe === true || rememberMe === 'yes' || rememberMe === 'on') {
-            rememberChuanHoa = true
-        } else {
-            rememberChuanHoa = false
-        }
+        // if(rememberMe === true || rememberMe === 'yes' || rememberMe === 'on') {
+        //     rememberChuanHoa = true
+        // } else {
+        //     rememberChuanHoa = false
+        // }
 
         if (nameChuanHoa === '' || nameChuanHoa.includes(' ')) { invalid++ }
         if (passChuanHoa.length < minPasswordLength) { invalid++ }
         if (!allowedRoles.includes(roleChuanHoa)) { invalid++ }
-        // if (rememberBoolean.includes(rememberChuanHoa)) { rememberChuanHoa === true }
-        // else { rememberChuanHoa === false }
+        if (rememberBoolean.includes(rememberChuanHoa)) { rememberChuanHoa = true }
+        else { rememberChuanHoa = false }
 
-        payload = { nameChuanHoa, passChuanHoa, roleChuanHoa, rememberChuanHoa, deviceChuanHoa }
+        const payload = { nameChuanHoa, passChuanHoa, roleChuanHoa, rememberChuanHoa, deviceChuanHoa }
 
         if (invalid != 0) {
             error.push(payload)

@@ -399,7 +399,7 @@
 //   }
 // }
 
-// //thường kết hợp với constraints ( extends )
+//thường kết hợp với constraints ( extends )
 
 // const userData = {
 //     name:'neko',
@@ -431,7 +431,7 @@
 //     }
 // }
 
-// //viết 1 hàm tự gợi ý category là drink hay food -> gợi ý là món gì ở trong category
+// //viết 1 hàm tự gợi ý category là drink hay food -> sau đó gợi ý tiếp món gì ở trong category
 // function orderMenu(category: string,  item: string) {
 //     console.log(`Goi mon ${item} trong ${category}`);
 // }
