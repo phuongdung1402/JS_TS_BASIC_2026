@@ -1,140 +1,312 @@
-const loginOptions = {
-    defaultRole: "guest",
-    allowedRoles: ["admin", "tester", "viewer", "guest"],
-    minPasswordLength: 8,
+// const loginOptions = {
+//     defaultRole: "guest",
+//     allowedRoles: ["admin", "tester", "viewer", "guest"],
+//     minPasswordLength: 8,
+// };
+
+// const loginTestData = [
+//     {
+//         name: "Case 1 - Hợp lệ cơ bản",
+//         formInput: {
+//             username: "  Neko_Admin  ",
+//             password: "  12345678  ",
+//             role: " tester ",
+//             rememberMe: "yes",
+//             device: "  chrome-win11  ",
+//         },
+//     },
+//     {
+//         name: "Case 2 - Role rỗng, phải dùng defaultRole",
+//         formInput: {
+//             username: "  guest_user  ",
+//             password: "  abcdefgh  ",
+//             role: "   ",
+//             rememberMe: "no",
+//             device: " firefox ",
+//         },
+//     },
+//     {
+//         name: "Case 3 - Username rỗng",
+//         formInput: {
+//             username: "    ",
+//             password: "12345678",
+//             role: "tester",
+//             rememberMe: "yes",
+//             device: "chrome",
+//         },
+//     },
+//     {
+//         name: "Case 4 - Username có khoảng trắng ở giữa",
+//         formInput: {
+//             username: "neko admin",
+//             password: "12345678",
+//             role: "tester",
+//             rememberMe: "yes",
+//             device: "chrome",
+//         },
+//     },
+//     {
+//         name: "Case 5 - Password quá ngắn",
+//         formInput: {
+//             username: "valid_user",
+//             password: "123",
+//             role: "tester",
+//             rememberMe: true,
+//             device: "chrome",
+//         },
+//     },
+//     {
+//         name: "Case 6 - Role không hợp lệ",
+//         formInput: {
+//             username: "valid_user",
+//             password: "12345678",
+//             role: "manager",
+//             rememberMe: "on",
+//             device: "chrome",
+//         },
+//     },
+//     {
+//         name: "Case 7 - rememberMe là boolean true",
+//         formInput: {
+//             username: "admin01",
+//             password: "abcdefgh",
+//             role: "admin",
+//             rememberMe: true,
+//             device: "edge",
+//         },
+//     },
+//     {
+//         name: "Case 8 - rememberMe là chuỗi lạ",
+//         formInput: {
+//             username: "viewer01",
+//             password: "abcdefgh",
+//             role: "viewer",
+//             rememberMe: "maybe",
+//             device: "safari",
+//         },
+//     },
+// ];
+
+
+// function taoPayloadDangNhap(form, options) {
+//     const rememberBoolean = ["true", "on", "yes"]
+//     //YC2 : Dùng object destructuring + default value để lấy dữ liệu từ options
+//     let { defaultRole = 'guest', allowedRoles, minPasswordLength = 8 } = options
+
+//     let error = []
+//     let isValid = true
+//     //YC1 : Dùng object destructuring để lấy dữ liệu từ formInput.
+//     let { username, password, role, rememberMe, device }  = form
+//     //YC3 : Chuẩn hóa dữ liệu
+//     username = username.trim().toLowerCase()
+//     password = password.trim()
+//     role = role.trim().toLowerCase()
+//     if (role === '') { role = defaultRole }
+//     device = device.trim()
+
+//     if ((typeof rememberMe === 'string' && rememberBoolean.includes(rememberMe)) || rememberMe === true) {
+//         rememberMe = true
+//     } else {
+//         rememberMe = false
+//     }
+
+//     //YC 4 : Kiểm tra hợp lệ
+//     if (username === '' || username.includes(' ')) { error.push('Username rỗng hoặc chứa khoảng rỗng'), isValid = false }
+//     if (password.length < minPasswordLength) { error.push('Password length dưới 8 kí tự'), isValid = false }
+//     if (!allowedRoles.includes(role)) { error.push('Role không nằm trong allowedRoles'), isValid = false }
+
+//     const payload = { username, password, role, rememberMe, device }
+
+//     return{
+//         isValid,
+//         payload,
+//         error
+//     }
+// }
+// for (let i = 0; i < loginTestData.length; i++) {
+//     console.log(loginTestData[i].name)
+//     console.log(taoPayloadDangNhap(loginTestData[i].formInput, loginOptions))
+// }
+//---------------------------------------------------------------------------------------------------------------------
+// const testCaseConfig = {
+//   minPriority: 1,
+//   maxPriority: 5,
+// };
+
+// const rawRows = [
+//   [" TC_LOGIN_001 ", "login", "1", " smoke ", "active"],
+//   ["TC_LOGIN_001", "login", "2", "regression", "active"],
+//   ["TC_SEARCH_002", "search", "0", "smoke", "active"],
+//   ["TC_CART_003", "", "3", "checkout", "inactive"],
+//   ["TC_PAY_004", "payment", "2", " critical ", "ACTIVE"],
+//   ["TC_ORDER_005", "order", "5", "sanity", "inactive"],
+//   ["TC_ORDER_006", " order ", "4", " SANITY ", "active"],
+//   ["LOGIN_007", "login", "2", "smoke", "active"],
+//   ["TC_USER_008", "user", "6", "regression", "active"],
+//   ["TC_API_009", "api", "3", "api", "disabled"],
+//   ["TC_API_010", "api", "2", " api ", "active"],
+//   ["TC_API_010", "api", "2", " api ", "active"],
+//   ["TC_REPORT_011", "report", "1", " nightly ", "INACTIVE"],
+//   [" TC_EMPTY_012 ", "   ", "2", "misc", "active"],
+// ];
+
+// function chuanHoaDanhSachTest(rawRows, config){
+//     let validCases = [] , invalidCase = [] , duplicateId = [] , seenId = []
+
+//     for(let i=0;i<rawRows.length;i++) {
+//         let invalid = 0 
+//         //YC1 : Dùng array destructuring để bóc từng cột.
+//         let [id, module, priority, tag, status] = rawRows[i];
+//         //YC2: Chuẩn hóa
+//         id = id.trim().toUpperCase()
+//         module = module.trim().toLowerCase()
+//         priority = parseInt(priority)
+//         tag = tag.trim().toLowerCase()
+//         status = status.trim().toLowerCase()
+
+//         let raw = {id, module, priority , tag, status} 
+
+//         if(!id.startsWith('TC_', 0)) {invalid++}
+//         if(module === '') {invalid++}
+//         if(priority < config.minPriority || priority > config.maxPriority) {invalid++}
+//         if(status !== 'active' && status !== 'inactive') { invalid++ }
+
+//         let isDuplicate = false
+//         for(let j=0;j<seenId.length;j++) {
+//             if(id === seenId[j]) {
+//                 invalid++
+//                 duplicateId.push(id)
+//                 isDuplicate = true
+//                 break;
+//             }
+//         }
+
+//         if(!isDuplicate) {
+//             seenId.push(id)
+//         }
+
+//         if(invalid!=0) {invalidCase.push(raw)}
+//         else {validCases.push(raw)}
+//     }
+
+//     return {
+//             validCases,
+//             invalidCase,
+//             summary : {
+//                 total : rawRows.length,
+//                 valid: validCases.length,
+//                 invalid: invalidCase.length,
+//                 duplicateId
+//             }
+//         }
+// }
+
+// console.log(chuanHoaDanhSachTest(rawRows, testCaseConfig))
+//--------------------------------------------------------------------------------------------------------------------
+
+const configCase1 = {
+  defaultConfig: {
+    env: "local",
+    baseUrl: "http://localhost:3000",
+    timeout: 30000,
+    retries: 0,
+    headed: true,
+    browsers: ["chromium"],
+    reporter: {
+      type: "html",
+      output: "reports/default",
+    },
+  },
+  envConfig: {
+    env: "staging",
+    baseUrl: "https://staging.neko.dev",
+    retries: 1,
+    browsers: ["chromium", "firefox"],
+  },
+  overrideConfig: {
+    timeout: 500,
+    headed: true,
+    browsers: [" Chromium ", "chromium", "webkit"],
+    reporter: {
+      type: "html",
+      output: "reports/custom",
+    },
+  },
 };
 
-const loginTestData = [
-    {
-        name: "Case 1 - Hợp lệ cơ bản",
-        formInput: {
-            username: "  Neko_Admin  ",
-            password: "  12345678  ",
-            role: " tester ",
-            rememberMe: "yes",
-            device: "  chrome-win11  ",
-        },
+const configCase2 = {
+  defaultConfig: {
+    env: "ci",
+    baseUrl: "https://ci.neko.dev",
+    timeout: 10000,
+    retries: 2,
+    headed: true,
+    browsers: ["chromium"],
+    reporter: {
+      type: "html",
+      output: "reports/ci",
     },
-    {
-        name: "Case 2 - Role rỗng, phải dùng defaultRole",
-        formInput: {
-            username: "  guest_user  ",
-            password: "  abcdefgh  ",
-            role: "   ",
-            rememberMe: "no",
-            device: " firefox ",
-        },
-    },
-    {
-        name: "Case 3 - Username rỗng",
-        formInput: {
-            username: "    ",
-            password: "12345678",
-            role: "tester",
-            rememberMe: "yes",
-            device: "chrome",
-        },
-    },
-    {
-        name: "Case 4 - Username có khoảng trắng ở giữa",
-        formInput: {
-            username: "neko admin",
-            password: "12345678",
-            role: "tester",
-            rememberMe: "yes",
-            device: "chrome",
-        },
-    },
-    {
-        name: "Case 5 - Password quá ngắn",
-        formInput: {
-            username: "valid_user",
-            password: "123",
-            role: "tester",
-            rememberMe: true,
-            device: "chrome",
-        },
-    },
-    {
-        name: "Case 6 - Role không hợp lệ",
-        formInput: {
-            username: "valid_user",
-            password: "12345678",
-            role: "manager",
-            rememberMe: "on",
-            device: "chrome",
-        },
-    },
-    {
-        name: "Case 7 - rememberMe là boolean true",
-        formInput: {
-            username: "admin01",
-            password: "abcdefgh",
-            role: "admin",
-            rememberMe: true,
-            device: "edge",
-        },
-    },
-    {
-        name: "Case 8 - rememberMe là chuỗi lạ",
-        formInput: {
-            username: "viewer01",
-            password: "abcdefgh",
-            role: "viewer",
-            rememberMe: "maybe",
-            device: "safari",
-        },
-    },
-];
-
-
-function taoPayloadDangNhap(form, options) {
-    let invalid = 0
-    let isValid = true
-    let error = []
-    let pass = []
-    const rememberBoolean = ["true", "on", "yes"]
-
-    let { defaultRole, allowedRoles, minPasswordLength } = options
-    if (!defaultRole) { defaultRole = 'guest' }
-    if (!minPasswordLength) { minPasswordLength = 8 }
-
-    for (const data of form) {
-        let { name, formInput: { username, password, role, rememberMe, device } } = data
-        const nameChuanHoa = username.trim().toLowerCase()
-        const passChuanHoa = password.trim()
-        const roleChuanHoa = role.trim().toLowerCase()
-        const deviceChuanHoa = device.trim()
-        let rememberChuanHoa = rememberMe
-
-        if (typeof rememberMe === 'string') { rememberChuanHoa = rememberMe.trim().toLowerCase() }
-
-        // if(rememberMe === true || rememberMe === 'yes' || rememberMe === 'on') {
-        //     rememberChuanHoa = true
-        // } else {
-        //     rememberChuanHoa = false
-        // }
-
-        if (nameChuanHoa === '' || nameChuanHoa.includes(' ')) { invalid++ }
-        if (passChuanHoa.length < minPasswordLength) { invalid++ }
-        if (!allowedRoles.includes(roleChuanHoa)) { invalid++ }
-        if (rememberBoolean.includes(rememberChuanHoa)) { rememberChuanHoa = true }
-        else { rememberChuanHoa = false }
-
-        const payload = { nameChuanHoa, passChuanHoa, roleChuanHoa, rememberChuanHoa, deviceChuanHoa }
-
-        if (invalid != 0) {
-            error.push(payload)
-        } else {
-            pass.push(payload)
-        }
-        invalid = 0
+  },
+  envConfig: {},
+  overrideConfig: {
+    reporter: {
+      output: "reports/new-part"
     }
-    return {
-        isValid,
-        pass,
-        error
-    }
+  },
+};
+
+const configCase3 = {
+  defaultConfig: {
+    env: "staging",
+    baseUrl: "ftp://bad-url",
+    timeout: 2000,
+    retries: 1,
+    headed: false,
+    browsers: ["firefox"],
+    reporter: {
+      type: "json",
+      output: "reports/json",
+    },
+  },
+  envConfig: {},
+  overrideConfig: {},
+};
+
+const configCase4 = {
+  defaultConfig: {
+    env: "test",
+    baseUrl: "https://prod.neko.dev",
+    timeout: 5000,
+    retries: 1,
+    headed: false,
+    browsers: ["webkit"],
+    reporter: {
+      type: "html",
+      output: "reports/test",
+    },
+  },
+  envConfig: {},
+  overrideConfig: {},
+};
+
+const configCase5 = {
+  defaultConfig: {
+    env: "local",
+    baseUrl: "http://localhost:3000",
+    timeout: 30000,
+    retries: -1,
+    headed: false,
+    browsers: [],
+    reporter: {
+      type: "",
+      output: "",
+    },
+  },
+  envConfig: {},
+  overrideConfig: {},
+};
+
+function taoCauHinhCuoi(defaultConfig, envConfig, overrideConfig) {
+  const config = { ...defaultConfig, ...envConfig, ...overrideConfig }
+  return config
 }
-
-console.log(taoPayloadDangNhap(loginTestData, loginOptions))

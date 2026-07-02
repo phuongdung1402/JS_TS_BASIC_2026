@@ -374,17 +374,17 @@
 
 //destruct lồng (nested)
 
-const apiResponse = {
-    data: {
-        user: {name: "neko", email : "neko@123"},
-        token: "123"
-    },
-    status: 200
-}
+// const apiResponse = {
+//     data: {
+//         user: {name: "neko", email : "neko@123"},
+//         token: "123"
+//     },
+//     status: 200
+// }
 
-const {data: {user : {name, email}, token}, status} = apiResponse
-console.log(name);
-console.log(token);
+// const {data: {user : {name, email}, token}, status} = apiResponse
+// console.log(name);
+// console.log(token);
 
 
 //Khi chạy AT nhận được 1 ds KQ như sau :
@@ -561,7 +561,7 @@ console.log(token);
 //     baseUrl: "https://neko.vn",
 //     retries: 0
 // }
-// //console.log(configProd);
+//console.log(configProd);
 
 // const configDebug = {...configMacDinh, headless: false}
 // console.log(configDebug)
@@ -780,7 +780,7 @@ console.log(token);
 //Object trong JS được truyền theo dạng tham chiếu
 // const input = {
 //     email: "            A@gmail.com        ",
-//     role: "admin"
+//     role: "Admin"
 // }
 
 // function normalize(data) {
@@ -798,9 +798,9 @@ console.log(token);
 //     console.log(data.email);
 // }
 
-// //logOriginal(input)
-// //normalize(input)
-// console.log(normalizeInput(input))
+// logOriginal(input)
+// normalize(input)
+// // normalizeInput(input)
 // logOriginal(input)
 
 //Vấn đề normalize ko tạo object mới, nó sửa luôn input gốc. nếu chỗ khác vẫn nghĩ input là dữ liệu ban đầu thì sẽ lỗi logic
