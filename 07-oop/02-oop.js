@@ -85,35 +85,33 @@
 // let login3 = new Login("/login")
 // login3.moTrang()
 
-class BasePage {
-    url=""
+// class BasePage {
+//     url=""
 
-    navigateToUrl() {
-        console.log(`Navigate to URL page : ${this.url}`)
-    }
-}
+//     navigateToUrl() {
+//         console.log(`Navigate to URL page : ${this.url}`)
+//     }
+// }
 
-class LoginPage extends BasePage {
-    title = '#title';
-    footer = '#footer';
-    btnLogin = '#btnLogin'
-    constructor(title, footer, btn) {
-        super();
-        this.title = title;
-        this.footer = footer;
-        this.btnLogin = btn
-    }
+// class LoginPage extends BasePage {
+//     title = '#title';
+//     footer = '#footer';
+//     btnLogin = '#btnLogin'
+//     constructor(title, footer, btn) {
+//         super();
+//         this.title = title;
+//         this.footer = footer;
+//         this.btnLogin = btn
+//     }
 
-    login() {
-        console.log(`Website : ${this.title}- Footer : ${this.footer} - LoginButton : ${this.btnLogin}`)
-    }
-}
-
-
-let loginPage = new LoginPage('Welcome', 'The end', 'Click me!')
-loginPage.login()
+//     login() {
+//         console.log(`Website : ${this.title}- Footer : ${this.footer} - LoginButton : ${this.btnLogin}`)
+//     }
+// }
 
 
+// let loginPage = new LoginPage('Welcome', 'The end', 'Click me!')
+// loginPage.login()
 
 
 // 4.3 Đa hình , cùng 1 lệnh nhưng có nhiều cách làm
