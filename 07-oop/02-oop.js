@@ -5,7 +5,6 @@
 //bằng từ khóa extend và super() 
 //Tính kế thừa giúp loại bỏ hoàn toàn code trùng lặp ( DRY )
 //super() : truyền tham số cho cha
-//Nếu constructor của cha nhận tham số, con sẽ rơi vào vài tình huống 
 
 // class BasePage {
 //     header = '#thanhMenuTrenCung';
@@ -82,7 +81,7 @@
 //     }
 // }
 
-// let login3 = new Login("/login")
+// let login3 = new Login("/login-web")
 // login3.moTrang()
 
 // class BasePage {
@@ -141,8 +140,8 @@
 
 // let trangWeb = new BasePage();
 // let trangMobile = new MobilePage();
-// // trangWeb.cuonTrang()
-// // trangMobile.cuonTrang()
+// trangWeb.cuonTrang()
+// trangMobile.cuonTrang()
 
 // //Sức mạnh của đa hình : gọi cùng 1 hàm trên nhiều object khác nhau
 // let danhSachTrang = [

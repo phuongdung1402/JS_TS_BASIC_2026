@@ -33,8 +33,8 @@
 //     truongHoc = "Neko playwright";
 //     trangThai = "Đang học"
 
-    //mọi thuộc tính đều nằm trong constructor
-    //B2: Constructor chỉ gán lại cho thuộc tính cần giá trị động
+//     //mọi thuộc tính đều nằm trong constructor
+//     //B2: Constructor chỉ gán lại cho thuộc tính cần giá trị động
 //     constructor(ten, tuoi) {
 //         this.hoTen = ten;
 //         this.tuoi = tuoi
@@ -148,8 +148,24 @@
 //     tieuDe = "trangChu";
 //     taiDuLieu() {
 //         //callback func (hàm thường bên trong - mất this)
-//         setTimeout(()=> {
+//         setTimeout(function () {
 //             //this ko còn là dashboard nữa
+//             console.log(this.tieuDe);
+//         }, 1000)
+//     }
+// }
+
+// let dash = new Dashboard()
+// dash.taiDuLieu()
+//Nguyên nhân gây mất this : hàm thường tự tạo this riêng khi được gọi, 
+//và ở đây nó được gọi "trống" (không có object đứng trước) nên this là undefined (strict mode) hoặc global/window.
+
+//fix lỗi mất this trên
+// class Dashboard {
+//     tieuDe = "trangChu";
+//     taiDuLieu() {
+//         //callback func (hàm thường bên trong - mất this)
+//         setTimeout(() => {
 //             console.log(this.tieuDe);
 //         }, 1000)
 //     }
@@ -195,15 +211,15 @@
 // let hamThuongBiTach = checkout.moBangHamThuong;
 // let hamArrowBiTach = checkout.moBangArrow;
 
-// hamArrowBiTach();
-// hamThuongBiTach();
+//hamArrowBiTach();
+//hamThuongBiTach();
 
 // function truyenVaoCallBack(callback) {
 //     callback()
 // }
 
 //truyenVaoCallBack(hamThuongBiTach)
-//truyenVaoCallBack(hamArrowBiTach)
+// truyenVaoCallBack(hamArrowBiTach)
 
 
 //-> Arrow function giải quyết đc hết các vấn đề của chúng ta ? thì có nên dùng arrow function cho tất cả method của class hay ko 
