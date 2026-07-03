@@ -306,7 +306,58 @@ const configCase5 = {
   overrideConfig: {},
 };
 
+//YC1 : Dùng spread để merge config.
 function taoCauHinhCuoi(defaultConfig, envConfig, overrideConfig) {
-  const config = { ...defaultConfig, ...envConfig, ...overrideConfig }
+  const config = { ...structuredClone(defaultConfig), ...structuredClone(envConfig), ...structuredClone(overrideConfig) }
   return config
 }
+
+function kiemTraCauHinh(config) {
+  let errors = [], warnings = []
+
+  const {env, baseUrl, timeout , retries, headed, browsers, reporter} = config
+  //dùng map để trim và đưa từng browser về lowercase
+  const normalizeBrowsers = browsers.map(browser => browser.trim().toLowerCase())
+  //dùng filter để lấy ra browser bị trùng
+  const duplicateBrowsers = normalizeBrowsers.filter((browser, index, arr) => arr.indexOf(browser) !== index)
+  //dùng find để lấy browser trùng đầu tiên nếu có
+  const duplicateFirst = normalizeBrowsers.find((browser, index, arr) => arr.indexOf(browser) !== index)
+
+  if (!(baseUrl.startsWith('http://') || baseUrl.startsWith('https://'))) {
+    errors.push('BaseURL phải bắt đầu bằng http:// hoặc https://')
+  }
+
+  if (timeout < 1000) {
+    errors.push('Timeout phải lớn hơn 1000')
+  }
+
+  if (retries < 0) {
+    errors.push('Retries không được phép âm')
+  }
+
+  if (normalizeBrowsers.length === 0) {
+    errors.push('Browsers không được rỗng')
+  }
+
+  if(duplicateFirst !== undefined) {
+    errors.push('Tồn tại browser trùng')
+  }
+
+  if (env === 'ci' && headed === true) {
+    warnings.push('Mode CI mà vẫn bật headed: true')
+  }
+
+  if (baseUrl.includes('prod') && env !== 'production') {
+    warnings.push('BaseUrl và Env đang không thống nhất')
+  }
+
+  return {
+    errors,
+    warnings
+  }
+}
+
+const finalConfig = taoCauHinhCuoi(configCase2.defaultConfig, configCase2.envConfig, configCase2.overrideConfig)
+console.log(finalConfig)
+console.log(kiemTraCauHinh(finalConfig))
+console.log(configCase2)
