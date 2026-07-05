@@ -1,29 +1,27 @@
 class ProductStore {
     #product = []
-
-
     addProduct(product) {
         const { id, name, category, price, inStock } = product
 
         const idDuplicate = this.#product.find((item) => item.id === id)
         if (idDuplicate) {
-            return { sucess: false, message: "No push... Trùng ID" }
+            return { success: false, message: "No push... Trùng ID" }
         }
 
         if (name.trim() === '') {
-            return { sucess: false, message: "No push... Tên trống" }
+            return { success: false, message: "No push... Tên trống" }
         }
 
         if (category.trim() === '') {
-            return { sucess: false, message: 'No push... Category trống' }
+            return { success: false, message: 'No push... Category trống' }
         }
 
-        if (price < 0 || price === 0) {
-            return { sucess: false, message: 'No push... Price phải lớn hơn 0' }
+        if (price <= 0) {
+            return { success: false, message: 'No push... Price phải lớn hơn 0' }
         }
 
         if (typeof inStock !== 'boolean') {
-            return { sucess: false, message: 'No push... inStock phải là boolean' }
+            return { success: false, message: 'No push... inStock phải là boolean' }
         }
 
 
@@ -31,24 +29,19 @@ class ProductStore {
             id, name, category, price, inStock
         })
         return {
-            sucess: true,
+            success: true,
             message: 'Thêm sản phẩm thành công'
         }
     }
 
     findByName(keyword) {
-        const keywordNormalize = keyword.trim()
-        const result = this.#product.find((item) => item.name === keywordNormalize)
-        if (result) {
-            return result
-        } else {
-            return 0
-        }
+        const keywordNormalized = keyword.trim().toLowerCase()
+        return this.#product.find((item) => item.name.trim().toLowerCase().includes(keywordNormalized)) || null
     }
 
     filterByCategory(category) {
-        const categoryList = this.#product.filter((item) => item.category === category.trim())
-        return categoryList
+        const categoryNormalized = category.trim().toLowerCase()
+        return this.#product.filter((item) => item.category.trim().toLowerCase() === categoryNormalized)
     }
 
     getAvailableProducts() {
@@ -57,15 +50,17 @@ class ProductStore {
     }
 
     getTotalInventoryValue() {
-        let sum = 0;
-        const availableProduct = this.getAvailableProducts()
-        if (availableProduct) {
-            const totalPrice = availableProduct.map((item) => {
-                sum += item.price
-            })
-            return sum
-        }
-        return 0
+        // let sum = 0;
+        // const availableProduct = this.getAvailableProducts()
+        // if (availableProduct) {
+        //     const totalPrice = availableProduct.map((item) => {
+        //         sum += item.price
+        //     })
+        //     return sum
+        // }
+        // return 0
+
+        return this.getAvailableProducts().reduce((sum, item) => sum+item.price, 0)
     }
 
     getProduct() {
@@ -74,30 +69,30 @@ class ProductStore {
 }
 
 class DiscountProductStore extends ProductStore {
-    // discountRate
+    discountRate = 0
+
     constructor(discountRate) {
         super()
-        discountRate = discountRate
+        this.discountRate = discountRate
     }
 
     getTotalInventoryValue() {
-        //super()
-        const firstPrice = super.getTotalInventoryValue()
-        const discountAmount = (firstPrice * this.discountPrice) / 100
-        const finalTotal = firstPrice - discountAmount
-        return finalTotal
+        const original = super.getTotalInventoryValue()
+        return original - original * this.discountRate
     }
 
     getDiscountInfo() {
-        console.log(this.getTotalInventoryValue())
-        console.log(this.discountRate)
-        console.log(this.discountAmount)
-        console.log(this.finalTotal)
+        const originalTotal = super.getTotalInventoryValue();
+        const discountAmout = originalTotal * this.discountRate
+        const finalTotal = originalTotal - discountAmout
+        return {
+            originalTotal,
+            discountRate : this.discountRate,
+            discountAmout,
+            finalTotal
+        }
     }
-
-
 }
-
 
 const store = new DiscountProductStore(0.1)
 
@@ -134,7 +129,7 @@ store.addProduct({
 });
 
 //console.log(store.getProduct())
-//console.log(store.findByName("MacBook Air  "))
-//console.log(store.filterByCategory(" phone "));
-//console.log(store.getAvailableProducts());
-console.log(store.getDiscountInfo());
+console.log(store.findByName("iphone"))
+console.log(store.filterByCategory("  PHONE  "));
+console.log(store.getAvailableProducts());
+console.log(store.getDiscountInfo(0.1));

@@ -308,8 +308,8 @@ const configCase5 = {
 
 //YC1 : Dùng spread để merge config.
 function taoCauHinhCuoi(defaultConfig, envConfig, overrideConfig) {
-  const config = { ...structuredClone(defaultConfig), ...structuredClone(envConfig), ...structuredClone(overrideConfig) }
-  return config
+  const config = { ...defaultConfig, ...envConfig, ...overrideConfig }
+  return structuredClone(config)
 }
 
 function kiemTraCauHinh(config) {
