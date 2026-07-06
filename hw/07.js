@@ -199,22 +199,22 @@ class Cart {
         return this.#items.reduce((sum, item) => sum + item.price, 0)
     }
 
-    // Method applyCoupon(code):
-    // Nhận mã như "SALE10" hoặc "SALE20".
-    // Nếu mã hợp lệ, giảm 10% hoặc 20%.
-    // Nếu mã không hợp lệ, không giảm.
-    // Trả về true nếu áp dụng được mã, ngược lại trả về false.
-    // Method checkout():
-    // Trả về object gồm items, subtotal, discount, total.
-
     applyCoupon(code) {
         code = code.trim().toUpperCase();
         if (code.startWith('SALE')) {
-            code = code.slice(4)
-            const discount = parseInt(code)
-            return this.getSubtotal() - (this.getSubtotal() / 100)
+            // code = code.slice(4)
+            // const discount = parseInt(code)
+            // return this.getSubtotal() - (this.getSubtotal() / 100)
+            return true
         }else {
             return false; 
+        }
+    }
+
+    checkout() {
+        return {  product : this.#items,
+            subtotal : this.getSubtotal()
+
         }
     }
 
@@ -241,14 +241,22 @@ class VipCart extends Cart {
     constructor(memberName) {
         super()
         this.memberName = memberName
-
     }
 
     applyCoupon(code) {
-        if (code.startWith('SALE')) {
-            super.applyCoupon(code)
-        } else if (code.trim().toUpperCase() === 'VIP30') {
-            return super.getSubtotal() - (super.getSubtotal() * 0.3)
+        let code = code.trim().toUpperCase()
+        let coupon = super.applyCoupon()
+        let discount
+        if(coupon===true) {
+            code = code.slice(4)
+            discount = parseInt(code)
+            return this.getSubtotal() - (this.getSubtotal() * (discount / 100))
+        }
+        if(coupon=== false && code === 'VIP30') {
+            return this.getSubtotal() - (this.getSubtotal() * 0.3 )
+        }
+        if(coupon === false) {
+            return 'Mã ko hợp lệ'
         }
     }
 
