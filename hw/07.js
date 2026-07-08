@@ -24,7 +24,6 @@
 //             return { success: false, message: 'No push... inStock phải là boolean' }
 //         }
 
-
 //         this.#product.push({
 //             id, name, category, price, inStock
 //         })
@@ -50,16 +49,15 @@
 //     }
 
 //     getTotalInventoryValue() {
-//         // let sum = 0;
-//         // const availableProduct = this.getAvailableProducts()
-//         // if (availableProduct) {
-//         //     const totalPrice = availableProduct.map((item) => {
-//         //         sum += item.price
-//         //     })
-//         //     return sum
-//         // }
-//         // return 0
-
+        // let sum = 0;
+        // const availableProduct = this.getAvailableProducts()
+        // if (availableProduct) {
+        //     const totalPrice = availableProduct.map((item) => {
+        //         sum += item.price
+        //     })
+        //     return sum
+        // }
+        // return 0
 //         return this.getAvailableProducts().reduce((sum, item) => sum+item.price, 0)
 //     }
 
@@ -135,151 +133,138 @@
 // console.log(store.getDiscountInfo(0.1));
 
 //-------------------------------------------------------------------------------------------------------------------
-class Cart {
-    #items = []
+// class Cart {
+//     #items = [];
+//     discountPercent = 0
 
-    addItem(item) {
-        let { name, price, quantity } = item
-        const nameNormalize = name.trim().toLowerCase()
+//     addItem(item) {
+//         let { name, price, quantity } = item
+//         const trimName = name.trim().toLowerCase()
 
-        if (nameNormalize === '') {
-            return {
-                success: false,
-                message: 'Name ko được phép trống'
-            }
-        }
+//         //name không được rỗng sau khi trim().
+//         if (trimName === '') {
+//             return {
+//                 success: false,
+//                 message: 'Name ko được phép trống'
+//             }
+//         }
 
-        if (price <= 0) {
-            return {
-                success: false,
-                message: 'Price phải > 0'
-            }
-        }
-        if (quantity <= 0) {
-            return {
-                success: false,
-                message: 'Quantity phải > 0'
-            }
-        }
+//         //price và quantity phải lớn hơn 0.
+//         if (price <= 0) {
+//             return {
+//                 success: false,
+//                 message: 'Price phải > 0'
+//             }
+//         }
+//         if (quantity <= 0) {
+//             return {
+//                 success: false,
+//                 message: 'Quantity phải > 0'
+//             }
+//         }
 
-        // if(this.#items.find((item)=> item.name.trim().toLowerCase() === nameNormalize)) {
-        //     item.quantity = item.quantity + 1
-        //     return {
-        //         message: 'Sản phẩm đã tồn tại, tăng quantity'
-        //     }
-        // }
+//         const existingProduct = this.#items.find((item) => item.name.trim().toLowerCase() === trimName)
+//         if (existingProduct) {
+//             existingProduct.quantity = existingProduct.quantity + quantity;
+//             return {
+//                 success: true,
+//                 message: 'Sản phẩm đã tồn tại, tăng quantity'
+//             }
+//         }
+//         this.#items.push(item)
+//         return {
+//             success: true,
+//             message: 'Thêm vào giỏ hàng thành công'
+//         }
+//     }
 
-        const existingProduct = this.#items.find((item) => item.name.trim().toLowerCase() === nameNormalize)
-        if (existingProduct) {
-            existingProduct.quantity++;
-            return {
-                success: false,
-                message: 'Sản phẩm đã tồn tại, tăng quantity'
-            }
-        }
-        this.#items.push(item)
-        return {
-            success: true,
-            message: 'Thêm vào giỏ hàng thành công'
-        }
+//     removeItem(name) {
+//         const target = name.trim().toLowerCase()
+//         this.#items = this.#items.filter((item) => item.name.trim().toLowerCase() !== target)
+//     }
 
-    }
+//     getSubtotal() {
+//         return this.#items.reduce((sum, item) => sum + item.price * item.quantity, 0)
+//     } 
 
-    removeItem(name) {
-        name = name.trim().toLowerCase()
-        // const product = this.#items.find((item) => item.name.trim().toLowerCase() === name)
-        // if(product) {
-        //     this.#items.pop(product)
-        // }
+//     applyCoupon(code) {
+//         const normalize = code.trim().toUpperCase();
+//         if (normalize.startsWith('SALE')) {
+//             const percent = parseInt(normalize.slice(4))
+//             this.discountPercent = percent
+//             return true
+//         }else {
+//             return false; 
+//         }
+//     }
 
-        this.#items = this.#items.filter((item) => item.name.trim().toLowerCase() !== name)
-    }
+//     checkout() {
+//         const subtotal = this.getSubtotal();
+//         const discount = subtotal * (this.discountPercent / 100)
+//         return {
+//             items: this.#items,
+//             subtotal,
+//             discount,
+//             total : subtotal - discount
+//         }
+//     }
 
-    getSubtotal() {
-        return this.#items.reduce((sum, item) => sum + item.price, 0)
-    }
-
-    applyCoupon(code) {
-        code = code.trim().toUpperCase();
-        if (code.startWith('SALE')) {
-            // code = code.slice(4)
-            // const discount = parseInt(code)
-            // return this.getSubtotal() - (this.getSubtotal() / 100)
-            return true
-        }else {
-            return false; 
-        }
-    }
-
-    checkout() {
-        return {  product : this.#items,
-            subtotal : this.getSubtotal()
-
-        }
-    }
-
-    getAll() {
-        return this.#items;
-    }
+//     getAll() {
+//         return this.#items;
+//     }
+// }
 
 
-}
+// class VipCart extends Cart {
 
+//     constructor(memberName) {
+//         super()
+//         this.memberName = memberName
+//     }
 
-// Tạo class con VipCart extends Cart:
+//     applyCoupon(code) {
+//         const applied = super.applyCoupon(code);
+//         if(applied) return true
 
-// Constructor nhận memberName.
-// Override applyCoupon(code):
-// Gọi super.applyCoupon(code) trước.
-// Nếu coupon thường không hợp lệ, chấp nhận thêm mã "VIP30" để giảm 30%.
-// Override checkout():
-// Gọi super.checkout() để lấy hóa đơn gốc.
-// Thêm memberName và cartType: "VIP" vào object kết quả.
+//         const normalized = code.trim().toUpperCase()
+//         if(normalized === 'VIP30') {
+//             this.discountPercent = 30
+//             return true
+//         }
 
-class VipCart extends Cart {
+//         return false
+//     }
 
-    constructor(memberName) {
-        super()
-        this.memberName = memberName
-    }
+//     checkout() {
+//         const base = super.checkout()
+//         return { 
+//             ...base,
+//             memberName : this.memberName,
+//             cartType: 'VIP'
+//         }
 
-    applyCoupon(code) {
-        let code = code.trim().toUpperCase()
-        let coupon = super.applyCoupon()
-        let discount
-        if(coupon===true) {
-            code = code.slice(4)
-            discount = parseInt(code)
-            return this.getSubtotal() - (this.getSubtotal() * (discount / 100))
-        }
-        if(coupon=== false && code === 'VIP30') {
-            return this.getSubtotal() - (this.getSubtotal() * 0.3 )
-        }
-        if(coupon === false) {
-            return 'Mã ko hợp lệ'
-        }
-    }
+//     }
 
-}
+// }
 
-const cart = new Cart();
-cart.addItem({
-    name: "Trà sữa trân châu",
-    price: 30000,
-    quantity: 2,
-});
+// const cart = new VipCart('Neko');
+// cart.addItem({
+//     name: "Trà sữa trân châu",
+//     price: 30000,
+//     quantity: 2,
+// });
 
-cart.addItem({
-    name: "  trà SỮA trân châu  ",
-    price: 30000,
-    quantity: 1,
-});
+// cart.addItem({
+//     name: "  trà SỮA trân châu  ",
+//     price: 30000,
+//     quantity: 1,
+// });
 
-cart.addItem({
-    name: "Trà đào",
-    price: 25000,
-    quantity: 1,
-});
+// cart.addItem({
+//     name: "Trà đào",
+//     price: 25000,
+//     quantity: 1,
+// });
 
-cart.applyCoupon('  vip30  ')
-
+// cart.applyCoupon('  sale40  ')
+// console.log(cart.checkout())
