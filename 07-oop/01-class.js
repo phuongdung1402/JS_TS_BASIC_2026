@@ -61,6 +61,7 @@
 
 // let hv2 = new HocVien("Neko2", 31)
 // hv2.gioiThieu()
+// hv2.gioiThieuArrow()
 
 // //C2 : Constructor có giá trị mặc định(default parameters)
 // class TestConfig {
